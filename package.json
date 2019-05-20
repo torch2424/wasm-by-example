@@ -1,0 +1,31 @@
+{
+  "name": "wasm-by-example",
+  "version": "0.0.1",
+  "description": "A website for Examples in how to do common things in WebAssembly",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/torch2424/wasm-by-example.git"
+  },
+  "keywords": [
+    "WebAssembly",
+    "Wasm",
+    "Examples",
+    "Example",
+    "Documentation",
+    "Demo",
+    "Learning"
+  ],
+  "author": "Aaron Turner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/torch2424/wasm-by-example/issues"
+  },
+  "homepage": "https://github.com/torch2424/wasm-by-example#readme"
+}
