@@ -7,7 +7,10 @@
     "example": "examples"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npx npm-run-all build --parallel serve watch",
+    "build": "node build.js",
+    "serve": "npx http-server ./dist",
+    "watch": "npx watch 'npm run build' ./examples ./shell build.js --interval=1"
   },
   "repository": {
     "type": "git",
@@ -27,5 +30,14 @@
   "bugs": {
     "url": "https://github.com/torch2424/wasm-by-example/issues"
   },
-  "homepage": "https://github.com/torch2424/wasm-by-example#readme"
+  "homepage": "https://github.com/torch2424/wasm-by-example#readme",
+  "devDependencies": {
+    "highlight.js": "^9.15.6",
+    "http-server": "^0.11.1",
+    "mkdirp": "^0.5.1",
+    "mustache": "^3.0.1",
+    "npm-run-all": "^4.1.5",
+    "recursive-readdir": "^2.2.2",
+    "watch": "^1.0.2"
+  }
 }
