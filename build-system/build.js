@@ -7,6 +7,8 @@ const Mustache = require('mustache');
 console.log('Building...');
 
 const mustacheData = {
+  normalizeCss: fs.readFileSync('node_modules/normalize.css/normalize.css', 'utf8'),
+  sakuraCss: fs.readFileSync('node_modules/sakura.css/css/sakura-dark.css', 'utf8'),
   indexCss: fs.readFileSync('shell/index.css', 'utf8')
 }
 

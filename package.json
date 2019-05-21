@@ -8,9 +8,9 @@
   },
   "scripts": {
     "dev": "npx npm-run-all build --parallel serve watch",
-    "build": "node build.js",
+    "build": "node build-system/build.js",
     "serve": "npx http-server ./dist",
-    "watch": "npx watch 'npm run build' ./examples ./shell build.js --interval=1"
+    "watch": "npx watch 'npm run build' ./examples ./shell ./build-system --interval=1"
   },
   "repository": {
     "type": "git",
@@ -39,5 +39,9 @@
     "npm-run-all": "^4.1.5",
     "recursive-readdir": "^2.2.2",
     "watch": "^1.0.2"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1",
+    "sakura.css": "^1.0.0"
   }
 }
