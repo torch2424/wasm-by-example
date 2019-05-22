@@ -4,20 +4,30 @@ const recursive = require("recursive-readdir");
 const highlightJs = require("highlight.js");
 const Mustache = require("mustache");
 const CleanCSS = require("clean-css");
+const Terser = require("terser");
 
 console.log("Building...");
 
 const cssMinifier = new CleanCSS();
 const minifyCss = filePath => {
-  const styleString = fs.readFileSync(filePath, "utf8");
-  return cssMinifier.minify(styleString).styles;
+  const fileString = fs.readFileSync(filePath, "utf8");
+  return cssMinifier.minify(fileString).styles;
+};
+
+const minifyJs = filePath => {
+  const fileString = fs.readFileSync(filePath, "utf8");
+  return Terser.minify(fileString).code;
 };
 
 const mustacheData = {
   styles: {
-    normalizeCss: minifyCss("node_modules/normalize.css/normalize.css"),
-    sakuraCss: minifyCss("node_modules/sakura.css/css/sakura-dark.css"),
-    indexCss: minifyCss("shell/styles/index.css")
+    normalize: minifyCss("node_modules/normalize.css/normalize.css"),
+    sakura: minifyCss("node_modules/sakura.css/css/sakura-dark.css"),
+    index: minifyCss("shell/styles/index.css")
+  },
+  js: {
+    index: minifyJs("shell/js/index.js"),
+    goToExample: minifyJs("shell/js/goToExample.js")
   },
   partials: {
     header: fs.readFileSync("shell/partials/header.html", "utf8"),

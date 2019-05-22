@@ -5,10 +5,26 @@
     <meta charset="UTF-8" />
     <title>Wasm By Example</title>
     <style>
-      {{{styles.normalizeCss}}}
-      {{{styles.sakuraCss}}}
-      {{{styles.indexCss}}}
+      {{{styles.normalize}}}
+      {{{styles.sakura}}}
+      {{{styles.index}}}
     </style>
+    <script type="text/javascript">
+      {
+        {
+          {
+            js.index;
+          }
+        }
+      }
+      {
+        {
+          {
+            js.goToExample;
+          }
+        }
+      }
+    </script>
   </head>
   <body>
     {{{partials.header}}}
@@ -21,8 +37,7 @@
     <ul>
       {{#examples}}
       <li>
-        <a
-          href="/langauge.html?title={{title}}&parentPath={{parentPath}}&exampleName={{exampleName}}"
+        <a onclick="goToExample('{{parentPath}}', '{{exampleName}}')"
           >{{title}}</a
         >
       </li>
