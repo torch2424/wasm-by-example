@@ -22,10 +22,13 @@ const mustacheData = {
   partials: {
     header: fs.readFileSync("shell/partials/header.html", "utf8"),
     footer: fs.readFileSync("shell/partials/footer.html", "utf8")
-  }
+  },
+  examples: []
 };
 
-const readExamplesPromise = new Promise(resolve => {
+const getRecursiveFilePathPromise = new Promise();
+
+const getExamplesMarkdownPathsPromise = new Promise(resolve => {
   // Find all HTML Files within the demo directory, that are not specified
   recursive("./examples", ["**/demo/*"]).then(files => {
     resolve(files);
@@ -43,7 +46,15 @@ const buildTask = async () => {
 
   // Create an object for each file that we found, and assign a filepath and name
   const exampleFiles = await readExamplesPromise;
-  exampleFiles.forEach(filePath => {});
+  exampleFiles.forEach(filePath => {
+    // Create the Example object
+    const example = {};
+
+    // Split by the path
+    const pathSplit = filePath.split("/");
+
+    // Get the title of our example
+  });
 
   console.log("Done!");
 };
