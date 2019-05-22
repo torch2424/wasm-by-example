@@ -5,15 +5,27 @@
     <meta charset="UTF-8" />
     <title>Wasm By Example</title>
     <style>
-      {{{styles.normalizeCss}}}
-      {{{styles.sakuraCss}}}
-      {{{styles.indexCss}}}
+      {{{styles.normalize}}}
+      {{{styles.sakura}}}
+      {{{styles.index}}}
     </style>
   </head>
   <body>
     {{{partials.header}}}
 
     <form>
+      <label>Programming Language:</label>
+      <select>
+        <option value="">Please select an option</option>
+        <option value="assemblyscript">AssemblyScript</option>
+      </select>
+
+      <label>Reading Language:</label>
+      <select>
+        <option value="">Please select an option</option>
+        <option value="en-us">English US</option>
+      </select>
+
       <button type="button">Submit</button>
     </form>
 

@@ -4,33 +4,25 @@
     <meta name="viewport" content="width=device-width,minimum-scale=1" />
     <meta charset="UTF-8" />
     <title>Wasm By Example</title>
+
     <style>
       {{{styles.normalize}}}
       {{{styles.sakura}}}
       {{{styles.index}}}
     </style>
-    <script type="text/javascript">
-      {
-        {
-          {
-            js.index;
-          }
-        }
-      }
-      {
-        {
-          {
-            js.goToExample;
-          }
-        }
-      }
-    </script>
   </head>
   <body>
     {{{partials.header}}}
 
-    <p>What is Wasm? TODO</p>
-    <p>What/Why is Wasm By Example? TODO</p>
+    <p>
+      WebAssembly (Wasm) is an assembly-like low-level language that runs on the
+      web. It is a compilation target for langauges like Rust, C/C++
+      (Emscripten), TypeScript (AssemblyScript), and much more! Wasm offer a
+      compact binary format, with predictable performance to run alongside
+      Javascript. Wasm is currently shipped in all major browsers, and has
+      runtimes meant for running on servers or interfacing with systems using
+      WASI. To get started, browse the full list of examples below.
+    </p>
 
     <!-- List of examples -->
     <h2>Examples</h2>
@@ -45,5 +37,11 @@
     </ul>
 
     {{{partials.footer}}}
+
+    <!-- prettier-ignore -->
+    <script type="text/javascript">
+      {{{js.index}}}
+      {{{js.goToExample}}}
+    </script>
   </body>
 </html>

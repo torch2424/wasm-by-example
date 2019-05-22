@@ -2,11 +2,13 @@ const fs = require("fs");
 const mkdirp = require("mkdirp");
 const recursive = require("recursive-readdir");
 const highlightJs = require("highlight.js");
+const marked = require("marked");
 const Mustache = require("mustache");
 const CleanCSS = require("clean-css");
 const Terser = require("terser");
 
 console.log("Building...");
+console.log(" ");
 
 const cssMinifier = new CleanCSS();
 const minifyCss = filePath => {
@@ -19,10 +21,18 @@ const minifyJs = filePath => {
   return Terser.minify(fileString).code;
 };
 
+// https://stackoverflow.com/questions/48843806/how-to-use-npm-marked-with-highlightjs
+marked.setOptions({
+  highlight: (code, lang) => {
+    return highlightJs.highlight(lang, code).value;
+  }
+});
+
 const mustacheData = {
   styles: {
     normalize: minifyCss("node_modules/normalize.css/normalize.css"),
     sakura: minifyCss("node_modules/sakura.css/css/sakura-dark.css"),
+    highlightJs: minifyCss("node_modules/highlight.js/styles/gruvbox-dark.css"),
     index: minifyCss("shell/styles/index.css")
   },
   js: {
@@ -46,9 +56,6 @@ const getExamplesMarkdownPathsPromise = new Promise(resolve => {
 const buildTask = async () => {
   // Create our build output folder
   mkdirp.sync("./dist");
-
-  // Create our landing page
-  const index = fs.readFileSync("shell/index.html", "utf8").toString();
 
   // Create an object for each file that we found, and assign a filepath and name
   const exampleFiles = await getExamplesMarkdownPathsPromise;
@@ -92,12 +99,45 @@ const buildTask = async () => {
     });
   });
 
-  console.log(mustacheData);
-
   // Finally, with the data, render all of our files
-  const renderedIndex = Mustache.render(index, mustacheData);
+
+  // Create our landing page
+  const indexFileContents = fs
+    .readFileSync("shell/index.html", "utf8")
+    .toString();
+  const renderedIndex = Mustache.render(indexFileContents, mustacheData);
   fs.writeFileSync("./dist/index.html", renderedIndex);
 
+  // Create our language switcher page
+  const settingsFileContents = fs
+    .readFileSync("shell/settings.html", "utf8")
+    .toString();
+  const renderedSettings = Mustache.render(settingsFileContents, mustacheData);
+  fs.writeFileSync("./dist/settings.html", renderedSettings);
+
+  // Example Pages
+  const exampleFileContents = fs
+    .readFileSync("shell/example.html", "utf8")
+    .toString();
+  mustacheData.examples.forEach(example => {
+    const exampleDistPath = `./dist/${example.parentPath}`;
+    const exampleFileName = `${example.exampleName}.${
+      example.programmingLanguage
+    }.${example.readingLanguage}.html`;
+    mkdirp.sync(exampleDistPath);
+    const exampleHtml = marked(fs.readFileSync(example.filePath, "utf8"));
+    const exampleMustacheData = {
+      ...mustacheData,
+      exampleHtml
+    };
+    fs.writeFileSync(
+      `${exampleDistPath}/${exampleFileName}`,
+      Mustache.render(exampleFileContents, exampleMustacheData)
+    );
+  });
+
+  console.log(" ");
   console.log("Done!");
+  console.log(" ");
 };
 buildTask();

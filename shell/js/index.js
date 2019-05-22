@@ -9,3 +9,13 @@ Object.keys(window.WASM_BY_EXAMPLE).forEach(key => {
     window.WASM_BY_EXAMPLE[key] = savedItem;
   }
 });
+
+// Initialization IIFE
+(() => {
+  // Set our header langauge identifier
+  const programmingLanguage = window.WASM_BY_EXAMPLE.programmingLanguage;
+  const readingLanguage = window.WASM_BY_EXAMPLE.readingLanguage;
+  document.getElementById(
+    "header-language"
+  ).textContent = `${programmingLanguage} / ${readingLanguage}`;
+})();

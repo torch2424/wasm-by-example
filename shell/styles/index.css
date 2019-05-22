@@ -7,8 +7,18 @@ body {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
+  flex-direction: row;
 }
 
-.flex-row > * {
+.flex-column {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.flex-row > *,
+.flex-column > * {
   margin: 5px;
 }
