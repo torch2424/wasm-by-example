@@ -1,0 +1,14 @@
+html,
+body {
+}
+
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.flex-row > * {
+  margin: 5px;
+}

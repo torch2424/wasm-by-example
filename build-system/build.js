@@ -9,13 +9,20 @@ console.log("Building...");
 
 const cssMinifier = new CleanCSS();
 const minifyCss = filePath => {
-  return cssMinifier.minify(fs.readFileSync(filePath, "utf8")).styles;
+  const styleString = fs.readFileSync(filePath, "utf8");
+  return cssMinifier.minify(styleString).styles;
 };
 
 const mustacheData = {
-  normalizeCss: minifyCss("node_modules/normalize.css/normalize.css"),
-  sakuraCss: minifyCss("node_modules/sakura.css/css/sakura-dark.css"),
-  indexCss: minifyCss("shell/index.css")
+  styles: {
+    normalizeCss: minifyCss("node_modules/normalize.css/normalize.css"),
+    sakuraCss: minifyCss("node_modules/sakura.css/css/sakura-dark.css"),
+    indexCss: minifyCss("shell/styles/index.css")
+  },
+  partials: {
+    header: fs.readFileSync("shell/partials/header.html", "utf8"),
+    footer: fs.readFileSync("shell/partials/footer.html", "utf8")
+  }
 };
 
 const readExamplesPromise = new Promise(resolve => {
