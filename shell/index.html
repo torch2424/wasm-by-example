@@ -19,7 +19,14 @@
     <!-- List of examples -->
     <h2>Examples</h2>
     <ul>
-      <li>An Example</li>
+      {{#examples}}
+      <li>
+        <a
+          href="/langauge.html?title={{title}}&parentPath={{parentPath}}&exampleName={{exampleName}}"
+          >{{title}}</a
+        >
+      </li>
+      {{/examples}}
     </ul>
 
     {{{partials.footer}}}

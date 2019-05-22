@@ -26,8 +26,6 @@ const mustacheData = {
   examples: []
 };
 
-const getRecursiveFilePathPromise = new Promise();
-
 const getExamplesMarkdownPathsPromise = new Promise(resolve => {
   // Find all HTML Files within the demo directory, that are not specified
   recursive("./examples", ["**/demo/*"]).then(files => {
@@ -41,20 +39,54 @@ const buildTask = async () => {
 
   // Create our landing page
   const index = fs.readFileSync("shell/index.html", "utf8").toString();
-  const renderedIndex = Mustache.render(index, mustacheData);
-  fs.writeFileSync("./dist/index.html", renderedIndex);
 
   // Create an object for each file that we found, and assign a filepath and name
-  const exampleFiles = await readExamplesPromise;
+  const exampleFiles = await getExamplesMarkdownPathsPromise;
   exampleFiles.forEach(filePath => {
     // Create the Example object
     const example = {};
 
-    // Split by the path
+    // Split by the path, get the fileName
     const pathSplit = filePath.split("/");
+    const fileName = pathSplit[pathSplit.length - 1];
 
-    // Get the title of our example
+    // Split the filname to get the example
+    const fileSplit = fileName.split(".");
+
+    // Get the example info
+    const exampleName = fileSplit[0];
+    const programmingLanguage = fileSplit[1];
+    const readingLanguage = fileSplit[2];
+
+    // Get the parent path for the mustache data
+    const parentPathSplit = filePath.split("/");
+    parentPathSplit.pop();
+    const parentPath = parentPathSplit.join("/");
+
+    // Create a nicely formatted title
+    const titleSplit = exampleName.split("-");
+    for (let i = 0; i < titleSplit.length; i++) {
+      const word = titleSplit[i];
+      titleSplit[i] = word.charAt(0).toUpperCase() + word.slice(1);
+    }
+    const title = titleSplit.join(" ");
+
+    // Add the example
+    mustacheData.examples.push({
+      title,
+      exampleName,
+      programmingLanguage,
+      readingLanguage,
+      parentPath,
+      filePath
+    });
   });
+
+  console.log(mustacheData);
+
+  // Finally, with the data, render all of our files
+  const renderedIndex = Mustache.render(index, mustacheData);
+  fs.writeFileSync("./dist/index.html", renderedIndex);
 
   console.log("Done!");
 };
