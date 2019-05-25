@@ -2,7 +2,7 @@
 
 ## Overview
 
-In our [Hello World Example](/example-redirect?exampleName=hello-world), we called a function exported from WebAssembly, in our Javascript. Let's dive a little deeper into that, and what else we can export into Javascript.
+In our [Hello World Example](/example-redirect?exampleName=hello-world), we called a function exported from WebAssembly, in our Javascript. **However, you can export both functions and constants to Javascript**. Let's dive a little deeper into exports and how they are used.
 
 So first, let's create our `exports.ts` AssemblyScript file:
 
@@ -20,7 +20,7 @@ export const GET_THIS_CONSTANT_FROM_JAVASCRIPT: i32 = 2424;
 // A NOT exported function
 // It takes in two 32-bit integer values
 // And returns a 32-bit integer value.
-export function addIntegerWithConstant(a: i32, b: i32): i32 {
+function addIntegerWithConstant(a: i32, b: i32): i32 {
   return a + b + ADD_CONSTANT;
 }
 
@@ -45,7 +45,7 @@ const runWasm = async () => {
   // Get our exports object, with all of our exported Wasm Properties
   const exports = wasmModule.instance.exports;
 
-  console.log(exports.callMeFromJavascript(24, 24)); // Logs 48
+  console.log(exports.callMeFromJavascript(24, 24)); // Logs 49
 
   // Since our constant is a global we use `.valueOf()`.
   // Though, in some cases this could simply be: exports.GET_THIS_CONSTANT_FROM_JAVASCRIPT
@@ -57,7 +57,7 @@ const runWasm = async () => {
 runWasm();
 ```
 
-Lastly, lets load our ES6 Module, `exports.js` Javascript file in our `index.html`.
+Lastly, lets load our ES6 Module, `exports.js` Javascript file in our `index.html`. And you should get something similar to the demo below!
 
 ## Demo
 

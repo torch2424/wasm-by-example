@@ -11,7 +11,6 @@
  (export "table" (table $0))
  (export "callMeFromJavascript" (func $exports/callMeFromJavascript))
  (export "GET_THIS_CONSTANT_FROM_JAVASCRIPT" (global $exports/GET_THIS_CONSTANT_FROM_JAVASCRIPT))
- (export "addIntegerWithConstant" (func $exports/addIntegerWithConstant))
  (func $exports/addIntegerWithConstant (; 0 ;) (type $FUNCSIG$iii) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   local.get $1

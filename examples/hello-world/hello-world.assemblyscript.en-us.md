@@ -95,3 +95,5 @@ And we should have a working Wasm Add (Hello World) program! Congrats!
 ## Demo
 
 <iframe src="/examples/hello-world/demo/assemblyscript/"></iframe>
+
+Next let's take a deeper look at WebAssembly [Exports](/example-redirect?exampleName=exports).

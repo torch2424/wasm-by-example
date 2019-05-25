@@ -2,8 +2,8 @@ const exampleOrder = [
   "introduction",
   "hello-world",
   "exports",
-  "passing-between-webassembly-linear-memory",
-  "calling-javascript-functions-from-webassembly",
+  "webassembly-linear-memory",
+  "importing-javascript-functions-into-webassembly",
   "graphics",
   "audio",
   "wasi-hello-world"
