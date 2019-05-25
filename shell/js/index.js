@@ -15,7 +15,8 @@ Object.keys(window.WASM_BY_EXAMPLE).forEach(key => {
   // Set our header langauge identifier
   const programmingLanguage = window.WASM_BY_EXAMPLE.programmingLanguage;
   const readingLanguage = window.WASM_BY_EXAMPLE.readingLanguage;
-  document.getElementById(
-    "header-language"
-  ).textContent = `${programmingLanguage} / ${readingLanguage}`;
+  const headerLanguageElement = document.getElementById("header-language");
+  if (headerLanguageElement) {
+    headerLanguageElement.textContent = `${programmingLanguage} / ${readingLanguage}`;
+  }
 })();

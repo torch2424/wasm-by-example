@@ -43,6 +43,7 @@ const mustacheData = {
   js: {
     index: minifyJs("shell/js/index.js"),
     examplesList: minifyJs("shell/js/examplesList.js"),
+    examplesRedirect: minifyJs("shell/js/examplesRedirect.js"),
     settings: minifyJs("shell/js/settings.js")
   },
   partials: {
@@ -143,7 +144,8 @@ const buildTask = async () => {
     "index.html",
     "settings.html",
     "about.html",
-    "additional-resources.html"
+    "additional-resources.html",
+    "example-redirect.html"
   ];
   shellStandardPages.forEach(page => {
     const fileContents = fs.readFileSync(`shell/${page}`, "utf8").toString();

@@ -6,7 +6,7 @@
 
 For our first program, we will be doing a "Hello world" type of program in [AssemblyScript](https://github.com/AssemblyScript/assemblyscript). AssemblyScript, is essentially a TypeScript to WebAssembly compiler. This is great for TypeScript and JavaScript developers who want to write WebAssembly, without learning a new language. Though, to be clear, you can not compile our TypeScript React apps to WebAssembly with AssemblyScript because of its differences from TypeScript. But is still a great language for building WebAssembly applications.
 
-To keep things simple with Wasm's limitations mentioned [in the introduction example](/), instead of displaying a string, we will add two numbers together and display the result. Though, it is good to keep in mind, in later examples, a lot of these limitations will be abstracted away by your WebAssembly Language of choice (In this case, AssemblyScript).
+To keep things simple with Wasm's limitations mentioned [in the introduction example](/example-redirect?exampleName=introduction&programmingLanguage=all), instead of displaying a string, we will add two numbers together and display the result. Though, it is good to keep in mind, in later examples, a lot of these limitations will be abstracted away by your WebAssembly Language of choice (In this case, AssemblyScript).
 
 ---
 
