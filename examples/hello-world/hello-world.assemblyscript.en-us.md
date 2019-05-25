@@ -31,7 +31,7 @@ export function add(a: i32, b: i32): i32 {
 }
 ```
 
-Then, let's compile that into a wasm module, using the [AssemblyScript Compiler](https://github.com/AssemblyScript/assemblyscript/wiki/Using-the-compiler):
+Then, let's compile that into a wasm module, using the [AssemblyScript Compiler](https://github.com/AssemblyScript/assemblyscript/wiki/Using-the-compiler), which will output a `hello-world.wasm`:
 
 ```bash
 asc hello-world.ts -b hello-world.wasm
@@ -68,14 +68,12 @@ export const wasmBrowserInstantiate = async wasmModuleUrl => {
 };
 ```
 
-Next, Lets use the above Javascript function from `hello-world.js` to load and instantiate our wasm module. Then, continuing with `hello-world.js`, we will call our exported `add()` function from our Wasm module:
+Next, Lets use the above Javascript function from `hello-world.js` to load and instantiate our wasm module, `hello-world.wasm`. Then, continuing with `hello-world.js`, we will call our exported `add()` function from our Wasm module:
 
 ```javascript
 const runWasmAdd = async () => {
   // Instantiate our wasm module
-  const wasmModule = await wasmBrowserInstantiate(
-    "/examples/hello-world/demo/assemblyscript/index.wasm"
-  );
+  const wasmModule = await wasmBrowserInstantiate("hello-world.wasm");
 
   // Call the Add function export from wasm, save the result
   const addResult = wasmModule.instance.exports.add(24, 24);
