@@ -3,7 +3,7 @@
 
 import { wasmBrowserInstantiate } from "/demo-util/instantiateWasm.js";
 
-const runTask = async () => {
+const runWasmAdd = async () => {
   // Instantiate our wasm module
   const wasmModule = await wasmBrowserInstantiate(
     "/examples/hello-world/demo/assemblyscript/index.wasm"
@@ -15,4 +15,4 @@ const runTask = async () => {
   // Set the result onto the body
   document.body.textContent = `Hello World! addResult: ${addResult}`;
 };
-runTask();
+runWasmAdd();
