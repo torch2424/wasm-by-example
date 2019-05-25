@@ -1,5 +1,6 @@
 const fs = require("fs");
 const mkdirp = require("mkdirp");
+const cpy = require("cpy");
 const recursive = require("recursive-readdir");
 const highlightJs = require("highlight.js");
 const marked = require("marked");
@@ -57,6 +58,44 @@ const getExamplesMarkdownPathsPromise = new Promise(resolve => {
     resolve(files);
   });
 });
+
+const createExample = async (exampleFileContents, example) => {
+  // Create the correct file structure for the example html
+  const exampleDistPath = `./dist/${example.parentPath}`;
+  const exampleFileName = `${example.exampleName}.${
+    example.programmingLanguage
+  }.${example.readingLanguage}.html`;
+  mkdirp.sync(exampleDistPath);
+
+  // Copy over our appropriate demo
+  const exampleDemoDistPath = `${exampleDistPath}/demo/${
+    example.programmingLanguage
+  }`;
+  mkdirp.sync(exampleDemoDistPath);
+  await cpy(
+    [`${example.parentPath}/demo/${example.programmingLanguage}`],
+    exampleDemoDistPath
+  );
+
+  // Get the example markdown file, add to our mustache data
+  const exampleHtml = marked(fs.readFileSync(example.filePath, "utf8"));
+
+  // Get the example demo iframe, add to our mustache data
+  const exampleDemoHtml = `<iframe src="/${example.parentPath}/demo/${
+    example.programmingLanguage
+  }"></iframe>`;
+
+  const exampleMustacheData = {
+    ...mustacheData,
+    exampleHtml,
+    exampleDemoHtml
+  };
+
+  fs.writeFileSync(
+    `${exampleDistPath}/${exampleFileName}`,
+    Mustache.render(exampleFileContents, exampleMustacheData)
+  );
+};
 
 const buildTask = async () => {
   // Create our build output folder
@@ -123,22 +162,15 @@ const buildTask = async () => {
   const exampleFileContents = fs
     .readFileSync("shell/example.html", "utf8")
     .toString();
+  const createExamplePromises = [];
   mustacheData.examples.forEach(example => {
-    const exampleDistPath = `./dist/${example.parentPath}`;
-    const exampleFileName = `${example.exampleName}.${
-      example.programmingLanguage
-    }.${example.readingLanguage}.html`;
-    mkdirp.sync(exampleDistPath);
-    const exampleHtml = marked(fs.readFileSync(example.filePath, "utf8"));
-    const exampleMustacheData = {
-      ...mustacheData,
-      exampleHtml
-    };
-    fs.writeFileSync(
-      `${exampleDistPath}/${exampleFileName}`,
-      Mustache.render(exampleFileContents, exampleMustacheData)
-    );
+    createExamplePromises.push(createExample(exampleFileContents, example));
   });
+  await Promise.all(createExamplePromises);
+
+  // Copy over any extra directories
+  mkdirp.sync("./dist/demo-util");
+  await cpy(["demo-util/"], "dist/demo-util");
 
   console.log("Done!");
   console.log(" ");

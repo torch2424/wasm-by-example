@@ -2,6 +2,10 @@ html,
 body {
 }
 
+iframe {
+  background-color: #fff;
+}
+
 .flex-row {
   display: flex;
   flex-wrap: wrap;
