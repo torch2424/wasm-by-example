@@ -1,7 +1,9 @@
-const goToExample = (parentPath, exampleName) => {
-  // Construct our full path with values from the window
-  const programmingLanguage = window.WASM_BY_EXAMPLE.programmingLanguage;
-  const readingLanguage = window.WASM_BY_EXAMPLE.readingLanguage;
+const goToExample = (
+  parentPath,
+  exampleName,
+  programmingLanguage,
+  readingLanguage
+) => {
   location.pathname = `/${parentPath}/${exampleName}.${programmingLanguage}.${readingLanguage}.html`;
 };
 
@@ -12,7 +14,7 @@ const goToExample = (parentPath, exampleName) => {
   const readingLanguage = window.WASM_BY_EXAMPLE.readingLanguage;
 
   // Only show the examples with the langauges in their class
-  const css = `.${programmingLanguage}.${readingLanguage} { display: list-item !important; }`;
+  const css = `.${programmingLanguage}.${readingLanguage}, .all.${readingLanguage} { display: list-item !important; }`;
   const head = document.head || document.getElementsByTagName("head")[0];
   const style = document.createElement("style");
 

@@ -79,16 +79,9 @@ const createExample = async (exampleFileContents, example) => {
 
   // Get the example markdown file, add to our mustache data
   const exampleHtml = marked(fs.readFileSync(example.filePath, "utf8"));
-
-  // Get the example demo iframe, add to our mustache data
-  const exampleDemoHtml = `<iframe src="/${example.parentPath}/demo/${
-    example.programmingLanguage
-  }"></iframe>`;
-
   const exampleMustacheData = {
     ...mustacheData,
-    exampleHtml,
-    exampleDemoHtml
+    exampleHtml
   };
 
   fs.writeFileSync(

@@ -2,19 +2,11 @@
 
 **Before getting started with AssemblyScript and Wasm, be sure to check out all of the languages available, by clicking the "languages" link in the header.**
 
-## Introduction
+## Overview
 
 For our first program, we will be doing a "Hello world" type of program in [AssemblyScript](https://github.com/AssemblyScript/assemblyscript). AssemblyScript, is essentially a TypeScript to WebAssembly compiler. This is great for TypeScript and JavaScript developers who want to write WebAssembly, without learning a new language. Though, to be clear, you can not compile our TypeScript React apps to WebAssembly with AssemblyScript because of its differences from TypeScript. But is still a great language for building WebAssembly applications.
 
-Before starting our hello world, let's do a brief introduction into major concepts of WebAssembly:
-
-- WebAssembly is a compile-targeted language for running bytecode on the web.
-- Relative to Javascript, WebAssembly offers predictable performance.
-- WebAssembly runs on all Major Browsers, V8 runtimes like [Node.js](https://nodejs.org/en/), and independent Wasm runtimes like [Wasmer](https://github.com/wasmerio/wasmer).
-- WebAssembly has Linear Memory, in other words, one big expandable array.
-- WebAssembly, in its current MVP, only handles integers and floats.
-
-To keep things simple with Wasm's limitations, instead of displaying a string, we will add two numbers together and display the result. Though, it is good to keep in mind, in later examples, a lot of these limitations will be abstracted away by your WebAssembly Language of choice (In this case, AssemblyScript).
+To keep things simple with Wasm's limitations mentioned [in the introduction example](/), instead of displaying a string, we will add two numbers together and display the result. Though, it is good to keep in mind, in later examples, a lot of these limitations will be abstracted away by your WebAssembly Language of choice (In this case, AssemblyScript).
 
 ---
 
@@ -100,4 +92,6 @@ Lastly, lets load our ES6 Module, `hello-world.js` Javascript file in our `index
 
 And we should have a working Wasm Add (Hello World) program! Congrats!
 
-Please see the demo below:
+## Hello World Demo
+
+<iframe src="/examples/hello-world/demo/assemblyscript/"></iframe>
