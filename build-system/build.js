@@ -106,19 +106,18 @@ const buildTask = async () => {
 
   // Finally, with the data, render all of our files
 
-  // Create our landing page
-  const indexFileContents = fs
-    .readFileSync("shell/index.html", "utf8")
-    .toString();
-  const renderedIndex = Mustache.render(indexFileContents, mustacheData);
-  fs.writeFileSync("./dist/index.html", renderedIndex);
-
-  // Create our language switcher page
-  const settingsFileContents = fs
-    .readFileSync("shell/settings.html", "utf8")
-    .toString();
-  const renderedSettings = Mustache.render(settingsFileContents, mustacheData);
-  fs.writeFileSync("./dist/settings.html", renderedSettings);
+  // Render all the normal pages
+  const shellStandardPages = [
+    "index.html",
+    "settings.html",
+    "about.html",
+    "additional-resources.html"
+  ];
+  shellStandardPages.forEach(page => {
+    const fileContents = fs.readFileSync(`shell/${page}`, "utf8").toString();
+    const renderedPage = Mustache.render(fileContents, mustacheData);
+    fs.writeFileSync(`./dist/${page}`, renderedPage);
+  });
 
   // Example Pages
   const exampleFileContents = fs
@@ -141,7 +140,6 @@ const buildTask = async () => {
     );
   });
 
-  console.log(" ");
   console.log("Done!");
   console.log(" ");
 };
