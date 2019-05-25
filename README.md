@@ -34,6 +34,8 @@ Awesome! Glad to see new examples and ideas! I'd reccomended opening an issue be
 
 After the idea has been discussed, feel free to open a PR following the format explained above, and we can review and add it to the website!
 
+By default, all new examples will be last in the example list on the homepage. To set the order of your example, add your example's name to the array in `build-system/example-order.js` to set its order.
+
 ### Adding a new Programming Language to an Example
 
 If you are adding a new programming language, feel free to simply open a new PR with the format explained above, and we can review and add it to the website! **NOTE:** It is highly reccomended you add a demo of your example, unless there is a good reason for not providing one.

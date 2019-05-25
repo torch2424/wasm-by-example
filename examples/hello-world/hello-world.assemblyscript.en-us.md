@@ -92,6 +92,6 @@ Lastly, lets load our ES6 Module, `hello-world.js` Javascript file in our `index
 
 And we should have a working Wasm Add (Hello World) program! Congrats!
 
-## Hello World Demo
+## Demo
 
 <iframe src="/examples/hello-world/demo/assemblyscript/"></iframe>

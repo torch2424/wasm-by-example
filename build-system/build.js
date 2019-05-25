@@ -8,6 +8,8 @@ const Mustache = require("mustache");
 const CleanCSS = require("clean-css");
 const Terser = require("terser");
 
+const exampleOrder = require("./example-order");
+
 console.log("Building...");
 console.log(" ");
 
@@ -135,6 +137,29 @@ const buildTask = async () => {
       parentPath,
       filePath
     });
+  });
+
+  // Sort our examples for rendering
+  mustacheData.examples.sort((a, b) => {
+    const aIndex = exampleOrder.indexOf(a.exampleName);
+    const bIndex = exampleOrder.indexOf(b.exampleName);
+
+    // Push not found elements to the end
+    if (aIndex < 0) {
+      return 1;
+    } else if (bIndex < 0) {
+      return -1;
+    }
+
+    if (aIndex < bIndex) {
+      return -1;
+    }
+
+    if (bIndex > aIndex) {
+      return 1;
+    }
+
+    return 0;
   });
 
   // Finally, with the data, render all of our files
