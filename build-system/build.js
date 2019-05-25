@@ -18,7 +18,11 @@ const minifyCss = filePath => {
 
 const minifyJs = filePath => {
   const fileString = fs.readFileSync(filePath, "utf8");
-  return Terser.minify(fileString).code;
+  const terserResult = Terser.minify(fileString);
+  if (terserResult.error) {
+    console.log(terserResult.error);
+  }
+  return terserResult.code;
 };
 
 // https://stackoverflow.com/questions/48843806/how-to-use-npm-marked-with-highlightjs
@@ -37,7 +41,8 @@ const mustacheData = {
   },
   js: {
     index: minifyJs("shell/js/index.js"),
-    goToExample: minifyJs("shell/js/goToExample.js")
+    examplesList: minifyJs("shell/js/examplesList.js"),
+    settings: minifyJs("shell/js/settings.js")
   },
   partials: {
     header: fs.readFileSync("shell/partials/header.html", "utf8"),

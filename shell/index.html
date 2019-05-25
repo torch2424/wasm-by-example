@@ -28,7 +28,10 @@
     <h2>Examples</h2>
     <ul>
       {{#examples}}
-      <li>
+      <li
+        style="display: none"
+        class="{{programmingLanguage}} {{readingLanguage}}"
+      >
         <a onclick="goToExample('{{parentPath}}', '{{exampleName}}')"
           >{{title}}</a
         >
@@ -41,7 +44,7 @@
     <!-- prettier-ignore -->
     <script type="text/javascript">
       {{{js.index}}}
-      {{{js.goToExample}}}
+      {{{js.examplesList}}}
     </script>
   </body>
 </html>
