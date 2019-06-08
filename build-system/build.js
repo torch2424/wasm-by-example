@@ -57,7 +57,7 @@ const mustacheData = {
 
 const getExamplesMarkdownPathsPromise = new Promise(resolve => {
   // Find all HTML Files within the demo directory, that are not specified
-  recursive("./examples", ["**/demo/*"]).then(files => {
+  recursive("./examples", ["**/demo/*", "**/.DS_Store"]).then(files => {
     resolve(files);
   });
 });
@@ -140,7 +140,7 @@ const buildTask = async () => {
   });
 
   // Sort our examples for rendering
-  mustacheData.examples.sort((a, b) => {
+  mustacheData.examples = mustacheData.examples.sort((a, b) => {
     const aIndex = exampleOrder.indexOf(a.exampleName);
     const bIndex = exampleOrder.indexOf(b.exampleName);
 
@@ -155,7 +155,7 @@ const buildTask = async () => {
       return -1;
     }
 
-    if (bIndex > aIndex) {
+    if (bIndex < aIndex) {
       return 1;
     }
 

@@ -4,6 +4,10 @@
 
 In our [Hello World Example](/example-redirect?exampleName=hello-world), we called a function exported from WebAssembly, in our Javascript. **However, you can export both functions and constants to Javascript**. Let's dive a little deeper into exports and how they are used.
 
+---
+
+## Implementation
+
 So first, let's create our `exports.ts` AssemblyScript file:
 
 ```typescript
@@ -58,6 +62,8 @@ runWasm();
 ```
 
 Lastly, lets load our ES6 Module, `exports.js` Javascript file in our `index.html`. And you should get something similar to the demo below!
+
+---
 
 ## Demo
 
