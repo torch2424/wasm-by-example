@@ -2,12 +2,11 @@
 // https://github.com/torch2424/wasm-by-example/blob/master/demo-util/
 
 import { wasmBrowserInstantiate } from "/demo-util/instantiateWasm.js";
-import { domConsoleLog } from "/demo-util/domConsole.js";
 
-const runWasmAdd = async () => {
+const runWasm = async () => {
   // Instantiate our wasm module
   const wasmModule = await wasmBrowserInstantiate(
-    "/examples/webassembly-linear-memory/demo/assemblyscript/index.wasm"
+    "/examples/graphics/demo/assemblyscript/index.wasm"
   );
 
   // Get our exports object, with all of our exported Wasm Properties
@@ -19,15 +18,57 @@ const runWasmAdd = async () => {
   // Create a Uint8Array to give us access to Wasm Memory
   const wasmByteMemoryArray = new Uint8Array(memory.buffer);
 
-  // Let's read index zero from JS, to make sure Wasm wrote to
-  // wasm memory, and JS can read the "passed" value from Wasm
-  domConsoleLog("Read from JS index Zero: " + wasmByteMemoryArray[0]); // Should Log "24".
+  // Get our canvas element from our index.html
+  const canvasElement = document.querySelector("canvas");
 
-  // Next let's write to index one, to make sure we can
-  // write wasm memory, and Wasm can read the "passed" value from JS
-  wasmByteMemoryArray[1] = 25;
-  domConsoleLog(
-    "Read from Wasm index one: " + exports.readWasmMemoryAndReturnIndexOne()
-  ); // Should Log "25"
+  // Set up Context and ImageData on the canvas
+  const canvasContext = canvasElement.getContext("2d");
+  const canvasImageData = canvasContext.createImageData(
+    canvasElement.width,
+    canvasElement.height
+  );
+
+  // Clear the canvas
+  canvasContext.clearRect(0, 0, canvasElement.width, canvasElement.height);
+
+  const getDarkValue = () => {
+    return Math.floor(Math.random() * 100);
+  };
+
+  const getLightValue = () => {
+    return Math.floor(Math.random() * 127) + 127;
+  };
+
+  const drawCheckerBoard = () => {
+    const checkerBoardSize = 20;
+
+    // Generate a new checkboard in wasm
+    exports.generateCheckerBoard(
+      getDarkValue(),
+      getDarkValue(),
+      getDarkValue(),
+      getLightValue(),
+      getLightValue(),
+      getLightValue()
+    );
+
+    // Pull out the RGBA values from Wasm memory
+    // 100 * 100 * 4 = checkboard max X * checkerboard max Y * number of pixel properties (R,G.B,A)
+    const imageDataArray = wasmByteMemoryArray.slice(0, 20 * 20 * 4);
+
+    // Set the values to the canvas image data
+    canvasImageData.data.set(imageDataArray);
+
+    // Clear the canvas
+    canvasContext.clearRect(0, 0, canvasElement.width, canvasElement.height);
+
+    // Place the new generated checkerboard onto the canvas
+    canvasContext.putImageData(canvasImageData, 0, 0);
+  };
+
+  drawCheckerBoard();
+  setInterval(() => {
+    drawCheckerBoard();
+  }, 1000);
 };
-runWasmAdd();
+runWasm();
