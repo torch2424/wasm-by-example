@@ -33,9 +33,12 @@ Next, lets create a `hello-world.js` JavaScript file, and add a function for loa
 
 ```javascript
 // https://github.com/torch2424/wasm-by-example/blob/master/demo-util/
-const importObject = {};
-export const wasmBrowserInstantiate = async wasmModuleUrl => {
+export const wasmBrowserInstantiate = async (wasmModuleUrl, importObject) => {
   let response = undefined;
+
+  if (!importObject) {
+    importObject = {};
+  }
 
   // Check if the browser supports streaming instantiation
   if (WebAssembly.instantiateStreaming) {
@@ -91,6 +94,8 @@ Lastly, lets load our ES6 Module, `hello-world.js` Javascript file in our `index
 ```
 
 And we should have a working Wasm Add (Hello World) program! Congrats!
+
+You should have something similar to the demo ([Source Code](/source-redirect?path=examples/hello-world/demo/assemblyscript)) below:
 
 ## Demo
 

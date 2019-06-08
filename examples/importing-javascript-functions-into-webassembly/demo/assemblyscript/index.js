@@ -2,17 +2,17 @@
 // https://github.com/torch2424/wasm-by-example/blob/master/demo-util/
 
 import { wasmBrowserInstantiate } from "/demo-util/instantiateWasm.js";
+import { domConsoleLog } from "/demo-util/domConsole.js";
 
 const runWasmAdd = async () => {
   // Instantiate our wasm module
   const wasmModule = await wasmBrowserInstantiate(
-    "/examples/hello-world/demo/assemblyscript/index.wasm"
+    "/examples/importing-javascript-functions-into-webassembly/demo/assemblyscript/index.wasm",
+    {
+      index: {
+        consoleLog: value => domConsoleLog("Called from Wasm: " + value)
+      }
+    }
   );
-
-  // Call the Add function export from wasm, save the result
-  const addResult = wasmModule.instance.exports.add(24, 24);
-
-  // Set the result onto the body
-  document.body.textContent = `Hello World! addResult: ${addResult}`;
 };
 runWasmAdd();

@@ -36,7 +36,7 @@ Then, let's compile that into a wasm module, using the [AssemblyScript Compiler]
 asc index.ts -b index.wasm
 ```
 
-Next, Let's load / instantiate the was module, `index.wasm`. Looking at the [WebAssembly Module Documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/WebAssembly/Module), We see that after instantiation of our module, our Module has a `.instance` property, which is a [WebAssembly Module Instance](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/WebAssembly/Instance). Lastly, we see that our instance has an `.exports` property. The `.exports` property is an object that contains all of the exported functions / constants, as well as a `memory` object, that be called / accessed synchronously from Javascript. In this example, we care about the `memory`. The `memory` object has a buffer as a property, such as `memory.buffer`. That can be used to construct a [Uint8Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array) using `new Uint8Array(memory.buffer)` that we can use to read and modify Wasm memory. We use a `Uint8Array`, because as we stated earlier, linear memory is untyped bytes, thus 8 bit integers give us the simplest way of accessing memory without assumptions. See the snippet below:
+Next, Let's load / instantiate the wasm module, `index.wasm` in a new `index.js` file. Looking at the [WebAssembly Module Documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/WebAssembly/Module), We see that after instantiation of our module, our Module has a `.instance` property, which is a [WebAssembly Module Instance](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/WebAssembly/Instance). An example of instantiating a module can be found in the [Hello World Example](/example-redirect?exampleName=hello-world). Lastly, we see that our instance has an `.exports` property. The `.exports` property is an object that contains all of the exported functions / constants, as well as a `memory` object, that be called / accessed synchronously from Javascript. In this example, we care about the `memory`. The `memory` object has a buffer as a property, such as `memory.buffer`. That can be used to construct a [Uint8Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array) using `new Uint8Array(memory.buffer)` that we can use to read and modify Wasm memory. We use a `Uint8Array`, because as we stated earlier, linear memory is untyped bytes, thus 8 bit integers give us the simplest way of accessing memory without assumptions. See the snippet below:
 
 ```javascript
 const runWasm = async () => {
@@ -64,10 +64,12 @@ const runWasm = async () => {
 runWasm();
 ```
 
-Lastly, lets load our ES6 Module, `index.js` Javascript file in our `index.html`. And you should get something similar to the demo below!
+Lastly, lets load our ES6 Module, `index.js` Javascript file in our `index.html`. And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/webassembly-linear-memory/demo/assemblyscript)) below!
 
 ---
 
 ## Demo
 
 <iframe src="/examples/webassembly-linear-memory/demo/assemblyscript/"></iframe>
+
+Next let's take a look at [importing JavaScript functions into WebAssembly](/example-redirect?exampleName=importing-javascript-functions-into-webassembly).

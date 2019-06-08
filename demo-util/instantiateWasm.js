@@ -1,7 +1,9 @@
-const importObject = {};
-
-export const wasmBrowserInstantiate = async wasmModuleUrl => {
+export const wasmBrowserInstantiate = async (wasmModuleUrl, importObject) => {
   let response = undefined;
+
+  if (!importObject) {
+    importObject = {};
+  }
 
   if (WebAssembly.instantiateStreaming) {
     response = await WebAssembly.instantiateStreaming(
