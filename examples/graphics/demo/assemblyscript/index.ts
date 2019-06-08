@@ -2,7 +2,7 @@
 // By growing our Wasm Memory by 1 page (64KB)
 memory.grow(1);
 
-// Function to generate our 100 x 100 checkerboard, pixel by pixel
+// Function to generate our checkerboard, pixel by pixel
 export function generateCheckerBoard(
   darkValueRed: i32,
   darkValueGreen: i32,
