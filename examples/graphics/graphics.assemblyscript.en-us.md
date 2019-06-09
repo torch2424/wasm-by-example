@@ -73,7 +73,7 @@ export function generateCheckerBoard(
 
 Next, we can compile the module following the [Hello World](/example-redirect?exampleName=hello-world) examples compilation process, replacing the appropriate file names.
 
-Next, Let's load / instantiate the wasm module, `index.wasm` in a new `index.js` file. Again, we will follow the module instantiation from the [Hello World](/example-redirect?exampleName=hello-world) example. A lot of the logic here is expanding on the [WebAssembly Linear Memory Example](/example-redirect?exampleName=webassembly-linear-memory), but applying the learnings to a DOM API. The most important thing here is probably how we are copying out memory from Wasm, using `.slice` calls. Please see some reference links if things get confusing. Here is the `index.js` below!
+Next, Let's load / instantiate the wasm module, `index.wasm` in a new `index.js` file. Again, we will follow the module instantiation from the [Hello World](/example-redirect?exampleName=hello-world) example. A lot of the logic here is expanding on the [WebAssembly Linear Memory Example](/example-redirect?exampleName=webassembly-linear-memory), but applying the learnings to a DOM API. The most important thing here is probably how we are copying out memory from Wasm, using `.slice` calls. Please see the reference links if things get confusing. Here is the `index.js` below!
 
 ```javascript
 const runWasm = async () => {

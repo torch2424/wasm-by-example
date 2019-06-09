@@ -3,7 +3,7 @@
 
 import { wasmBrowserInstantiate } from "/demo-util/instantiateWasm.js";
 
-// So some general initialization for audio
+// Some general initialization for audio
 
 // Create our audio context
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
