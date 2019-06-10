@@ -1,8 +1,9 @@
 // Should import index.js before this
 window.WASM_BY_EXAMPLE_PROGRAMMING_LANGUAGES = {};
-window.WASM_BY_EXAMPLE_PROGRAMMING_LANGUAGES["assemblyScript (TypeScript)"] =
-  "assemblyscript";
-window.WASM_BY_EXAMPLE_PROGRAMMING_LANGUAGES["rust"] = "rust";
+window.WASM_BY_EXAMPLE_PROGRAMMING_LANGUAGES[
+  "AssemblyScript (TypeScript-like)"
+] = "assemblyscript";
+window.WASM_BY_EXAMPLE_PROGRAMMING_LANGUAGES["Rust"] = "rust";
 // TODO:
 // window.WASM_BY_EXAMPLE_PROGRAMMING_LANGUAGES["emscripten (C/C++)"] =
 // "emscripten";
