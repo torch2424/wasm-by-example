@@ -5,8 +5,7 @@ const exampleOrder = [
   "webassembly-linear-memory",
   "importing-javascript-functions-into-webassembly",
   "graphics",
-  "audio",
-  "wasi-hello-world"
+  "audio"
 ];
 
 module.exports = exampleOrder;
