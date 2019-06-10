@@ -8,7 +8,7 @@ const Mustache = require("mustache");
 const CleanCSS = require("clean-css");
 const Terser = require("terser");
 
-const exampleOrder = require("./example-order");
+const exampleInfo = require("./example-info");
 
 console.log("Building...");
 console.log(" ");
@@ -26,6 +26,10 @@ const minifyJs = filePath => {
     console.log(terserResult.error);
   }
   return terserResult.code;
+};
+
+const capitalizeWord = word => {
+  return word.charAt(0).toUpperCase() + word.slice(1);
 };
 
 // https://stackoverflow.com/questions/48843806/how-to-use-npm-marked-with-highlightjs
@@ -125,7 +129,7 @@ const buildTask = async () => {
     const titleSplit = exampleName.split("-");
     for (let i = 0; i < titleSplit.length; i++) {
       const word = titleSplit[i];
-      titleSplit[i] = word.charAt(0).toUpperCase() + word.slice(1);
+      titleSplit[i] = capitalizeWord(word);
     }
     const title = titleSplit.join(" ");
 
@@ -140,27 +144,64 @@ const buildTask = async () => {
     });
   });
 
-  // Sort our examples for rendering
-  mustacheData.examples = mustacheData.examples.sort((a, b) => {
-    const aIndex = exampleOrder.indexOf(a.exampleName);
-    const bIndex = exampleOrder.indexOf(b.exampleName);
+  // Categorize our examples
+  mustacheData.categories = [];
+  exampleInfo.categories.forEach((category, index) => {
+    mustacheData.categories[index] = {};
+    mustacheData.categories[index].title = category.title;
+    mustacheData.categories[index].class = "";
 
-    // Push not found elements to the end
-    if (aIndex < 0) {
-      return 1;
-    } else if (bIndex < 0) {
-      return -1;
-    }
+    mustacheData.categories[index].examples = [];
 
-    if (aIndex < bIndex) {
-      return -1;
-    }
+    // Find the examples that match our category
+    mustacheData.examples.forEach(example => {
+      if (category.examples.includes(example.exampleName)) {
+        mustacheData.categories[index].examples.push(example);
 
-    if (bIndex < aIndex) {
-      return 1;
-    }
+        // Next add the appropriate classes if not added already
+        if (
+          !mustacheData.categories[index].class.includes(
+            example.programmingLanguage
+          )
+        ) {
+          mustacheData.categories[index].class += `${
+            example.programmingLanguage
+          } `;
+        }
+        if (
+          !mustacheData.categories[index].class.includes(
+            example.readingLanguage
+          )
+        ) {
+          mustacheData.categories[index].class += `${example.readingLanguage} `;
+        }
+      }
+    });
 
-    return 0;
+    // Sort our Examples
+    mustacheData.categories[index].examples = mustacheData.categories[
+      index
+    ].examples.sort((a, b) => {
+      const aIndex = category.examples.indexOf(a.exampleName);
+      const bIndex = category.examples.indexOf(b.exampleName);
+
+      // Push not found elements to the end
+      if (aIndex < 0) {
+        return 1;
+      } else if (bIndex < 0) {
+        return -1;
+      }
+
+      if (aIndex < bIndex) {
+        return -1;
+      }
+
+      if (bIndex < aIndex) {
+        return 1;
+      }
+
+      return 0;
+    });
   });
 
   // Finally, with the data, render all of our files

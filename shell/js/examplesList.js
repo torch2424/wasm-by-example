@@ -14,7 +14,13 @@ const goToExample = (
   const readingLanguage = window.WASM_BY_EXAMPLE.readingLanguage;
 
   // Only show the examples with the langauges in their class
-  const css = `.${programmingLanguage}.${readingLanguage}, .all.${readingLanguage} { display: list-item !important; }`;
+  const css = `
+    h3.${programmingLanguage}.${readingLanguage}, h3.all.${readingLanguage} {
+      display:block !important;
+    }
+    .${programmingLanguage}.${readingLanguage}, .all.${readingLanguage} { 
+      display: list-item !important; 
+    }`;
   const head = document.head || document.getElementsByTagName("head")[0];
   const style = document.createElement("style");
 

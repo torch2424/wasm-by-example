@@ -47,4 +47,4 @@ Lastly, lets load our ES6 Module, `index.js` Javascript file in our `index.html`
 
 <iframe src="/examples/importing-javascript-functions-into-webassembly/demo/assemblyscript/"></iframe>
 
-Next, lets took a look at an example of implementing [Graphics with WebAssembly](/example-redirect?exampleName=graphics).
+And that's it for the basics! Next, lets took a look at some "Advanced Web Demos", with an example of implementing [Graphics with WebAssembly](/example-redirect?exampleName=graphics).
