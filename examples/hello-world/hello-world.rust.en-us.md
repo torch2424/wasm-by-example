@@ -64,6 +64,8 @@ wasm-pack build --target web
 This will output a `pkg/` directory containing our wasm module, wrapped in a js object. Next, lets create an `index.js` JavaScript file, and import the outputted ES6 module in our `pkg/` directory. Then, we will call our exported `add()` function:
 
 ```javascript
+// Import our outputted wasm ES6 module
+// Which, export default's, an initialization function
 import wasmInit from "./pkg/hello_world.js";
 
 const runWasm = async () => {
