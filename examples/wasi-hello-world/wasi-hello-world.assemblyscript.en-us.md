@@ -1,3 +1,0 @@
-# Wasi Hello World
-
-# TODO
