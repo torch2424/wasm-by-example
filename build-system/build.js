@@ -2,6 +2,7 @@ const fs = require("fs");
 const mkdirp = require("mkdirp");
 const cpy = require("cpy");
 const recursive = require("recursive-readdir");
+const recursiveCopy = require("recursive-copy");
 const highlightJs = require("highlight.js");
 const marked = require("marked");
 const Mustache = require("mustache");
@@ -76,14 +77,20 @@ const createExample = async (exampleFileContents, example) => {
   mkdirp.sync(exampleDistPath);
 
   // Copy over our appropriate demo
-  const exampleDemoDistPath = `${exampleDistPath}/demo/${
+  // If there is one
+  const exampleDemoPath = `${example.parentPath}/demo/${
     example.programmingLanguage
   }`;
-  mkdirp.sync(exampleDemoDistPath);
-  await cpy(
-    [`${example.parentPath}/demo/${example.programmingLanguage}`],
-    exampleDemoDistPath
-  );
+  if (fs.existsSync(exampleDemoPath)) {
+    const exampleDemoDistPath = `${exampleDistPath}/demo/${
+      example.programmingLanguage
+    }`;
+    mkdirp.sync(exampleDemoDistPath);
+    await recursiveCopy(exampleDemoPath, exampleDemoDistPath, {
+      overwrite: true,
+      dot: true
+    });
+  }
 
   // Get the example markdown file, add to our mustache data
   const exampleHtml = marked(fs.readFileSync(example.filePath, "utf8"));

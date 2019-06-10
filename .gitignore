@@ -1,6 +1,10 @@
 # Build output
 dist/
 
+# Rust
+**/rust/target/**/*
+**/rust/pkg/.gitignore
+
 # Logs
 logs
 *.log
