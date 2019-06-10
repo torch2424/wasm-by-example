@@ -10,7 +10,7 @@ To keep things simple with Wasm's limitations mentioned [in the introduction exa
 
 ---
 
-## Implementation
+## Project Setup
 
 So first, Let's get [rust installed](https://www.rust-lang.org/tools/install), which includes [cargo](https://doc.rust-lang.org/cargo/index.html). Then, using cargo, let's install wasm-pack, which we will need later:
 
@@ -37,10 +37,18 @@ edition = "2018"
 crate-type = ["cdylib"]
 
 [dependencies]
-wasm-bindgen = "0.2"
+wasm-bind
 ```
 
-Next, let's take a peek at the `src/` directory. Let's go ahead and replace `src/main.rs` with the required `use` call as mentioned in the quickstart, as well as our add function:
+Lastly, let's take a quick peek inside at the `src/` directory. Since we are building a library (lib) to be used by a larger application, **we need to rename the `src/main.rs` to `src/lib.rs`.** Go ahead and do that now before moving forward.
+
+Now that we have our project and environment setup, let's go ahead and start the actual implementation.
+
+---
+
+## Implementation
+
+Let's go ahead and replace `src/lib.rs` with the required `use` call as mentioned in the quickstart, as well as our add function:
 
 ```rust
 // Add the wasm-pack crate
@@ -55,7 +63,7 @@ pub fn add(a: i32, b: i32) -> i32 {
 }
 ```
 
-Then, let's compile our crate using wasm-pack, into a wasm module. **Firt, let's rename `src/main.rs`, to `src/lib.rs`**. Then run the following command, taking note of the [--target web](https://rustwasm.github.io/docs/wasm-pack/commands/build.html#target) since we want an ES6 module in our case:
+Then, let's compile our crate using wasm-pack, into a wasm module. Then run the following command, taking note of the [--target web](https://rustwasm.github.io/docs/wasm-pack/commands/build.html#target) since we want an ES6 module in our case:
 
 ```bash
 wasm-pack build --target web
