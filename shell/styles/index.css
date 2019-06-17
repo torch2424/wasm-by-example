@@ -26,7 +26,3 @@ iframe {
 .flex-column > * {
   margin: 5px;
 }
-
-.language-picker {
-  margin-left: auto;
-}

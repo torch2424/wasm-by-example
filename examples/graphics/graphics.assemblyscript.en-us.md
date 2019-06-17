@@ -173,6 +173,6 @@ And you should get something similar to the demo ([Source Code](/source-redirect
 
 ## Demo
 
-<iframe width="300px" height="300px" src="/examples/graphics/demo/assemblyscript/"></iframe>
+<iframe width="300px" height="300px" title="AssemblyScript Demo" src="/examples/graphics/demo/assemblyscript/"></iframe>
 
 Next, lets took a look at an example of implementing [Audio with WebAssembly](/example-redirect?exampleName=audio).

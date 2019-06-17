@@ -1,5 +1,7 @@
 # Importing Javascript Functions Into WebAssembly
 
+# Todo, started falling asleep
+
 ## Overview
 
 When you are instantiating Wasm modules, you are able to pass in an [`importObject`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/instantiateStreaming). This `importObject` can be used to call host (Javascript) functions within Wasm! In this example, we will do a simple console.log, which is called within Wasm:
@@ -39,12 +41,12 @@ const runWasm = async () => {
 runWasm();
 ```
 
-Lastly, lets load our ES6 Module, `index.js` Javascript file in our `index.html`. And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/importing-javascript-functions-into-webassembly/demo/assemblyscript)) below!
+Lastly, lets load our ES6 Module, `index.js` Javascript file in our `index.html`. And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/importing-javascript-functions-into-webassembly/demo/rust)) below!
 
 ---
 
 ## Demo
 
-<iframe title="AssemblyScript Demo" src="/examples/importing-javascript-functions-into-webassembly/demo/assemblyscript/"></iframe>
+<iframe title="Rust Demo" src="/examples/importing-javascript-functions-into-webassembly/demo/rust/"></iframe>
 
 And that's it for the basics! Next, lets took a look at some "Advanced Web Demos", with an example of implementing [Graphics with WebAssembly](/example-redirect?exampleName=graphics).

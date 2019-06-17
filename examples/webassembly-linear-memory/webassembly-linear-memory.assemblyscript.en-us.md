@@ -78,6 +78,6 @@ Lastly, lets load our ES6 Module, `index.js` Javascript file in our `index.html`
 
 ## Demo
 
-<iframe src="/examples/webassembly-linear-memory/demo/assemblyscript/"></iframe>
+<iframe title="AssemblyScript Demo" src="/examples/webassembly-linear-memory/demo/assemblyscript/"></iframe>
 
 Next let's take a look at [importing JavaScript functions into WebAssembly](/example-redirect?exampleName=importing-javascript-functions-into-webassembly).

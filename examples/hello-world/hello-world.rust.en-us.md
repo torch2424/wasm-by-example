@@ -109,6 +109,6 @@ You should have something similar to the demo ([Source Code](/source-redirect?pa
 
 ## Demo
 
-<iframe src="/examples/hello-world/demo/rust/"></iframe>
+<iframe title="Rust Demo" src="/examples/hello-world/demo/rust/"></iframe>
 
 Next let's take a deeper look at WebAssembly [Exports](/example-redirect?exampleName=exports).

@@ -44,7 +44,7 @@ const mustacheData = {
   styles: {
     normalize: minifyCss("node_modules/normalize.css/normalize.css"),
     sakura: minifyCss("node_modules/sakura.css/css/sakura-dark.css"),
-    highlightJs: minifyCss("node_modules/highlight.js/styles/gruvbox-dark.css"),
+    highlightJs: minifyCss("node_modules/highlight.js/styles/a11y-dark.css"),
     index: minifyCss("shell/styles/index.css")
   },
   js: {

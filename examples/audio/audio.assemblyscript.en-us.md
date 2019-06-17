@@ -244,4 +244,4 @@ And you should get something similar to the demo ([Source Code](/source-redirect
 
 ## Demo
 
-<iframe width="300px" height="400px" src="/examples/audio/demo/assemblyscript/"></iframe>
+<iframe width="300px" height="400px" title="AssemblyScript Audio Demo" src="/examples/audio/demo/assemblyscript/"></iframe>

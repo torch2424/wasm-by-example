@@ -67,6 +67,6 @@ Lastly, lets load our ES6 Module, `exports.js` Javascript file in our `index.htm
 
 ## Demo
 
-<iframe src="/examples/exports/demo/assemblyscript/"></iframe>
+<iframe title="AssemblyScript Demo" src="/examples/exports/demo/assemblyscript/"></iframe>
 
 Next let's take a look at [WebAssembly Linear Memory](/example-redirect?exampleName=webassembly-linear-memory).
