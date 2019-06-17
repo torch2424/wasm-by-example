@@ -2,7 +2,15 @@
 
 ## Overview
 
-Another feature of WebAssembly, is its linear memory. Linear memory is a continuous buffer of unsigned bytes that can be read from and stored into by both Wasm and Javascript. In other words, Wasm memory is an exandable array of bytes that Javascript and Wasm can synchronously read and modify. Linear memory can be used for many things, one of them being passing values back and forth between Wasm and Javascript. Let's see how we can use linear memory:
+Another feature of WebAssembly, is its linear memory. Linear memory is a continuous buffer of unsigned bytes that can be read from and stored into by both Wasm and Javascript. In other words, Wasm memory is an exandable array of bytes that Javascript and Wasm can synchronously read and modify. Linear memory can be used for many things, one of them being passing values back and forth between Wasm and Javascript.
+
+In AssemblyScript, the [runtime](https://docs.assemblyscript.org/details/runtime) supports higher level data structures and types. For example, there is support for [Arrays](https://docs.assemblyscript.org/standard-library/array) in AssemblyScript's standard library. But for this example, we will use simple byte (Unsigned 8-bit integer) memory and pointers (Wasm memory array indexes) as a simple(r) way to pass memory back and forth. This is for several reasons:
+
+1. Really early versions of AssemblyScript didn't have a Grabage Collector, as at the time it was not part of the spec.
+2. Less Early versions of AssemblScript didn't have a runtime, but instead had allocators and manual memoy management.
+3. Most importantly, we want to show off the concept of Linear memory very clearly, in a simple and concise way.
+
+Let's see how we can use linear memory:
 
 ---
 

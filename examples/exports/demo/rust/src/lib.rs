@@ -11,7 +11,7 @@ pub fn callMeFromJavascript(a: i32, b: i32) -> i32 {
 
 // A NOT exported constant
 // Rust does not support exporting constants
-// for Wasm (the I know of).
+// for Wasm (that I know of).
 const ADD_CONSTANT: i32 = 24;
 
 // A NOT exported function

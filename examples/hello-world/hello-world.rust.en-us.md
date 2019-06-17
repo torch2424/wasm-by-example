@@ -63,7 +63,7 @@ pub fn add(a: i32, b: i32) -> i32 {
 }
 ```
 
-Then, let's compile our crate using wasm-pack, into a wasm module. Then run the following command, taking note of the [--target web](https://rustwasm.github.io/docs/wasm-pack/commands/build.html#target) since we want an ES6 module in our case:
+Then, let's compile our crate using wasm-pack, into a wasm module. Then run the following command, taking note of the [--target web](https://rustwasm.github.io/docs/wasm-pack/commands/build.html#target). The wasm-pack tool has support for a lot of different output types, especially for bundlers like Webpack or Rollup. But, since we want an ES6 module in our case, we use the `web` target below:
 
 ```bash
 wasm-pack build --target web
@@ -74,7 +74,7 @@ This will output a `pkg/` directory containing our wasm module, wrapped in a js 
 ```javascript
 // Import our outputted wasm ES6 module
 // Which, export default's, an initialization function
-import wasmInit from "./pkg/hello_world.js";
+import wasmInit from "./pkg/exports.js";
 
 const runWasm = async () => {
   // Instantiate our wasm module

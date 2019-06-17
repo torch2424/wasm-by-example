@@ -1,6 +1,6 @@
 // Set up global variables
 window.WASM_BY_EXAMPLE = {
-  programmingLanguage: "assemblyscript",
+  programmingLanguage: "rust",
   readingLanguage: "en-us"
 };
 Object.keys(window.WASM_BY_EXAMPLE).forEach(key => {
