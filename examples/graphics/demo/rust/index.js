@@ -1,22 +1,11 @@
-// Imports are from the demo-util folder in the repo
-// https://github.com/torch2424/wasm-by-example/blob/master/demo-util/
-
-import { wasmBrowserInstantiate } from "/demo-util/instantiateWasm.js";
+import wasmInit from "./pkg/graphics.js";
 
 const runWasm = async () => {
   // Instantiate our wasm module
-  const wasmModule = await wasmBrowserInstantiate(
-    "/examples/graphics/demo/assemblyscript/index.wasm"
-  );
-
-  // Get our exports object, with all of our exported Wasm Properties
-  const exports = wasmModule.instance.exports;
-
-  // Get our memory object from the exports
-  const memory = exports.memory;
+  const rustWasm = await wasmInit("./pkg/graphics_bg.wasm");
 
   // Create a Uint8Array to give us access to Wasm Memory
-  const wasmByteMemoryArray = new Uint8Array(memory.buffer);
+  const wasmByteMemoryArray = new Uint8Array(rustWasm.memory.buffer);
 
   // Get our canvas element from our index.html
   const canvasElement = document.querySelector("canvas");
@@ -43,7 +32,7 @@ const runWasm = async () => {
     const checkerBoardSize = 20;
 
     // Generate a new checkboard in wasm
-    exports.generateCheckerBoard(
+    rustWasm.generate_checker_board(
       getDarkValue(),
       getDarkValue(),
       getDarkValue(),
@@ -52,12 +41,16 @@ const runWasm = async () => {
       getLightValue()
     );
 
+    // Create a Uint8Array to give us access to Wasm Memory
+    const wasmByteMemoryArray = new Uint8Array(rustWasm.memory.buffer);
+
     // Pull out the RGBA values from Wasm memory
-    // Starting at the memory array index that we wrote into inside wasm
+    // Starting at the memory index of out output buffer (given by our pointer)
     // 20 * 20 * 4 = checkboard max X * checkerboard max Y * number of pixel properties (R,G.B,A)
+    const outputPointer = rustWasm.get_output_buffer_pointer();
     const imageDataArray = wasmByteMemoryArray.slice(
-      0,
-      checkerBoardSize * checkerBoardSize * 4
+      outputPointer,
+      outputPointer + checkerBoardSize * checkerBoardSize * 4
     );
 
     // Set the values to the canvas image data

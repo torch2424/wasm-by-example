@@ -2,7 +2,7 @@
 
 ## Overview
 
-As stated before, **WebAssembly is a great fit for computationally intensive tasks**. And even the official [AssemblyScript Documentation covers this](https://docs.assemblyscript.org/faq#is-webassembly-always-faster). For example, Tasks that involve things like big data, heavy logic with conditionals, or nested looping. Thus, generating / rendering graphics **can** get a significant speedup by moving these mentioned parts into WebAssembly. In this example, we will be generating 20x20 colored checkerboard images once per second, and displaying them on a [HTML5 Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) using [Pixel Manipulation on the ImageData Object](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas).
+As stated before, **WebAssembly is a great fit for computationally intensive tasks**. For example, Tasks that involve things like big data, heavy logic with conditionals, or nested looping. Thus, generating / rendering graphics **can** get a significant speedup by moving these mentioned parts into WebAssembly. In this example, we will be generating 20x20 colored checkerboard images once per second, and displaying them on a [HTML5 Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) using [Pixel Manipulation on the ImageData Object](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas).
 
 **NOTE:** This example will continue to build on our simple buffer/pointer memory passing. This could be implemented using higher-level data structures, and these data structures will be covered in other examples.
 
@@ -14,7 +14,7 @@ So let's get into the example:
 
 As usual, let's get started with our `index.ts` file. You will notice here we grow our memory, as in order to pass back our pixel values into Javascript, we will write these values into Wasm Memory. That way, Javascript can read them later. Please be sure to read the comments in the following code examples, and be sure to follow links or look at previous examples if something does not make sense. Let's get into it:
 
-```typescript
+```rust
 // Set up our memory
 // By growing our Wasm Memory by 1 page (64KB)
 memory.grow(1);
@@ -171,12 +171,12 @@ Lastly, lets load our ES6 Module, `index.js` Javascript file in our `index.html`
 <!-- Other HTML here. -->
 ```
 
-And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/graphics/demo/assemblyscript)) below!
+And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/graphics/demo/rust)) below!
 
 ---
 
 ## Demo
 
-<iframe width="300px" height="300px" title="AssemblyScript Demo" src="/examples/graphics/demo/assemblyscript/"></iframe>
+<iframe width="300px" height="300px" title="Rust Demo" src="/examples/graphics/demo/rust/"></iframe>
 
 Next, lets took a look at an example of implementing [Audio with WebAssembly](/example-redirect?exampleName=audio).

@@ -2,7 +2,7 @@
 
 ## Overview
 
-When you are instantiating Wasm modules, you are able to pass in an [`importObject`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/instantiateStreaming). This `importObject` can be used to call host (Javascript) functions within Wasm! In this example, we will do a simple console.log, which is called within Wasm:
+When you are instantiating Wasm modules, you are able to pass in an [`importObject`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/instantiateStreaming). This `importObject` can be used to call host (Javascript) functions within Wasm! In this example, we will import and implement a simple console.log, which is called within Wasm:
 
 ---
 

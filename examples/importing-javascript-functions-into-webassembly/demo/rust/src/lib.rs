@@ -14,6 +14,8 @@ extern "C" {
     fn log(s: &str);
 }
 
+// Export a function that will be called in JavaScript
+// but call the "imported" console.log.
 #[wasm_bindgen]
 pub fn console_log_from_wasm() {
     log("This console.log is from wasm!");
