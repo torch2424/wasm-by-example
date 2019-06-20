@@ -20,10 +20,11 @@ const runWasm = async () => {
   // Clear the canvas
   canvasContext.clearRect(0, 0, canvasElement.width, canvasElement.height);
 
+  // Write some functions to get a color value
+  // for either the darker squares and lighter squares
   const getDarkValue = () => {
     return Math.floor(Math.random() * 100);
   };
-
   const getLightValue = () => {
     return Math.floor(Math.random() * 127) + 127;
   };
@@ -63,6 +64,8 @@ const runWasm = async () => {
     canvasContext.putImageData(canvasImageData, 0, 0);
   };
 
+  // Lastly, call our function to draw a checkerboard
+  // And run this once every second
   drawCheckerBoard();
   setInterval(() => {
     drawCheckerBoard();

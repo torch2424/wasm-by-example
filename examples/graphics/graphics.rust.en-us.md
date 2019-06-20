@@ -12,64 +12,96 @@ So let's get into the example:
 
 ## Implementation
 
-As usual, let's get started with our `index.ts` file. You will notice here we grow our memory, as in order to pass back our pixel values into Javascript, we will write these values into Wasm Memory. That way, Javascript can read them later. Please be sure to read the comments in the following code examples, and be sure to follow links or look at previous examples if something does not make sense. Let's get into it:
+As usual, let's get started with our `src/lib.rs` file. You will notice here we set up a buffer, similar to the [WebAssembly Linear Memory example](/example-redirect?exampleName=webassembly-linear-memory). By doing this, Javascript can read the values placed into the buffer later. Please be sure to read the comments in the following code examples, and be sure to follow links or look at previous examples if something does not make sense. Let's get into it:
 
 ```rust
-// Set up our memory
-// By growing our Wasm Memory by 1 page (64KB)
-memory.grow(1);
+// Add the wasm-pack crate
+use wasm_bindgen::prelude::*;
+
+// Define the size of our "checkerboard"
+const CHECKERBOARD_SIZE: usize = 20;
+
+/*
+ * 1. What is going on here?
+ * Create a static mutable byte buffer.
+ * We will use for putting the output of our graphics,
+ * to pass the output to js.
+ * NOTE: global `static mut` means we will have "unsafe" code
+ * but for passing memory between js and wasm should be fine.
+ *
+ * 2. Why is the size CHECKERBOARD_SIZE * CHECKERBOARD_SIZE * 4?
+ * We want to have 20 pixels by 20 pixels. And 4 colors per pixel (r,g,b,a)
+ * Which, the Canvas API Supports.
+ */
+const OUTPUT_BUFFER_SIZE: usize = CHECKERBOARD_SIZE * CHECKERBOARD_SIZE * 4;
+static mut OUTPUT_BUFFER: [u8; OUTPUT_BUFFER_SIZE] = [0; OUTPUT_BUFFER_SIZE];
+
+// Function to return a pointer to our buffer
+// in wasm memory
+#[wasm_bindgen]
+pub fn get_output_buffer_pointer() -> *const u8 {
+  let pointer: *const u8;
+  unsafe {
+    pointer = OUTPUT_BUFFER.as_ptr();
+  }
+
+  return pointer;
+}
 
 // Function to generate our checkerboard, pixel by pixel
-export function generateCheckerBoard(
-  darkValueRed: i32,
-  darkValueGreen: i32,
-  darkValueBlue: i32,
-  lightValueRed: i32,
-  lightValueGreen: i32,
-  lightValueBlue: i32
-): void {
-  const checkerBoardSize = 20;
+#[wasm_bindgen]
+pub fn generate_checker_board(
+    dark_value_red: u8,
+    dark_value_green: u8,
+    dark_value_blue: u8,
+    light_value_red: u8,
+    light_value_green: u8,
+    light_value_blue: u8
+    ) {
+
 
   // Since Linear memory is a 1 dimensional array, but we want a grid
   // we will be doing 2d to 1d mapping
   // https://softwareengineering.stackexchange.com/questions/212808/treating-a-1d-data-structure-as-2d-grid
-  for (let x: i32 = 0; x < checkerBoardSize; x++) {
-    for (let y: i32 = 0; y < checkerBoardSize; y++) {
+  for y in 0..CHECKERBOARD_SIZE {
+    for x in 0..CHECKERBOARD_SIZE {
       // Set our default case to be dark squares
-      let isDarkSquare: boolean = true;
+      let mut is_dark_square: bool = true;
 
       // We should change our default case if
       // We are on an odd y
-      if (y % 2 === 0) {
-        isDarkSquare = false;
+      if y % 2 == 0 {
+        is_dark_square = false;
       }
 
       // Lastly, alternate on our x value
-      if (x % 2 === 0) {
-        isDarkSquare = !isDarkSquare;
+      if x % 2 == 0 {
+        is_dark_square = !is_dark_square;
       }
 
       // Now that we determined if we are dark or light,
       // Let's set our square value
-      let squareValueRed = darkValueRed;
-      let squareValueGreen = darkValueGreen;
-      let squareValueBlue = darkValueBlue;
-      if (!isDarkSquare) {
-        squareValueRed = lightValueRed;
-        squareValueGreen = lightValueGreen;
-        squareValueBlue = lightValueBlue;
+      let mut square_value_red: u8 = dark_value_red;
+      let mut square_value_green: u8 = dark_value_green;
+      let mut square_value_blue: u8 = dark_value_blue;
+      if !is_dark_square {
+        square_value_red = light_value_red;
+        square_value_green = light_value_green;
+        square_value_blue = light_value_blue;
       }
 
       // Let's calculate our index, using our 2d -> 1d mapping.
       // And then multiple by 4, for each pixel property (r,g,b,a).
-      let squareNumber = y * checkerBoardSize + x;
-      let squareRgbaIndex = squareNumber * 4;
+      let square_number: usize = y * CHECKERBOARD_SIZE + x;
+      let square_rgba_index: usize = square_number * 4;
 
       // Finally store the values.
-      store<u8>(squareRgbaIndex + 0, squareValueRed); // Red
-      store<u8>(squareRgbaIndex + 1, squareValueGreen); // Green
-      store<u8>(squareRgbaIndex + 2, squareValueBlue); // Blue
-      store<u8>(squareRgbaIndex + 3, 255); // Alpha (Always opaque)
+      unsafe {
+        OUTPUT_BUFFER[square_rgba_index + 0] = square_value_red; // Red
+        OUTPUT_BUFFER[square_rgba_index + 1] = square_value_green; // Green
+        OUTPUT_BUFFER[square_rgba_index + 2] = square_value_blue; // Blue
+        OUTPUT_BUFFER[square_rgba_index + 3] = 255; // Alpha (Always Opaque)
+      }
     }
   }
 }
@@ -77,23 +109,17 @@ export function generateCheckerBoard(
 
 Next, we can compile the module following the [Hello World](/example-redirect?exampleName=hello-world) examples compilation process, replacing the appropriate file names.
 
-Next, Let's load / instantiate the wasm module, `index.wasm` in a new `index.js` file. Again, we will follow the module instantiation from the [Hello World](/example-redirect?exampleName=hello-world) example. A lot of the logic here is expanding on the [WebAssembly Linear Memory Example](/example-redirect?exampleName=webassembly-linear-memory), but applying the learnings to a DOM API. The most important thing here is probably how we are copying out memory from Wasm, using `.slice` calls. Please see the reference links if things get confusing. Here is the `index.js` below!
+Next, lets create an `index.js` file to load and run our wasm output. Let's import the wasm initialization module from `pkg/graphics.js` that was generated by wasm-pack. Then, let's call the module passing in the path to our wasm file at `pkg/graphics_bg.wasm` that was generated by wasm-pack. A lot of the logic here is expanding on the [WebAssembly Linear Memory Example](/example-redirect?exampleName=webassembly-linear-memory), but applying the learnings to a DOM API. The most important thing here is probably how we are copying out memory from Wasm, using `.slice` calls. Please see the reference links if things get confusing. Here is the `index.js` below!
 
 ```javascript
+import wasmInit from "./pkg/graphics.js";
+
 const runWasm = async () => {
   // Instantiate our wasm module
-  const wasmModule = await wasmBrowserInstantiate(
-    "/examples/graphics/demo/assemblyscript/index.wasm"
-  );
-
-  // Get our exports object, with all of our exported Wasm Properties
-  const exports = wasmModule.instance.exports;
-
-  // Get our memory object from the exports
-  const memory = exports.memory;
+  const rustWasm = await wasmInit("./pkg/graphics_bg.wasm");
 
   // Create a Uint8Array to give us access to Wasm Memory
-  const wasmByteMemoryArray = new Uint8Array(memory.buffer);
+  const wasmByteMemoryArray = new Uint8Array(rustWasm.memory.buffer);
 
   // Get our canvas element from our index.html
   const canvasElement = document.querySelector("canvas");
@@ -120,7 +146,7 @@ const runWasm = async () => {
     const checkerBoardSize = 20;
 
     // Generate a new checkboard in wasm
-    exports.generateCheckerBoard(
+    rustWasm.generate_checker_board(
       getDarkValue(),
       getDarkValue(),
       getDarkValue(),
@@ -129,11 +155,16 @@ const runWasm = async () => {
       getLightValue()
     );
 
+    // Create a Uint8Array to give us access to Wasm Memory
+    const wasmByteMemoryArray = new Uint8Array(rustWasm.memory.buffer);
+
     // Pull out the RGBA values from Wasm memory
-    // 100 * 100 * 4 = checkboard max X * checkerboard max Y * number of pixel properties (R,G.B,A)
+    // Starting at the memory index of out output buffer (given by our pointer)
+    // 20 * 20 * 4 = checkboard max X * checkerboard max Y * number of pixel properties (R,G.B,A)
+    const outputPointer = rustWasm.get_output_buffer_pointer();
     const imageDataArray = wasmByteMemoryArray.slice(
-      0,
-      checkerBoardSize * checkerBoardSize * 4
+      outputPointer,
+      outputPointer + checkerBoardSize * checkerBoardSize * 4
     );
 
     // Set the values to the canvas image data
