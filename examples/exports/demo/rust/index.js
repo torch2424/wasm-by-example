@@ -7,10 +7,10 @@ const runWasm = async () => {
   const rustWasm = await wasmInit("./pkg/exports_bg.wasm");
 
   // Call the Add function export from wasm, save the result
-  const result = rustWasm.callMeFromJavascript(24, 24);
+  const result = rustWasm.call_me_from_javascript(24, 24);
 
   domConsoleLog(result);
   domConsoleLog(rustWasm.ADD_CONSTANT); // Should return undefined
-  domConsoleLog(rustWasm.addIntegerWithConstant); // Should return undefined
+  domConsoleLog(rustWasm.add_integer_with_constant); // Should return undefined
 };
 runWasm();

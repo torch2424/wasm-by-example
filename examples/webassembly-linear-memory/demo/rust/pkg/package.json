@@ -1,0 +1,15 @@
+{
+  "name": "webassembly-linear-memory",
+  "collaborators": [
+    "Aaron Turner <aaron@aaronthedev.com>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "webassembly_linear_memory_bg.wasm",
+    "webassembly_linear_memory.js",
+    "webassembly_linear_memory.d.ts"
+  ],
+  "module": "webassembly_linear_memory.js",
+  "types": "webassembly_linear_memory.d.ts",
+  "sideEffects": "false"
+}

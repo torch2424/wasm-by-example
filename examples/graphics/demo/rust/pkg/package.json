@@ -1,0 +1,15 @@
+{
+  "name": "graphics",
+  "collaborators": [
+    "Aaron Turner <aaron@aaronthedev.com>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "graphics_bg.wasm",
+    "graphics.js",
+    "graphics.d.ts"
+  ],
+  "module": "graphics.js",
+  "types": "graphics.d.ts",
+  "sideEffects": "false"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "exports",
+  "collaborators": [
+    "Aaron Turner <aaron@aaronthedev.com>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "exports_bg.wasm",
+    "exports.js",
+    "exports.d.ts"
+  ],
+  "module": "exports.js",
+  "types": "exports.d.ts",
+  "sideEffects": "false"
+}
