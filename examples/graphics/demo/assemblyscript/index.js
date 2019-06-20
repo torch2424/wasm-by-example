@@ -53,7 +53,8 @@ const runWasm = async () => {
     );
 
     // Pull out the RGBA values from Wasm memory
-    // 100 * 100 * 4 = checkboard max X * checkerboard max Y * number of pixel properties (R,G.B,A)
+    // Starting at the memory array index that we wrote into inside wasm
+    // 20 * 20 * 4 = checkboard max X * checkerboard max Y * number of pixel properties (R,G.B,A)
     const imageDataArray = wasmByteMemoryArray.slice(
       0,
       checkerBoardSize * checkerBoardSize * 4

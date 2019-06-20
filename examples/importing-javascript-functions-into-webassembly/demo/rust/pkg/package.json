@@ -1,0 +1,15 @@
+{
+  "name": "importing-javascript-functions-into-webassembly",
+  "collaborators": [
+    "Aaron Turner <aaron@aaronthedev.com>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "importing_javascript_functions_into_webassembly_bg.wasm",
+    "importing_javascript_functions_into_webassembly.js",
+    "importing_javascript_functions_into_webassembly.d.ts"
+  ],
+  "module": "importing_javascript_functions_into_webassembly.js",
+  "types": "importing_javascript_functions_into_webassembly.d.ts",
+  "sideEffects": "false"
+}
