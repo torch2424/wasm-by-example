@@ -1,5 +1,5 @@
 [package]
-name = "graphics"
+name = "audio"
 version = "0.1.0"
 authors = ["Aaron Turner <aaron@aaronthedev.com>"]
 edition = "2018"
