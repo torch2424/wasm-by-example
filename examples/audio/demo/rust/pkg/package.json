@@ -1,0 +1,15 @@
+{
+  "name": "audio",
+  "collaborators": [
+    "Aaron Turner <aaron@aaronthedev.com>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "audio_bg.wasm",
+    "audio.js",
+    "audio.d.ts"
+  ],
+  "module": "audio.js",
+  "types": "audio.d.ts",
+  "sideEffects": "false"
+}
