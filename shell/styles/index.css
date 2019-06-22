@@ -1,9 +1,32 @@
 html,
 body {
+  color: #fff;
+  background-color: #523bde;
 }
 
 iframe {
   background-color: #fff;
+}
+
+a {
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #fff;
+  border-bottom: 0px solid #fff;
+}
+
+.title {
+  text-decoration: none;
+}
+
+.language-picker a {
+  text-decoration: none;
+}
+
+.language-picker a:hover {
+  text-decoration: underline;
 }
 
 .flex-row {
