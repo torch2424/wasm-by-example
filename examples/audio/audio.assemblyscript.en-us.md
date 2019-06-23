@@ -6,7 +6,7 @@
 
 As stated before, **WebAssembly is a great fit for computationally intensive tasks**. And even the official [AssemblyScript Documentation covers this](https://docs.assemblyscript.org/faq#is-webassembly-always-faster). For example, Tasks that involve things like big data, heavy logic with conditionals, or nested looping. Thus, generating / rendering audio samples **can** get a significant speedup by moving these mentioned parts into WebAssembly. In this example, we will be amplifying audio samples from an [AudioBuffer](https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer) using the [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API). **Note:** This functionality can and should be done through a [Gain Node](https://developer.mozilla.org/en-US/docs/Web/API/GainNode), but this is mostly for demoonstration purposes. **A more realistic (albeit more complicated and not fit for a demo) use case**, would be to implement unsupported Web Audio API effects like a [bitcrusher](https://github.com/jaz303/bitcrusher) ([Example Video](https://youtu.be/bVcpCswqCXA?t=10)), or a [ogg decoder for unsupported browsers](https://en.wikipedia.org/wiki/HTML5_audio#Supported_audio_coding_formats).
 
-**Another Note:** This example will continue to build on our simple buffer/pointer memory passing. This could be implemented using higher-level data structures, and these data structures will be covered in other examples.
+**Another Note:** This example will continue to build on our simple buffer/pointer memory passing. This could be implemented using higher-level data structures, and these data structures will be covered in later examples.
 
 So let's get into the example:
 

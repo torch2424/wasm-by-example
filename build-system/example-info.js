@@ -1,5 +1,5 @@
-const basics = {
-  title: "Basics",
+const concepts = {
+  title: "Concepts",
   examples: [
     "introduction",
     "hello-world",
@@ -9,11 +9,11 @@ const basics = {
   ]
 };
 
-const advanced = {
-  title: "Advanced Web Demos",
+const lowLevelDemos = {
+  title: "Low Level Demos",
   examples: ["graphics", "audio"]
 };
 
 module.exports = {
-  categories: [basics, advanced]
+  categories: [concepts, lowLevelDemos]
 };
