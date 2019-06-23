@@ -4,9 +4,9 @@
 
 **NOTE: This demo "idea" should not be used in production. As well as the manual type conversions. This is just for learning purposes. The text will contain mentions of when something should not be used.**
 
-As stated before, **WebAssembly is a great fit for computationally intensive tasks**. And even the official [AssemblyScript Documentation covers this](https://docs.assemblyscript.org/faq#is-webassembly-always-faster). For example, Tasks that involve things like big data, heavy logic with conditionals, or nested looping. Thus, generating / rendering audio samples **can** get a significant speedup by moving these mentioned parts into WebAssembly. In this example, we will be amplifying audio samples from an [AudioBuffer](https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer) using the [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API). **Note:** This functionality can and should be done through a [Gain Node](https://developer.mozilla.org/en-US/docs/Web/API/GainNode), but this is mostly for demoonstration purposes. **A more realistic (albeit more complicated and not fit for a demo) use case**, would be to implement unsupported Web Audio API effects like a [bitcrusher](https://github.com/jaz303/bitcrusher) ([Example Video](https://youtu.be/bVcpCswqCXA?t=10)), or a [ogg decoder for unsupported browsers](https://en.wikipedia.org/wiki/HTML5_audio#Supported_audio_coding_formats).
+As stated before, **WebAssembly is a great fit for computationally intensive tasks**. For example, Tasks that involve things like big data, heavy logic with conditionals, or nested looping. Thus, generating / rendering audio samples **can** get a significant speedup by moving these mentioned parts into WebAssembly. In this example, we will be amplifying audio samples from an [AudioBuffer](https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer) using the [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API). **Note:** This functionality can and should be done through a [Gain Node](https://developer.mozilla.org/en-US/docs/Web/API/GainNode), but this is mostly for demoonstration purposes. **A more realistic (albeit more complicated and not fit for a demo) use case**, would be to implement unsupported Web Audio API effects like a [bitcrusher](https://github.com/jaz303/bitcrusher) ([Example Video](https://youtu.be/bVcpCswqCXA?t=10)), or a [ogg decoder for unsupported browsers](https://en.wikipedia.org/wiki/HTML5_audio#Supported_audio_coding_formats).
 
-**Another Note:** This example will continue to build on our simple buffer/pointer memory passing. This could be implemented using higher-level data structures, and these data structures will be covered in other examples.
+**Another Note:** This example will continue to build on our simple buffer/pointer memory passing. This could be implemented using higher-level data structures, and these data structures will be covered in later examples.
 
 So let's get into the example:
 
@@ -14,46 +14,79 @@ So let's get into the example:
 
 ## Implementation
 
-Before starting implementation, if you are not familiar with digital audio, or how it works, I'd highly suggest watching this [video on "How Digital Audio Works" by Computerphile](https://www.youtube.com/watch?v=1RIA9U5oXro). But a quick TL;DR, Digital Audio can be represented by a one dimensional array, containing positive (1.0) and negative (-1.0) signals. Where the index of the array represents time.
+Before starting implementation, if you are not familiar with digital audio, or how it works, I'd highly suggest watching this [video on "How Digital Audio Works" by Computerphile](https://www.youtube.com/watch?v=1RIA9U5oXro). But a quick TL;DR, Digital Audio can be represented by a one dimensional array, containing positive (1.0) and negative (-1.0) signals. Where the index of the array represents time, and the value represents the signal (positive or negative), and the volume (e.g 0 -> 1.0).
 
-As usual, let's get started with our `index.ts` file. You will notice here we grow our memory, as in order to pass back our pixel values into Javascript, we will write these values into Wasm Memory. That way, Javascript can read them later. Please be sure to read the comments in the following code examples, and be sure to follow links or look at previous examples if something does not make sense. Let's get into it:
+As usual, let's get started with our `src/lib.rs` file. You will notice here we set up a buffer, similar to the [WebAssembly Linear Memory example](/example-redirect?exampleName=webassembly-linear-memory). In order to pass back our pixel values into Javascript, we will write these values into Wasm Memory. That way, Javascript can read them later. Please be sure to read the comments in the following code examples, and be sure to follow links or look at previous examples if something does not make sense. Let's get into it:
 
-```typescript
-// Set up our memory
-// By growing our Wasm Memory by 1 page (64KB)
-memory.grow(1);
+```rust
+// Add the wasm-pack crate
+use wasm_bindgen::prelude::*;
 
-// Function to do the amplification
-// inputPointer is where (memory index) we placed the input audio samples.
-// inputLength is the number of samples in the audio buffer (that the pointer points to).
-export function amplifyAudioInBuffer(inputPointer: i32, inputLength: i32): i32 {
-  // Create a pointer (memory index) of where
-  // We will place the output audio samples
-  // For this example, it will be right after the input
-  let outputPointer: i32 = inputPointer + inputLength;
+// Define our number of samples we handle at once
+const NUMBER_OF_SAMPLES: usize = 1024;
+
+// Create a static mutable byte buffers.
+// We will use these for passing audio samples from
+// javascript to wasm, and from wasm to javascript
+// NOTE: global `static mut` means we will have "unsafe" code
+// but for passing memory between js and wasm should be fine.
+static mut INPUT_BUFFER: [u8; NUMBER_OF_SAMPLES] = [0; NUMBER_OF_SAMPLES];
+static mut OUTPUT_BUFFER: [u8; NUMBER_OF_SAMPLES] = [0; NUMBER_OF_SAMPLES];
+
+// Function to return a pointer to our
+// output buffer in wasm memory
+#[wasm_bindgen]
+pub fn get_input_buffer_pointer() -> *const u8 {
+  let pointer: *const u8;
+  unsafe {
+    pointer = INPUT_BUFFER.as_ptr();
+  }
+
+  return pointer;
+}
+
+// Function to return a pointer to our
+// output buffer in wasm memory
+#[wasm_bindgen]
+pub fn get_output_buffer_pointer() -> *const u8 {
+  let pointer: *const u8;
+  unsafe {
+    pointer = OUTPUT_BUFFER.as_ptr();
+  }
+
+  return pointer;
+}
+
+// Function to do the amplification.
+// By taking the samples currently in the input buffer
+// amplifying them, and placing the result in the output buffer
+#[wasm_bindgen]
+pub fn amplify_audio() {
 
   // Loop over the samples
-  for (let i = 0; i < inputLength; i++) {
+  for i in 0..NUMBER_OF_SAMPLES {
     // Load the sample at the index
-    let audioSample: u8 = load<u8>(inputPointer + i);
+    let mut audio_sample: u8;
+    unsafe {
+      audio_sample = INPUT_BUFFER[i];
+    }
 
     // Amplify the sample. All samples
     // Should be implemented as bytes.
     // Byte samples are represented as follows:
     // 127 is silence, 0 is negative max, 256 is positive max
-    if (audioSample > 127) {
-      let audioSampleDiff = audioSample - 127;
-      audioSample = audioSample + audioSampleDiff;
-    } else if (audioSample < 127) {
-      audioSample = audioSample / 2;
+    if audio_sample > 127 {
+      let audio_sample_diff = audio_sample - 127;
+      audio_sample = audio_sample + audio_sample_diff;
+    } else if audio_sample < 127 {
+      audio_sample = audio_sample / 2;
     }
 
     // Store the audio sample into our output buffer
-    store<u8>(outputPointer + i, audioSample);
+    unsafe {
+      OUTPUT_BUFFER[i] = audio_sample;
+    }
   }
-
-  // Return where we placed the output buffer
-  return outputPointer;
 }
 ```
 
@@ -92,7 +125,7 @@ const originalAudioSamples = new Float32Array(numberOfSamples);
 const amplifiedAudioSamples = new Float32Array(numberOfSamples);
 ```
 
-Next, let's set up some type conversion in our `index.js`. This is because the Web Audio API takes in floats (between -1.0 and 1.0) as their audio samples, but **for demonstration purposes** wanted to show how we can do this using only bytes in Wasm linear memory. Since this is kind of unneccesary work, this **should not be used in production**. Instead you'd probably want to use the Wasm memory buffer as a [Float32Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array). But, here is how we'd do the conversion if we wanted to stick with a byte array:
+Next, let's set up some type conversion in our `index.js`. This is because the Web Audio API takes in floats (between -1.0 and 1.0) as their audio samples, but **for demonstration purposes** wanted to show how we can do this using only bytes in Wasm linear memory. Since this is kind of unneccesary work, this **should not be used in production**. Instead you'd probably want to use higher level data structures, which we will show in later examples. But, here is how we'd do the conversion if we wanted to stick with a byte array:
 
 ```javascript
 // Function to convert float samples to byte samples
@@ -127,70 +160,62 @@ const byteSamplesToFloatSamples = byteSamples => {
 };
 ```
 
-Next, Let's load / instantiate the wasm module, `index.wasm` in our `index.js`, and perform our actual audio generation and amplification. Again, we will follow the module instantiation from the [Hello World](/example-redirect?exampleName=hello-world) example. A lot of the logic here is expanding on the [WebAssembly Linear Memory Example](/example-redirect?exampleName=webassembly-linear-memory), but applying the learnings to a DOM API. The most important thing here is probably how we are copying out memory from Wasm, using `.slice` calls. Please see the reference links if things get confusing.Again, I'd like to mention the type conversion is a bit unneccesary, and **should not be used in production**. This is mostly just to show how you can convert down to bytes if **you are not entirely using floats in parts of you Wasm linear memory**.
+Next, Let's load / instantiate the wasm module, `audio_bg.wasm` in our `index.js`, and perform our actual audio generation and amplification. Again, we will follow the module instantiation from the [Hello World](/example-redirect?exampleName=hello-world) example. A lot of the logic here is expanding on the [WebAssembly Linear Memory Example](/example-redirect?exampleName=webassembly-linear-memory), but applying the learnings to a DOM API. The most important thing here is probably how we are copying out memory from Wasm, using `.slice` calls. Please see the reference links if things get confusing. Again, I'd like to mention the type conversion is a bit unneccesary, and **should not be used in production**. This is mostly just to show how you can convert down to bytes.
 
 Here is the wasm instantiation / audio amplification in our `index.js` below!
 
 ```javascript
 const runWasm = async () => {
-  // Instantiate our wasm module
-  const wasmModule = await wasmBrowserInstantiate(
-    "/examples/audio/demo/assemblyscript/index.wasm"
-  );
+  const runWasm = async () => {
+    // Instantiate our wasm module
+    const rustWasm = await wasmInit("./pkg/audio_bg.wasm");
 
-  // Get our exports object, with all of our exported Wasm Properties
-  const exports = wasmModule.instance.exports;
+    // Create a Uint8Array to give us access to Wasm Memory
+    const wasmByteMemoryArray = new Uint8Array(rustWasm.memory.buffer);
 
-  // Get our memory object from the exports
-  const memory = exports.memory;
-
-  // Create a Uint8Array to give us access to Wasm Memory
-  const wasmByteMemoryArray = new Uint8Array(memory.buffer);
-
-  // Generate 1024 float audio samples,
-  // and make a quiet / simple square wave
-  const sampleValue = 0.3;
-  for (let i = 0; i < numberOfSamples; i++) {
-    if (i < numberOfSamples / 2) {
-      originalAudioSamples[i] = sampleValue;
-    } else {
-      originalAudioSamples[i] = sampleValue * -1;
+    // Generate 1024 float audio samples,
+    // and make a quiet / simple square wave
+    const sampleValue = 0.3;
+    for (let i = 0; i < numberOfSamples; i++) {
+      if (i < numberOfSamples / 2) {
+        originalAudioSamples[i] = sampleValue;
+      } else {
+        originalAudioSamples[i] = sampleValue * -1;
+      }
     }
-  }
 
-  // Convert our float audio samples
-  // to a byte format for demonstration purposes
-  const originalByteAudioSamples = floatSamplesToByteSamples(
-    originalAudioSamples
-  );
+    // Convert our float audio samples
+    // to a byte format for demonstration purposes
+    const originalByteAudioSamples = floatSamplesToByteSamples(
+        originalAudioSamples
+        );
 
-  // Fill our wasm memory with the converted Audio Samples,
-  // And store it at our inputPointer location (index)
-  const inputPointer = 0;
-  wasmByteMemoryArray.set(originalByteAudioSamples, inputPointer);
+    // Fill our wasm memory with the converted Audio Samples,
+    // And store it at our inputPointer location (index)
+    const inputPointer = rustWasm.get_input_buffer_pointer();
+    wasmByteMemoryArray.set(originalByteAudioSamples, inputPointer);
 
-  // Amplify our loaded samples with our export Wasm function
-  // This returns our outputPointer (index were the sample buffer was stored)
-  const outputPointer = exports.amplifyAudioInBuffer(
-    inputPointer,
-    numberOfSamples
-  );
+    // Amplify our loaded samples with our export Wasm function
+    rustWasm.amplify_audio();
 
-  // Slice out the amplified byte audio samples
-  const outputBuffer = wasmByteMemoryArray.slice(
-    outputPointer,
-    outputPointer + numberOfSamples
-  );
+    // Get our outputPointer (index were the sample buffer was stored)
+    // Slice out the amplified byte audio samples
+    const outputPointer = rustWasm.get_output_buffer_pointer();
+    const outputBuffer = wasmByteMemoryArray.slice(
+        outputPointer,
+        outputPointer + numberOfSamples
+        );
 
-  // Convert our amplified byte samples into float samples,
-  // and set the outputBuffer to our amplifiedAudioSamples
-  amplifiedAudioSamples.set(byteSamplesToFloatSamples(outputBuffer));
+    // Convert our amplified byte samples into float samples,
+    // and set the outputBuffer to our amplifiedAudioSamples
+    amplifiedAudioSamples.set(byteSamplesToFloatSamples(outputBuffer));
 
-  // Start the audio source (Will play silence for now)
-  audioBufferSource.start();
+    // Start the audio source (Will play silence for now)
+    audioBufferSource.start();
 
-  // We are now done! The "play" Functions will handle swapping in the
-  // correct audio buffer
+    // We are now done! The "play" Functions will handle swapping in the
+    // correct audio buffer
+
 };
 runWasm();
 ```
