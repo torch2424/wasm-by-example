@@ -23,19 +23,25 @@ As usual, let's get started with our `index.ts` file. You will notice here we gr
 // By growing our Wasm Memory by 1 page (64KB)
 memory.grow(1);
 
-// Function to do the amplification
-// inputPointer is where (memory index) we placed the input audio samples.
-// inputLength is the number of samples in the audio buffer (that the pointer points to).
-export function amplifyAudioInBuffer(inputPointer: i32, inputLength: i32): i32 {
-  // Create a pointer (memory index) of where
-  // We will place the output audio samples
-  // For this example, it will be right after the input
-  let outputPointer: i32 = inputPointer + inputLength;
+// Create some buffer/pointers (array index and size) to where
+// in memory we are storing the pixels.
+// NOTE: Be sure to set a correct --memoryBase when
+// when writing to memory directly like we are here.
+// https://docs.assemblyscript.org/details/compiler
+// Javascript writes to the INPUT_BUFFER,
+// and Wasm will write the result in the OUTPUT_BUFFER
+export const INPUT_BUFFER_POINTER: i32 = 0;
+export const INPUT_BUFFER_SIZE: i32 = 1024;
+export const OUTPUT_BUFFER_POINTER: i32 =
+  INPUT_BUFFER_POINTER + INPUT_BUFFER_SIZE;
+export const OUTPUT_BUFFER_SIZE: i32 = INPUT_BUFFER_SIZE;
 
+// Function to do the amplification
+export function amplifyAudioInBuffer(): void {
   // Loop over the samples
-  for (let i = 0; i < inputLength; i++) {
+  for (let i = 0; i < INPUT_BUFFER_SIZE; i++) {
     // Load the sample at the index
-    let audioSample: u8 = load<u8>(inputPointer + i);
+    let audioSample: u8 = load<u8>(INPUT_BUFFER_POINTER + i);
 
     // Amplify the sample. All samples
     // Should be implemented as bytes.
@@ -49,11 +55,8 @@ export function amplifyAudioInBuffer(inputPointer: i32, inputLength: i32): i32 {
     }
 
     // Store the audio sample into our output buffer
-    store<u8>(outputPointer + i, audioSample);
+    store<u8>(OUTPUT_BUFFER_POINTER + i, audioSample);
   }
-
-  // Return where we placed the output buffer
-  return outputPointer;
 }
 ```
 
@@ -165,21 +168,20 @@ const runWasm = async () => {
   );
 
   // Fill our wasm memory with the converted Audio Samples,
-  // And store it at our inputPointer location (index)
-  const inputPointer = 0;
-  wasmByteMemoryArray.set(originalByteAudioSamples, inputPointer);
+  // And store it at our INPUT_BUFFER_POINTER (wasm memory index)
+  wasmByteMemoryArray.set(
+    originalByteAudioSamples,
+    exports.INPUT_BUFFER_POINTER.valueOf()
+  );
 
   // Amplify our loaded samples with our export Wasm function
-  // This returns our outputPointer (index were the sample buffer was stored)
-  const outputPointer = exports.amplifyAudioInBuffer(
-    inputPointer,
-    numberOfSamples
-  );
+  exports.amplifyAudioInBuffer();
 
   // Slice out the amplified byte audio samples
   const outputBuffer = wasmByteMemoryArray.slice(
-    outputPointer,
-    outputPointer + numberOfSamples
+    exports.OUTPUT_BUFFER_POINTER.valueOf(),
+    exports.OUTPUT_BUFFER_POINTER.valueOf() +
+      exports.OUTPUT_BUFFER_SIZE.valueOf()
   );
 
   // Convert our amplified byte samples into float samples,
@@ -195,7 +197,7 @@ const runWasm = async () => {
 runWasm();
 ```
 
-Next, we need to provide a way to actually play the audio buffers. Thus, at the bottom of our `index.js` we will add:
+Next, we need to provide a way to actually play/pause the audio buffers. Thus, at the bottom of our `index.js` we will add:
 
 ```javascript
 function beforePlay() {
@@ -220,9 +222,19 @@ window.playAmplified = () => {
   audioBuffer.getChannelData(0).set(amplifiedAudioSamples);
   audioBuffer.getChannelData(1).set(amplifiedAudioSamples);
 };
+
+window.pause = () => {
+  beforePlay();
+  // Create/Set the buffer to silence
+  const silence = [];
+  silence.length = numberOfSamples;
+  silence.fill(0);
+  audioBuffer.getChannelData(0).set(silence);
+  audioBuffer.getChannelData(1).set(silence);
+};
 ```
 
-Finally, let's make sure we have the following to our `index.html` to provide buttons to call our play functions so we can actually play our audio:
+Finally, let's make sure we have the following to our `index.html` to provide buttons to call our play/pause functions so we can actually play our audio:
 
 ```html
 <!-- Other HTML here. -->
@@ -237,6 +249,11 @@ Finally, let's make sure we have the following to our `index.html` to provide bu
 
   <h1>Amplified Sine Wave</h1>
   <div><button onclick="playAmplified()">Play</button></div>
+
+  <hr />
+
+  <h1>Pause</h1>
+  <div><button onclick="pause()">Pause</button></div>
 </body>
 
 <!-- Other HTML here. -->

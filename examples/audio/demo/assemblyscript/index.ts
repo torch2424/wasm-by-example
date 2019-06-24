@@ -2,19 +2,25 @@
 // By growing our Wasm Memory by 1 page (64KB)
 memory.grow(1);
 
-// Function to do the amplification
-// inputPointer is where (memory index) we placed the input audio samples.
-// inputLength is the number of samples in the audio buffer (that the pointer points to).
-export function amplifyAudioInBuffer(inputPointer: i32, inputLength: i32): i32 {
-  // Create a pointer (memory index) of where
-  // We will place the output audio samples
-  // For this example, it will be right after the input
-  let outputPointer: i32 = inputPointer + inputLength;
+// Create some buffer/pointers (array index and size) to where
+// in memory we are storing the pixels.
+// NOTE: Be sure to set a correct --memoryBase when
+// when writing to memory directly like we are here.
+// https://docs.assemblyscript.org/details/compiler
+// Javascript writes to the INPUT_BUFFER,
+// and Wasm will write the result in the OUTPUT_BUFFER
+export const INPUT_BUFFER_POINTER: i32 = 0;
+export const INPUT_BUFFER_SIZE: i32 = 1024;
+export const OUTPUT_BUFFER_POINTER: i32 =
+  INPUT_BUFFER_POINTER + INPUT_BUFFER_SIZE;
+export const OUTPUT_BUFFER_SIZE: i32 = INPUT_BUFFER_SIZE;
 
+// Function to do the amplification
+export function amplifyAudioInBuffer(): void {
   // Loop over the samples
-  for (let i = 0; i < inputLength; i++) {
+  for (let i = 0; i < INPUT_BUFFER_SIZE; i++) {
     // Load the sample at the index
-    let audioSample: u8 = load<u8>(inputPointer + i);
+    let audioSample: u8 = load<u8>(INPUT_BUFFER_POINTER + i);
 
     // Amplify the sample. All samples
     // Should be implemented as bytes.
@@ -28,9 +34,6 @@ export function amplifyAudioInBuffer(inputPointer: i32, inputLength: i32): i32 {
     }
 
     // Store the audio sample into our output buffer
-    store<u8>(outputPointer + i, audioSample);
+    store<u8>(OUTPUT_BUFFER_POINTER + i, audioSample);
   }
-
-  // Return where we placed the output buffer
-  return outputPointer;
 }

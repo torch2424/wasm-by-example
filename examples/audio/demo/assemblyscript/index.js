@@ -96,21 +96,20 @@ const runWasm = async () => {
   );
 
   // Fill our wasm memory with the converted Audio Samples,
-  // And store it at our inputPointer location (index)
-  const inputPointer = 0;
-  wasmByteMemoryArray.set(originalByteAudioSamples, inputPointer);
+  // And store it at our INPUT_BUFFER_POINTER (wasm memory index)
+  wasmByteMemoryArray.set(
+    originalByteAudioSamples,
+    exports.INPUT_BUFFER_POINTER.valueOf()
+  );
 
   // Amplify our loaded samples with our export Wasm function
-  // This returns our outputPointer (index were the sample buffer was stored)
-  const outputPointer = exports.amplifyAudioInBuffer(
-    inputPointer,
-    numberOfSamples
-  );
+  exports.amplifyAudioInBuffer();
 
   // Slice out the amplified byte audio samples
   const outputBuffer = wasmByteMemoryArray.slice(
-    outputPointer,
-    outputPointer + numberOfSamples
+    exports.OUTPUT_BUFFER_POINTER.valueOf(),
+    exports.OUTPUT_BUFFER_POINTER.valueOf() +
+      exports.OUTPUT_BUFFER_SIZE.valueOf()
   );
 
   // Convert our amplified byte samples into float samples,
@@ -146,4 +145,14 @@ window.playAmplified = () => {
   // of our playing audio buffer
   audioBuffer.getChannelData(0).set(amplifiedAudioSamples);
   audioBuffer.getChannelData(1).set(amplifiedAudioSamples);
+};
+
+window.pause = () => {
+  beforePlay();
+  // Create/Set the buffer to silence
+  const silence = [];
+  silence.length = numberOfSamples;
+  silence.fill(0);
+  audioBuffer.getChannelData(0).set(silence);
+  audioBuffer.getChannelData(1).set(silence);
 };

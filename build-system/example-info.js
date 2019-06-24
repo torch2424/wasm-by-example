@@ -9,11 +9,11 @@ const concepts = {
   ]
 };
 
-const lowLevelDemos = {
-  title: "Low Level Demos",
+const applyingTheConcepts = {
+  title: "Applying the Concepts",
   examples: ["graphics", "audio"]
 };
 
 module.exports = {
-  categories: [concepts, lowLevelDemos]
+  categories: [concepts, applyingTheConcepts]
 };
