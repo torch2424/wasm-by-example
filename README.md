@@ -1,5 +1,7 @@
 # wasm-by-example
 
+![Travis Status](https://travis-ci.org/torch2424/wasm-by-example.svg?branch=master)
+
 A [website](https://wasmbyexample.dev/) containing simple examples for how to get things done with wasm.
 
 ![Wasm By Example Website Header](./assets/readmeBanner.png)
