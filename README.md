@@ -4,6 +4,39 @@ A [website](https://wasmbyexample.dev/) containing simple examples for how to ge
 
 ![Wasm By Example Website Header](./assets/readmeBanner.png)
 
+# Table of Contents
+
+- [Motivation](#motivation)
+- [Developing](#developing)
+- [Contributing](#contributing)
+  - [Examples](#examples)
+    - [Creating a new Example](#creating-a-new-example)
+    - [Adding a new Programming Language to an Example](#adding-a-new-programming-language-to-an-example)
+    - [Adding a new Reading Language (Translation) to an Example](#adding-a-new-reading-language-translation-to-an-example)
+  - [Improving the shell (the base website)](#improving-the-shell-the-base-website)
+  - [Any other contributions](#any-other-contributions)
+- [License](#license)
+
+# Motivation
+
+This project is heavily inspired by [Go By Example](https://gobyexample.com/). Wasm is still relatively young, and I thought it would be great to have a similar, hands-on / tutorial / introduction into WebAssembly for those who "learn by doing".
+
+# Developing
+
+To start developing the project, fork the project, then `git clone` it down to your local machine.
+
+To build the project, run:
+
+```bash
+npm run build
+```
+
+To serve, and build on changes for the project, run:
+
+```bash
+npm run dev
+```
+
 # Contributing
 
 Thank you for wanting to contribute! Below is a guide for contributing different parts of the project:

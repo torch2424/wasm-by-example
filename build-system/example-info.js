@@ -11,7 +11,7 @@ const concepts = {
 
 const applyingTheConcepts = {
   title: "Applying the Concepts",
-  examples: ["graphics", "audio"]
+  examples: ["reading-and-writing-graphics", "reading-and-writing-audio"]
 };
 
 module.exports = {

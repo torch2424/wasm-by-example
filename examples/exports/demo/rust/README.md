@@ -1,3 +1,3 @@
-# Hello World (Assemblyscript)
+# Exports (Rust)
 
-Compile with `asc hello-world.ts -b hello-world.wasm -t hello-world.wat`
+Compile with `wasm-pack build --target web`

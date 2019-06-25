@@ -202,12 +202,12 @@ Lastly, lets load our ES6 Module, `index.js` Javascript file in our `index.html`
 <!-- Other HTML here. -->
 ```
 
-And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/graphics/demo/rust)) below!
+And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/reading-and-writing-graphics/demo/rust)) below!
 
 ---
 
 ## Demo
 
-<iframe width="300px" height="300px" title="Rust Demo" src="/examples/graphics/demo/rust/"></iframe>
+<iframe width="300px" height="300px" title="Rust Demo" src="/examples/reading-and-writing-graphics/demo/rust/"></iframe>
 
-Next, lets took a look at an example of implementing [Audio with WebAssembly](/example-redirect?exampleName=audio).
+Next, lets took a look at an example of implementing [Audio with WebAssembly](/example-redirect?exampleName=reading-and-writing-audio).

@@ -190,12 +190,12 @@ Lastly, lets load our ES6 Module, `index.js` Javascript file in our `index.html`
 <!-- Other HTML here. -->
 ```
 
-And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/graphics/demo/assemblyscript)) below!
+And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/reading-and-writing-graphics/demo/assemblyscript)) below!
 
 ---
 
 ## Demo
 
-<iframe width="300px" height="300px" title="AssemblyScript Demo" src="/examples/graphics/demo/assemblyscript/"></iframe>
+<iframe width="300px" height="300px" title="AssemblyScript Demo" src="/examples/reading-and-writing-graphics/demo/assemblyscript/"></iframe>
 
-Next, lets took a look at an example of implementing [Audio with WebAssembly](/example-redirect?exampleName=audio).
+Next, lets took a look at an example of implementing [Audio with WebAssembly](/example-redirect?exampleName=reading-and-writing-audio).

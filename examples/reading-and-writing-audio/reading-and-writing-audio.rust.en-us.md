@@ -282,10 +282,10 @@ Finally, let's make sure we have the following to our `index.html` to provide bu
 <!-- Other HTML here. -->
 ```
 
-And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/audio/demo/rust)) below! **Note:** This was a lot of Javascript getting the Audio stuff all set up, this I highly reccomended click the demo source code link just provided to get a entire view of everything going on.
+And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/reading-and-writing-audio/demo/rust)) below! **Note:** This was a lot of Javascript getting the Audio stuff all set up, this I highly reccomended click the demo source code link just provided to get a entire view of everything going on.
 
 ---
 
 ## Demo
 
-<iframe width="300px" height="400px" title="Rust Audio Demo" src="/examples/audio/demo/rust/"></iframe>
+<iframe width="300px" height="400px" title="Rust Audio Demo" src="/examples/reading-and-writing-audio/demo/rust/"></iframe>
