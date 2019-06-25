@@ -1,7 +1,7 @@
 {
   "name": "wasm-by-example",
   "version": "0.0.1",
-  "description": "A website for Examples in how to do common things in WebAssembly",
+  "description": "A website of examples in how to do common things in WebAssembly",
   "main": "index.js",
   "directories": {
     "example": "examples"
