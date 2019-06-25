@@ -30,7 +30,7 @@ Next, Let's load / instantiate the was module, `index.wasm` in a new `index.js` 
 const runWasm = async () => {
   // Instantiate our wasm module
   // And pass in a wasm module
-  const wasmModule = await wasmBrowserInstantiate("index.wasm", {
+  const wasmModule = await wasmBrowserInstantiate("./index.wasm", {
     index: {
       consoleLog: value => console.log(value)
     }

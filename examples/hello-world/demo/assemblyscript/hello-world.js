@@ -5,9 +5,7 @@ import { wasmBrowserInstantiate } from "/demo-util/instantiateWasm.js";
 
 const runWasmAdd = async () => {
   // Instantiate our wasm module
-  const wasmModule = await wasmBrowserInstantiate(
-    "/examples/hello-world/demo/assemblyscript/hello-world.wasm"
-  );
+  const wasmModule = await wasmBrowserInstantiate("./hello-world.wasm");
 
   // Call the Add function export from wasm, save the result
   const addResult = wasmModule.instance.exports.add(24, 24);
