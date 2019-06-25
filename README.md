@@ -1,6 +1,6 @@
 # wasm-by-example
 
-![Travis Status](https://travis-ci.org/torch2424/wasm-by-example.svg?branch=master)
+![Travis Status](https://travis-ci.org/torch2424/wasm-by-example.svg?branch=master) [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 A [website](https://wasmbyexample.dev/) containing simple examples for how to get things done with wasm.
 
