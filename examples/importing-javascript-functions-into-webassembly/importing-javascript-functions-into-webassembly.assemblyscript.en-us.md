@@ -18,7 +18,7 @@ declare function consoleLog(arg0: i32): void;
 consoleLog(24);
 ```
 
-Then, let's compile that into a wasm module, using the [AssemblyScript Compiler](https://github.com/AssemblyScript/assemblyscript/wiki/Using-the-compiler), which will output a `index.wasm`:
+Then, let's compile that into a wasm module, using the [AssemblyScript Compiler](https://docs.assemblyscript.org/details/compiler), which will output a `index.wasm`:
 
 ```bash
 asc index.ts -b index.wasm
@@ -47,4 +47,4 @@ Lastly, lets load our ES6 Module, `index.js` Javascript file in our `index.html`
 
 <iframe title="AssemblyScript Demo" src="/examples/importing-javascript-functions-into-webassembly/demo/assemblyscript/"></iframe>
 
-And that's it for the basics! Next, lets took a look at some "Advanced Web Demos", with an example of implementing [Graphics with WebAssembly](/example-redirect?exampleName=graphics).
+And that's it for the basics! Next, lets took a look at some "Advanced Web Demos", with an example of [Reading and Writing Graphics with WebAssembly](/example-redirect?exampleName=reading-and-writing-graphics).

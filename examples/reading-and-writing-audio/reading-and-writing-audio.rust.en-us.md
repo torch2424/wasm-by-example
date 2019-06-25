@@ -1,4 +1,4 @@
-# Audio
+# Reading and Writing Audio
 
 ## Overview
 
@@ -289,3 +289,5 @@ And you should get something similar to the demo ([Source Code](/source-redirect
 ## Demo
 
 <iframe width="300px" height="400px" title="Rust Audio Demo" src="/examples/reading-and-writing-audio/demo/rust/"></iframe>
+
+This is the end of the examples for now! More will be in the works, and feel free to [fix, suggest, or contribute examples](https://github.com/torch2424/wasm-by-example)!

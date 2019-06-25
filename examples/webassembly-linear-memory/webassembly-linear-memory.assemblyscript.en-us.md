@@ -40,7 +40,7 @@ export function readWasmMemoryAndReturnIndexOne(): i32 {
 }
 ```
 
-Then, let's compile that into a wasm module, using the [AssemblyScript Compiler](https://github.com/AssemblyScript/assemblyscript/wiki/Using-the-compiler), which will output a `index.wasm`:
+Then, let's compile that into a wasm module, using the [AssemblyScript Compiler](https://docs.assemblyscript.org/details/compiler), which will output a `index.wasm`:
 
 ```bash
 asc index.ts -b index.wasm

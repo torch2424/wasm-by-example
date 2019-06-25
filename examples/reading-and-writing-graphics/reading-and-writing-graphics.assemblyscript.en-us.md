@@ -1,4 +1,4 @@
-# Graphics
+# Reading and Writing Graphics
 
 ## Overview
 
@@ -198,4 +198,4 @@ And you should get something similar to the demo ([Source Code](/source-redirect
 
 <iframe width="300px" height="300px" title="AssemblyScript Demo" src="/examples/reading-and-writing-graphics/demo/assemblyscript/"></iframe>
 
-Next, lets took a look at an example of implementing [Audio with WebAssembly](/example-redirect?exampleName=reading-and-writing-audio).
+Next, lets took a look at an example of [Reading and Writing Audio with WebAssembly](/example-redirect?exampleName=reading-and-writing-audio).

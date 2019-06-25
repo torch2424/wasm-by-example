@@ -23,7 +23,7 @@ export function add(a: i32, b: i32): i32 {
 }
 ```
 
-Then, let's compile that into a wasm module, using the [AssemblyScript Compiler](https://github.com/AssemblyScript/assemblyscript/wiki/Using-the-compiler), which will output a `hello-world.wasm`:
+Then, let's compile that into a wasm module, using the [AssemblyScript Compiler](https://docs.assemblyscript.org/details/compiler), which will output a `hello-world.wasm`:
 
 ```bash
 asc hello-world.ts -b hello-world.wasm
