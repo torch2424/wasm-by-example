@@ -1,3 +1,3 @@
-# Hello World (Assemblyscript)
+# Importing JavaScript Functions into Wasm (Assemblyscript)
 
-Compile with `asc hello-world.ts -b hello-world.wasm -t hello-world.wat`
+Compile with `asc index.ts -b index.wasm -t index.wat`

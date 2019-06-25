@@ -52,12 +52,11 @@ const runWasm = async () => {
       getLightValue()
     );
 
-    // Pull out the RGBA values from Wasm memory
-    // Starting at the memory array index that we wrote into inside wasm
-    // 20 * 20 * 4 = checkboard max X * checkerboard max Y * number of pixel properties (R,G.B,A)
+    // Pull out the RGBA values from Wasm memory, the we wrote to in wasm,
+    // starting at the checkerboard pointer (memory array index)
     const imageDataArray = wasmByteMemoryArray.slice(
-      0,
-      checkerBoardSize * checkerBoardSize * 4
+      exports.CHECKERBOARD_BUFFER_POINTER.valueOf(),
+      exports.CHECKERBOARD_BUFFER_SIZE.valueOf()
     );
 
     // Set the values to the canvas image data

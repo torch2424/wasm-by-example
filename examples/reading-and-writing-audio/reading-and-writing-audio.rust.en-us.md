@@ -1,4 +1,4 @@
-# Audio
+# Reading and Writing Audio
 
 ## Overview
 
@@ -220,7 +220,7 @@ const runWasm = async () => {
 runWasm();
 ```
 
-Next, we need to provide a way to actually play the audio buffers. Thus, at the bottom of our `index.js` we will add:
+Next, we need to provide a way to actually play/pause the audio buffers. Thus, at the bottom of our `index.js` we will add:
 
 ```javascript
 function beforePlay() {
@@ -245,9 +245,19 @@ window.playAmplified = () => {
   audioBuffer.getChannelData(0).set(amplifiedAudioSamples);
   audioBuffer.getChannelData(1).set(amplifiedAudioSamples);
 };
+
+window.pause = () => {
+  beforePlay();
+  // Create/Set the buffer to silence
+  const silence = [];
+  silence.length = numberOfSamples;
+  silence.fill(0);
+  audioBuffer.getChannelData(0).set(silence);
+  audioBuffer.getChannelData(1).set(silence);
+};
 ```
 
-Finally, let's make sure we have the following to our `index.html` to provide buttons to call our play functions so we can actually play our audio:
+Finally, let's make sure we have the following to our `index.html` to provide buttons to call our play/pause functions so we can actually play our audio:
 
 ```html
 <!-- Other HTML here. -->
@@ -262,15 +272,22 @@ Finally, let's make sure we have the following to our `index.html` to provide bu
 
   <h1>Amplified Sine Wave</h1>
   <div><button onclick="playAmplified()">Play</button></div>
+
+  <hr />
+
+  <h1>Pause</h1>
+  <div><button onclick="pause()">Pause</button></div>
 </body>
 
 <!-- Other HTML here. -->
 ```
 
-And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/audio/demo/rust)) below! **Note:** This was a lot of Javascript getting the Audio stuff all set up, this I highly reccomended click the demo source code link just provided to get a entire view of everything going on.
+And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/reading-and-writing-audio/demo/rust)) below! **Note:** This was a lot of Javascript getting the Audio stuff all set up, this I highly reccomended click the demo source code link just provided to get a entire view of everything going on.
 
 ---
 
 ## Demo
 
-<iframe width="300px" height="400px" title="Rust Audio Demo" src="/examples/audio/demo/rust/"></iframe>
+<iframe width="300px" height="400px" title="Rust Audio Demo" src="/examples/reading-and-writing-audio/demo/rust/"></iframe>
+
+This is the end of the examples for now! More will be in the works, and feel free to [fix, suggest, or contribute examples](https://github.com/torch2424/wasm-by-example)!

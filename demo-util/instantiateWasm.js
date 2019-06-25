@@ -2,7 +2,11 @@ export const wasmBrowserInstantiate = async (wasmModuleUrl, importObject) => {
   let response = undefined;
 
   if (!importObject) {
-    importObject = {};
+    importObject = {
+      env: {
+        abort: () => console.log("Abort!")
+      }
+    };
   }
 
   if (WebAssembly.instantiateStreaming) {

@@ -1,7 +1,7 @@
 {
   "name": "wasm-by-example",
   "version": "0.0.1",
-  "description": "A website for Examples in how to do common things in WebAssembly",
+  "description": "A website of examples in how to do common things in WebAssembly",
   "main": "index.js",
   "directories": {
     "example": "examples"
@@ -11,7 +11,8 @@
     "build": "node build-system/build.js",
     "serve": "npx http-server ./dist",
     "watch": "npx watch 'npm run build' ./examples ./shell ./build-system ./demo-util --interval=1",
-    "lint": "npx prettier --write build-system/**/*.js shell/**/*.css shell/**/*.html"
+    "lint": "npx prettier --write build-system/**/*.js shell/**/*.css shell/**/*.html examples/**/*.md examples/**/*.js examples/**/*.html examples/**/*.ts",
+    "lint:ci": "npx prettier --list-different build-system/**/*.js shell/**/*.css shell/**/*.html examples/**/*.md examples/**/*.js examples/**/*.html examples/**/*.ts"
   },
   "husky": {
     "hooks": {

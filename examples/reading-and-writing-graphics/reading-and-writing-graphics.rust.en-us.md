@@ -1,8 +1,8 @@
-# Graphics
+# Reading and Writing Graphics
 
 ## Overview
 
-As stated before, **WebAssembly is a great fit for computationally intensive tasks**. For example, Tasks that involve things like big data, heavy logic with conditionals, or nested looping. Thus, generating / rendering graphics **can** get a significant speedup by moving these mentioned parts into WebAssembly. In this example, we will be generating 20x20 colored checkerboard images once per second, and displaying them on a [HTML5 Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) using [Pixel Manipulation on the ImageData Object](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas).
+As stated before, **WebAssembly is a great fit for computationally intensive tasks**. For example, Tasks that involve things like big data, heavy logic with conditionals, or nested looping. Thus, generating / rendering graphics **can** get a significant speedup by moving these mentioned parts into WebAssembly. In this example, we will be generating 20x20 colored checkerboard images once per second, and displaying them on a [HTML5 Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) using [Pixel Manipulation on the ImageData Object](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas). In fancy graphics terms, this is a rasterizer.
 
 **NOTE:** This example will continue to build on our simple buffer/pointer memory passing. This could be implemented using higher-level data structures, and these data structures will be covered in later examples.
 
@@ -202,12 +202,12 @@ Lastly, lets load our ES6 Module, `index.js` Javascript file in our `index.html`
 <!-- Other HTML here. -->
 ```
 
-And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/graphics/demo/rust)) below!
+And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/reading-and-writing-graphics/demo/rust)) below!
 
 ---
 
 ## Demo
 
-<iframe width="300px" height="300px" title="Rust Demo" src="/examples/graphics/demo/rust/"></iframe>
+<iframe width="300px" height="300px" title="Rust Demo" src="/examples/reading-and-writing-graphics/demo/rust/"></iframe>
 
-Next, lets took a look at an example of implementing [Audio with WebAssembly](/example-redirect?exampleName=audio).
+Next, lets took a look at an example of implementing [Reading and Writing Audio with WebAssembly](/example-redirect?exampleName=reading-and-writing-audio).

@@ -1,4 +1,9 @@
-import wasmInit from "./pkg/audio.js";
+// Imports are from the demo-util folder in the repo
+// https://github.com/torch2424/wasm-by-example/blob/master/demo-util/
+
+import { wasmBrowserInstantiate } from "/demo-util/instantiateWasm.js";
+
+// Some general initialization for audio
 
 // Create our audio context
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -60,10 +65,18 @@ const byteSamplesToFloatSamples = byteSamples => {
 
 const runWasm = async () => {
   // Instantiate our wasm module
-  const rustWasm = await wasmInit("./pkg/audio_bg.wasm");
+  const wasmModule = await wasmBrowserInstantiate(
+    "/examples/audio/demo/assemblyscript/index.wasm"
+  );
+
+  // Get our exports object, with all of our exported Wasm Properties
+  const exports = wasmModule.instance.exports;
+
+  // Get our memory object from the exports
+  const memory = exports.memory;
 
   // Create a Uint8Array to give us access to Wasm Memory
-  const wasmByteMemoryArray = new Uint8Array(rustWasm.memory.buffer);
+  const wasmByteMemoryArray = new Uint8Array(memory.buffer);
 
   // Generate 1024 float audio samples,
   // and make a quiet / simple square wave
@@ -83,19 +96,20 @@ const runWasm = async () => {
   );
 
   // Fill our wasm memory with the converted Audio Samples,
-  // And store it at our inputPointer location (index)
-  const inputPointer = rustWasm.get_input_buffer_pointer();
-  wasmByteMemoryArray.set(originalByteAudioSamples, inputPointer);
+  // And store it at our INPUT_BUFFER_POINTER (wasm memory index)
+  wasmByteMemoryArray.set(
+    originalByteAudioSamples,
+    exports.INPUT_BUFFER_POINTER.valueOf()
+  );
 
   // Amplify our loaded samples with our export Wasm function
-  rustWasm.amplify_audio();
+  exports.amplifyAudioInBuffer();
 
-  // Get our outputPointer (index were the sample buffer was stored)
   // Slice out the amplified byte audio samples
-  const outputPointer = rustWasm.get_output_buffer_pointer();
   const outputBuffer = wasmByteMemoryArray.slice(
-    outputPointer,
-    outputPointer + numberOfSamples
+    exports.OUTPUT_BUFFER_POINTER.valueOf(),
+    exports.OUTPUT_BUFFER_POINTER.valueOf() +
+      exports.OUTPUT_BUFFER_SIZE.valueOf()
   );
 
   // Convert our amplified byte samples into float samples,
@@ -131,4 +145,14 @@ window.playAmplified = () => {
   // of our playing audio buffer
   audioBuffer.getChannelData(0).set(amplifiedAudioSamples);
   audioBuffer.getChannelData(1).set(amplifiedAudioSamples);
+};
+
+window.pause = () => {
+  beforePlay();
+  // Create/Set the buffer to silence
+  const silence = [];
+  silence.length = numberOfSamples;
+  silence.fill(0);
+  audioBuffer.getChannelData(0).set(silence);
+  audioBuffer.getChannelData(1).set(silence);
 };

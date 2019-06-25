@@ -10,6 +10,8 @@ In AssemblyScript, the [runtime](https://docs.assemblyscript.org/details/runtime
 2. Less Early versions of AssemblScript didn't have a runtime, but instead had allocators and manual memoy management.
 3. Most importantly, we want to show off the concept of Linear memory very clearly, in a simple and concise way.
 
+Since we are directly writing to memory in this example, and there exists a runtime in AssemblyScript, **be sure to take a look at the [`--memoryBase` flag in the AssemblyScript compiler](https://docs.assemblyscript.org/details/compiler)**. This will allow you to avoid conflicts if you want to use the runtime and write to memory.
+
 Let's see how we can use linear memory:
 
 ---
@@ -38,7 +40,7 @@ export function readWasmMemoryAndReturnIndexOne(): i32 {
 }
 ```
 
-Then, let's compile that into a wasm module, using the [AssemblyScript Compiler](https://github.com/AssemblyScript/assemblyscript/wiki/Using-the-compiler), which will output a `index.wasm`:
+Then, let's compile that into a wasm module, using the [AssemblyScript Compiler](https://docs.assemblyscript.org/details/compiler), which will output a `index.wasm`:
 
 ```bash
 asc index.ts -b index.wasm
