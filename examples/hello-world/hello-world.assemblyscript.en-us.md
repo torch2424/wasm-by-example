@@ -72,7 +72,7 @@ Next, Lets use the above Javascript function from `hello-world.js` to load and i
 ```javascript
 const runWasmAdd = async () => {
   // Instantiate our wasm module
-  const wasmModule = await wasmBrowserInstantiate("hello-world.wasm");
+  const wasmModule = await wasmBrowserInstantiate("./hello-world.wasm");
 
   // Call the Add function export from wasm, save the result
   const addResult = wasmModule.instance.exports.add(24, 24);

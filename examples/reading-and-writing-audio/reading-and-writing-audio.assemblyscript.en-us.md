@@ -137,9 +137,7 @@ Here is the wasm instantiation / audio amplification in our `index.js` below!
 ```javascript
 const runWasm = async () => {
   // Instantiate our wasm module
-  const wasmModule = await wasmBrowserInstantiate(
-    "/examples/audio/demo/assemblyscript/index.wasm"
-  );
+  const wasmModule = await wasmBrowserInstantiate("./index.wasm");
 
   // Get our exports object, with all of our exported Wasm Properties
   const exports = wasmModule.instance.exports;

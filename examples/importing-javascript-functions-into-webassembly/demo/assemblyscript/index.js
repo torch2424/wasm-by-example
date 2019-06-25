@@ -6,13 +6,10 @@ import { domConsoleLog } from "/demo-util/domConsole.js";
 
 const runWasmAdd = async () => {
   // Instantiate our wasm module
-  const wasmModule = await wasmBrowserInstantiate(
-    "/examples/importing-javascript-functions-into-webassembly/demo/assemblyscript/index.wasm",
-    {
-      index: {
-        consoleLog: value => domConsoleLog("Called from Wasm: " + value)
-      }
+  const wasmModule = await wasmBrowserInstantiate("./index.wasm", {
+    index: {
+      consoleLog: value => domConsoleLog("Called from Wasm: " + value)
     }
-  );
+  });
 };
 runWasmAdd();

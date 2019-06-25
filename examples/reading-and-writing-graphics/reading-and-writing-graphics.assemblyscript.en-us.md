@@ -101,9 +101,7 @@ Next, Let's load / instantiate the wasm module, `index.wasm` in a new `index.js`
 ```javascript
 const runWasm = async () => {
   // Instantiate our wasm module
-  const wasmModule = await wasmBrowserInstantiate(
-    "/examples/graphics/demo/assemblyscript/index.wasm"
-  );
+  const wasmModule = await wasmBrowserInstantiate("./index.wasm");
 
   // Get our exports object, with all of our exported Wasm Properties
   const exports = wasmModule.instance.exports;

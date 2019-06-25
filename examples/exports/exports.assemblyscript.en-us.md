@@ -44,7 +44,7 @@ Next, Let's load / instantiate the wasm module, `export-function.wasm` in a new 
 ```javascript
 const runWasm = async () => {
   // Instantiate our wasm module
-  const wasmModule = await wasmBrowserInstantiate("hello-world.wasm");
+  const wasmModule = await wasmBrowserInstantiate("./exports.wasm");
 
   // Get our exports object, with all of our exported Wasm Properties
   const exports = wasmModule.instance.exports;

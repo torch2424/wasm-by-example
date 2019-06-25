@@ -5,9 +5,7 @@ import { domConsoleLog } from "/demo-util/domConsole.js";
 
 const runWasmAdd = async () => {
   // Instantiate our wasm module
-  const wasmModule = await wasmBrowserInstantiate(
-    "/examples/exports/demo/assemblyscript/exports.wasm"
-  );
+  const wasmModule = await wasmBrowserInstantiate("./exports.wasm");
 
   // Get our exports object, with all of our exported Wasm Properties
   const exports = wasmModule.instance.exports;
