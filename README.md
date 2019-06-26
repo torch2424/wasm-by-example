@@ -9,7 +9,10 @@ A [website](https://wasmbyexample.dev/) containing simple examples for how to ge
 # Table of Contents
 
 - [Motivation](#motivation)
-- [Developing](#developing)
+- [Getting Started](#getting-started)
+  - [One-time Setup](#one-time-setup)
+  - [Branch](#branch-do-this-each-time-you-want-a-new-branch)
+  - [Building & Running](#building-&-running-the-project)
 - [Contributing](#contributing)
   - [Examples](#examples)
     - [Creating a new Example](#creating-a-new-example)
@@ -23,21 +26,59 @@ A [website](https://wasmbyexample.dev/) containing simple examples for how to ge
 
 This project is heavily inspired by [Go By Example](https://gobyexample.com/). Wasm is still relatively young, and I thought it would be great to have a similar, hands-on / tutorial / introduction into WebAssembly for those who "learn by doing".
 
-# Developing
+# Getting Started
 
-To start developing the project, fork the project, then `git clone` it down to your local machine.
+## One-time Setup
 
-To build the project, run:
+1. [Create a GitHub account](https://help.github.com/articles/signing-up-for-a-new-github-account/) if you don't already have one.
+2. [Install and set up Git](https://help.github.com/articles/set-up-git/).
+3. Install the latest LTS version of [Node.js](https://nodejs.org/) (which includes npm). An easy way to do so is with `nvm`. (Mac and Linux: [here](https://github.com/creationix/nvm), Windows: [here](https://github.com/coreybutler/nvm-windows))
 
-```bash
-npm run build
+   ```shell
+   nvm install --lts
+   ```
+
+4. Create your own fork of the [wasm-by-example repository](https://github.com/torch2424/wasm-by-example) by clicking "Fork" in the Web UI. During local development, this will be referred to by `git` as `origin`.
+
+5. Download your fork to a local repository.
+
+   ```shell
+   git clone git@github.com:<your username>/wasm-by-example.git
+   ```
+
+6. Add an alias called `upstream` to refer to the main `torch2424/wasm-by-example` repository. Go to the root directory of the
+   newly created local repository directory and run:
+
+   ```shell
+   git remote add upstream git@github.com:torch2424/wasm-by-example.git
+   ```
+
+7. Fetch data from the `upstream` remote:
+
+   ```shell
+   git fetch upstream master
+   ```
+
+8. Set up your local `master` branch to track `upstream/master` instead of `origin/master` (which will rapidly become
+   outdated).
+
+   ```shell
+   git branch -u upstream/master master
+   ```
+
+## Branch (do this each time you want a new branch)
+
+Create and go to the branch:
+
+```shell
+git checkout -b <branch name> master
 ```
 
-To serve, and build on changes for the project, run:
+## Building & Running the project
 
-```bash
-npm run dev
-```
+1. Make sure you have the latest packages (after you pull): `npm install`
+2. To build the project, run: `npm run build`
+3. To serve, and build on changes for the project, run: `npm run dev`
 
 # Contributing
 
