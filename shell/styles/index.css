@@ -1,6 +1,13 @@
 html,
 body {
   color: #fff;
+  background-color: #242424;
+  font-family: sans-serif;
+}
+
+pre {
+  border: 2px solid #424242;
+  background-color: #202020;
 }
 
 iframe {
@@ -20,12 +27,21 @@ a:hover {
   text-decoration: none;
 }
 
-.language-picker a {
-  text-decoration: none;
+.language-title {
+  font-size: 1.35em;
 }
 
-.language-picker a:hover {
-  text-decoration: underline;
+.language-picker form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+}
+
+.language-picker form > * {
+  margin-right: 10px;
+  margin-bottom: 0px;
 }
 
 .flex-row {
@@ -47,4 +63,8 @@ a:hover {
 .flex-row > *,
 .flex-column > * {
   margin: 5px;
+}
+
+span.hljs-comment {
+  color: #a69685 !important;
 }
