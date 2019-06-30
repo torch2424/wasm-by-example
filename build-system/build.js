@@ -44,15 +44,14 @@ const mustacheData = {
   styles: {
     normalize: minifyCss("node_modules/normalize.css/normalize.css"),
     sakura: minifyCss("node_modules/sakura.css/css/sakura-dark.css"),
-    highlightJs: minifyCss("node_modules/highlight.js/styles/a11y-dark.css"),
+    highlightJs: minifyCss("node_modules/highlight.js/styles/gruvbox-dark.css"),
     index: minifyCss("shell/styles/index.css")
   },
   js: {
     index: minifyJs("shell/js/index.js"),
     examplesList: minifyJs("shell/js/examplesList.js"),
     examplesRedirect: minifyJs("shell/js/examplesRedirect.js"),
-    sourceRedirect: minifyJs("shell/js/sourceRedirect.js"),
-    settings: minifyJs("shell/js/settings.js")
+    sourceRedirect: minifyJs("shell/js/sourceRedirect.js")
   },
   partials: {
     head: fs.readFileSync("shell/partials/head.html", "utf8"),
@@ -217,7 +216,6 @@ const buildTask = async () => {
   // Render all the normal pages
   const shellStandardPages = [
     "index.html",
-    "settings.html",
     "about.html",
     "additional-resources.html",
     "example-redirect.html",

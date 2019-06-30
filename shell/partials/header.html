@@ -1,10 +1,22 @@
-<div class="flex-row">
+<div class="flex-column">
   <h1><a href="/" class="title">Wasm By Example</a></h1>
-  <div class="language-picker">
-    <a href="/settings.html">
-      <span><b>Language: </b></span>
-      <span id="header-language"></span>
-    </a>
+  <div class="language-picker flex-row">
+    <div class="language-title">Language:</div>
+    <form>
+      <select
+        id="programmingLanguage"
+        aria-label="Programming Language"
+        onchange="submitSettingsForm()"
+      >
+      </select>
+
+      <select
+        id="readingLanguage"
+        aria-label="Reading Language"
+        onchange="submitSettingsForm()"
+      >
+      </select>
+    </form>
   </div>
 </div>
 

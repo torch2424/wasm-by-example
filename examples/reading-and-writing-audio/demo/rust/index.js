@@ -12,17 +12,6 @@ const audioBuffer = audioContext.createBuffer(
   audioContext.sampleRate
 );
 
-// Create an AudioBufferSourceNode.
-// This is the AudioNode to use when we want to play an AudioBuffer,
-// Set the buffer to our buffer source,
-// And loop the source so it continuously plays
-const audioBufferSource = audioContext.createBufferSource();
-audioBufferSource.buffer = audioBuffer;
-audioBufferSource.loop = true;
-
-// Connect our source to our output
-audioBufferSource.connect(audioContext.destination);
-
 // Create our originalAudioSamples, and our amplifiedAudioSamples Buffers
 const originalAudioSamples = new Float32Array(numberOfSamples);
 const amplifiedAudioSamples = new Float32Array(numberOfSamples);
@@ -102,11 +91,8 @@ const runWasm = async () => {
   // and set the outputBuffer to our amplifiedAudioSamples
   amplifiedAudioSamples.set(byteSamplesToFloatSamples(outputBuffer));
 
-  // Start the audio source (Will play silence for now)
-  audioBufferSource.start();
-
-  // We are now done! The "play" Functions will handle swapping in the
-  // correct audio buffer
+  // We are now done! The "play" Functions will handle playing the
+  // audio buffer
 };
 runWasm();
 
@@ -117,12 +103,42 @@ function beforePlay() {
   }
 }
 
+// Set up playing the Audio Buffer
+// Using a shared Audio buffer Source
+let audioBufferSource = undefined;
+function stopAudioBufferSource() {
+  // If we have an audioBufferSource
+  // Stop and clear our current audioBufferSource
+  if (audioBufferSource) {
+    audioBufferSource.stop();
+    audioBufferSource = undefined;
+  }
+}
+function createAndStartAudioBufferSource() {
+  // Stop the the current audioBufferSource
+  stopAudioBufferSource();
+
+  // Create an AudioBufferSourceNode.
+  // This is the AudioNode to use when we want to play an AudioBuffer,
+  // Set the buffer to our buffer source,
+  // And loop the source so it continuously plays
+  audioBufferSource = audioContext.createBufferSource();
+  audioBufferSource.buffer = audioBuffer;
+  audioBufferSource.loop = true;
+
+  // Connect our source to our output, and start! (it will play silence for now)
+  audioBufferSource.connect(audioContext.destination);
+  audioBufferSource.start();
+}
+
 window.playOriginal = () => {
   beforePlay();
   // Set the float audio samples to the left and right channel
   // of our playing audio buffer
   audioBuffer.getChannelData(0).set(originalAudioSamples);
   audioBuffer.getChannelData(1).set(originalAudioSamples);
+
+  createAndStartAudioBufferSource();
 };
 
 window.playAmplified = () => {
@@ -131,14 +147,11 @@ window.playAmplified = () => {
   // of our playing audio buffer
   audioBuffer.getChannelData(0).set(amplifiedAudioSamples);
   audioBuffer.getChannelData(1).set(amplifiedAudioSamples);
+
+  createAndStartAudioBufferSource();
 };
 
 window.pause = () => {
   beforePlay();
-  // Create/Set the buffer to silence
-  const silence = [];
-  silence.length = numberOfSamples;
-  silence.fill(0);
-  audioBuffer.getChannelData(0).set(silence);
-  audioBuffer.getChannelData(1).set(silence);
+  stopAudioBufferSource();
 };

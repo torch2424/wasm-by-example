@@ -1,6 +1,6 @@
 # Hello World!
 
-**Before getting started with AssemblyScript and Wasm, be sure to check out all of the languages available, by clicking the "languages" link in the header.**
+**Before getting started, be sure to check out all of the languages available, by clicking the "languages" dropdown in the header.**
 
 ## Overview
 
