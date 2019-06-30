@@ -5,6 +5,10 @@ body {
   font-family: sans-serif;
 }
 
+body {
+  max-width: 850px;
+}
+
 pre {
   border: 2px solid #424242;
   background-color: #202020;

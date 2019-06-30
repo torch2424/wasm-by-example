@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "npx npm-run-all build --parallel serve watch",
     "build": "node build-system/build.js",
-    "serve": "npx http-server ./dist",
+    "serve": "npx serve ./dist -l 8080",
     "watch": "npx watch 'npm run build' ./examples ./shell ./build-system ./demo-util --interval=1",
     "lint": "npx prettier --write build-system/**/*.js shell/**/*.css shell/**/*.html examples/**/*.md examples/**/*.js examples/**/*.html examples/**/*.ts",
     "lint:ci": "npx prettier --list-different build-system/**/*.js shell/**/*.css shell/**/*.html examples/**/*.md examples/**/*.js examples/**/*.html examples/**/*.ts"
@@ -43,7 +43,6 @@
     "clean-css": "^4.2.1",
     "cpy": "^7.2.0",
     "highlight.js": "^9.15.6",
-    "http-server": "^0.11.1",
     "husky": "^2.3.0",
     "marked": "^0.6.2",
     "mkdirp": "^0.5.1",
@@ -53,6 +52,7 @@
     "pretty-quick": "^1.11.0",
     "recursive-copy": "^2.0.10",
     "recursive-readdir": "^2.2.2",
+    "serve": "^11.0.2",
     "terser": "^4.0.0",
     "watch": "^1.0.2"
   },
