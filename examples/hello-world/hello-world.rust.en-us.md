@@ -37,7 +37,7 @@ edition = "2018"
 crate-type = ["cdylib"]
 
 [dependencies]
-wasm-bind
+wasm-bindgen = "0.2"
 ```
 
 Lastly, let's take a quick peek inside at the `src/` directory. Since we are building a library (lib) to be used by a larger application, **we need to rename the `src/main.rs` to `src/lib.rs`.** Go ahead and do that now before moving forward.

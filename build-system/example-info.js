@@ -14,6 +14,11 @@ const applyingTheConcepts = {
   examples: ["reading-and-writing-graphics", "reading-and-writing-audio"]
 };
 
+const highLevelDataStructures = {
+  title: "High Level Data Structures",
+  examples: ["strings"]
+};
+
 module.exports = {
-  categories: [concepts, applyingTheConcepts]
+  categories: [concepts, applyingTheConcepts, highLevelDataStructures]
 };

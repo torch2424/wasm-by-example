@@ -1,0 +1,15 @@
+{
+  "name": "strings",
+  "collaborators": [
+    "Aaron Turner <aaron@aaronthedev.com>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "strings_bg.wasm",
+    "strings.js",
+    "strings.d.ts"
+  ],
+  "module": "strings.js",
+  "types": "strings.d.ts",
+  "sideEffects": "false"
+}
