@@ -1,3 +1,16 @@
+// Our overall example order
+const exampleOrder = [
+  "introduction",
+  "hello-world",
+  "exports",
+  "webassembly-linear-memory",
+  "importing-javascript-functions-into-webassembly",
+  "reading-and-writing-graphics",
+  "reading-and-writing-audio",
+  "strings"
+];
+
+// Catgeories
 const concepts = {
   title: "Concepts",
   examples: [
@@ -20,5 +33,6 @@ const highLevelDataStructures = {
 };
 
 module.exports = {
+  exampleOrder,
   categories: [concepts, applyingTheConcepts, highLevelDataStructures]
 };

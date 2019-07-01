@@ -302,4 +302,4 @@ And you should get something similar to the demo ([Source Code](/source-redirect
 
 <iframe width="100%" height="500px" title="Rust Audio Demo" src="/examples/reading-and-writing-audio/demo/rust/"></iframe>
 
-This is the end of the examples for now! More will be in the works, and feel free to [fix, suggest, or contribute examples](https://github.com/torch2424/wasm-by-example)!
+Next, lets took a look at high level data structures, specifcally, by passing around [strings](/example-redirect?exampleName=strings).

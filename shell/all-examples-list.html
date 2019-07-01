@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {{{partials.head}}}
+
+    <title>Wasm By Example - Examples Listing</title>
+
+    <style>
+      {{{styles.normalize}}}
+      {{{styles.sakura}}}
+      {{{styles.index}}}
+    </style>
+  </head>
+  <body>
+    {{{partials.header}}}
+
+    <h1>All Examples List</h1>
+
+    <div>
+      <p>
+        Below is a list of all available examples on Wasm by Example. Organized
+        by their respective language. Currently, this
+        <b>will not switch your language preferences</b>. But will allow you to
+        see another example without having to set the default language.
+      </p>
+    </div>
+
+    <!-- List of examples by language -->
+    {{#examplesByLanguage}}
+    <h2>{{title}}</h2>
+    <ul>
+      {{#examples}}
+      <li>
+        <a
+          href="/examples/{{exampleName}}/{{exampleName}}.{{programmingLanguage}}.{{readingLanguage}}.html"
+          >{{title}}</a
+        >
+      </li>
+      {{/examples}}
+    </ul>
+    {{/examplesByLanguage}} {{{partials.footer}}}
+
+    <!-- prettier-ignore -->
+    <script type="text/javascript">
+      {{{js.index}}}
+    </script>
+  </body>
+</html>
