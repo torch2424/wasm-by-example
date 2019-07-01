@@ -28,7 +28,7 @@ pub fn add_wasm_by_example_to_string(input_string: String) -> String {
 
 Next, we can compile the module following the [Hello World](/example-redirect?exampleName=hello-world) examples compilation process, replacing the appropriate file names.
 
-Next, lets create an `index.js` file to load and run our wasm output. mixed / default exports. Something about [wasm-bindgen Strings](https://rustwasm.github.io/docs/wasm-bindgen/reference/types/string.html). Let's dive into our resulting `index.js`:
+Next, lets create an `index.js` file to load and run our wasm output.Now that we are using higher-level stata structures, we will have to leverage the named exports in our `./pkg/strings.js`. TODO finish this. Something about [wasm-bindgen Strings](https://rustwasm.github.io/docs/wasm-bindgen/reference/types/string.html). Let's dive into our resulting `index.js`:
 
 ```javascript
 // Here we are importing the default export from our
