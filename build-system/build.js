@@ -151,6 +151,61 @@ const buildTask = async () => {
     });
   });
 
+  // Generate our examples by language
+  mustacheData.examplesByLanguage = [];
+  mustacheData.examples.forEach(example => {
+    // First check if the programming language key exists
+    let index = mustacheData.examplesByLanguage.findIndex(exampleByLanguage => {
+      if (
+        exampleByLanguage.programmingLanguage === example.programmingLanguage
+      ) {
+        return true;
+      }
+      return false;
+    });
+
+    if (index < 0) {
+      // Create the element
+      mustacheData.examplesByLanguage.push({
+        title: capitalizeWord(example.programmingLanguage),
+        programmingLanguage: example.programmingLanguage,
+        examples: []
+      });
+      index = mustacheData.examplesByLanguage.length - 1;
+    }
+
+    mustacheData.examplesByLanguage[index].examples.push(example);
+  });
+
+  // Sort our examples by language
+  mustacheData.examplesByLanguage.forEach((exampleByLanguage, index) => {
+    mustacheData.examplesByLanguage[
+      index
+    ].examples = mustacheData.examplesByLanguage[index].examples.sort(
+      (a, b) => {
+        const aIndex = exampleInfo.exampleOrder.indexOf(a.exampleName);
+        const bIndex = exampleInfo.exampleOrder.indexOf(b.exampleName);
+
+        // Push not found elements to the end
+        if (aIndex < 0) {
+          return 1;
+        } else if (bIndex < 0) {
+          return -1;
+        }
+
+        if (aIndex < bIndex) {
+          return -1;
+        }
+
+        if (bIndex < aIndex) {
+          return 1;
+        }
+
+        return 0;
+      }
+    );
+  });
+
   // Categorize our examples
   mustacheData.categories = [];
   exampleInfo.categories.forEach((category, index) => {
@@ -185,7 +240,7 @@ const buildTask = async () => {
       }
     });
 
-    // Sort our Examples
+    // Sort our Categories
     mustacheData.categories[index].examples = mustacheData.categories[
       index
     ].examples.sort((a, b) => {
@@ -219,7 +274,8 @@ const buildTask = async () => {
     "about.html",
     "additional-resources.html",
     "example-redirect.html",
-    "source-redirect.html"
+    "source-redirect.html",
+    "all-examples-list.html"
   ];
   shellStandardPages.forEach(page => {
     const fileContents = fs.readFileSync(`shell/${page}`, "utf8").toString();

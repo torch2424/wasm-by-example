@@ -45,7 +45,8 @@ a:hover {
 
 .language-picker form > * {
   margin-right: 10px;
-  margin-bottom: 0px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .flex-row {
@@ -67,6 +68,13 @@ a:hover {
 .flex-row > *,
 .flex-column > * {
   margin: 5px;
+}
+
+footer .flex-row > * {
+  margin: 0px;
+  margin-right: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 span.hljs-comment {
