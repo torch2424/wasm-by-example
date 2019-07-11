@@ -13,7 +13,8 @@ If you haven't done so already, you should set up your project following the ste
 First, let's add the following to our `src/lib.rs` file:
 
 ```typescript
-// Add the wasm-pack crate
+// The wasm-pack uses wasm-bindgen to build and generate JavaScript binding file.
+// Import the wasm-bindgen crate.
 use wasm_bindgen::prelude::*;
 
 // This exports an add function.

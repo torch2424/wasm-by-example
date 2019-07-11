@@ -13,7 +13,8 @@ Let's kick things off! Let's see how we can use strings in WebAssembly, and shar
 First, let's add the following to our `src/lib.rs` file:
 
 ```rust
-// Add the wasm-pack crate
+// The wasm-pack uses wasm-bindgen to build and generate JavaScript binding file.
+// Import the wasm-bindgen crate.
 use wasm_bindgen::prelude::*;
 
 // Our function to concatenate the string "Wasm by Example"

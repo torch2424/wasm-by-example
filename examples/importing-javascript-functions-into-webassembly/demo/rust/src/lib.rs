@@ -1,7 +1,8 @@
 // This example is a simplified version of: 
 // https://github.com/rustwasm/wasm-bindgen/blob/master/examples/console_log/src/lib.rs
 
-// Add the wasm-pack crate
+// The wasm-pack uses wasm-bindgen to build and generate JavaScript binding file.
+// Import the wasm-bindgen crate. 
 use wasm_bindgen::prelude::*;
 
 // Let's define our external function (imported from JS)
