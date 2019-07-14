@@ -15,7 +15,8 @@ So let's get into the example:
 As usual, let's get started with our `src/lib.rs` file. You will notice here we set up a buffer, similar to the [WebAssembly Linear Memory example](/example-redirect?exampleName=webassembly-linear-memory). By doing this, Javascript can read the values placed into the buffer later. Please be sure to read the comments in the following code examples, and be sure to follow links or look at previous examples if something does not make sense. Let's get into it:
 
 ```rust
-// Add the wasm-pack crate
+// The wasm-pack uses wasm-bindgen to build and generate JavaScript binding file.
+// Import the wasm-bindgen crate.
 use wasm_bindgen::prelude::*;
 
 // Define the size of our "checkerboard"

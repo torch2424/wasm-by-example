@@ -15,7 +15,8 @@ In this example, we will import and implement a simple `console.log` which is ca
 First, let's add the following to our `src/lib.rs` file:
 
 ```rust
-// Add the wasm-pack crate
+// The wasm-pack uses wasm-bindgen to build and generate JavaScript binding file.
+// Import the wasm-bindgen crate.
 use wasm_bindgen::prelude::*;
 
 // Let's define our external function (imported from JS)

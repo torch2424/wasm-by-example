@@ -15,7 +15,8 @@ Let's see how we can use linear memory:
 First, let's add the following to our `src/lib.rs` file:
 
 ```rust
-// Add the wasm-pack crate
+// The wasm-pack uses wasm-bindgen to build and generate JavaScript binding file.
+// Import the wasm-bindgen crate.
 use wasm_bindgen::prelude::*;
 
 // Create a static mutable byte buffer.

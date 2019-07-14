@@ -1,4 +1,5 @@
-// Add the wasm-pack crate
+// The wasm-pack uses wasm-bindgen to build and generate JavaScript binding file.
+// Import the wasm-bindgen crate. 
 use wasm_bindgen::prelude::*;
 
 // Our function to concatenate the string "Wasm by Example"
