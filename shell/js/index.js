@@ -20,6 +20,9 @@ window.WASM_BY_EXAMPLE = {
   readingLanguage: "en-us"
 };
 
+// Define some constants
+const languageSelectKeys = ["programmingLanguage", "readingLanguage"];
+
 // Define some utility functions
 const createOptionElement = (text, value) => {
   const optionElement = document.createElement("option");
@@ -29,8 +32,6 @@ const createOptionElement = (text, value) => {
 };
 
 const setLanguagePreferenceFromForm = () => {
-  const languageSelectKeys = ["programmingLanguage", "readingLanguage"];
-
   languageSelectKeys.forEach(key => {
     const select = document.querySelector(`select#${key}`);
     if (select && select.value) {
@@ -47,6 +48,21 @@ const submitSettingsForm = () => {
 
 // Initialization IIFE
 (() => {
+  // Handle URL Params if we have them
+  let params = new URLSearchParams(window.location.search);
+  languageSelectKeys.forEach(key => {
+    if (params.has(key)) {
+      const paramValue = params.get(key);
+      const availableValues =
+        key === "programmingLanguage"
+          ? Object.values(window.WASM_BY_EXAMPLE_PROGRAMMING_LANGUAGES)
+          : Object.values(window.WASM_BY_EXAMPLE_READING_LANGUAGES);
+      if (availableValues.includes(paramValue)) {
+        localStorage.setItem(key, paramValue);
+      }
+    }
+  });
+
   // Set our correct global settings
   Object.keys(window.WASM_BY_EXAMPLE).forEach(key => {
     const savedItem = localStorage.getItem(key);
