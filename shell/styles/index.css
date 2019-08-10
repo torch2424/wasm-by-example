@@ -1,7 +1,7 @@
 html,
 body {
   color: #fff;
-  background-color: #242424;
+  background-color: #111;
   font-family: sans-serif;
 }
 
@@ -18,17 +18,35 @@ iframe {
   background-color: #fff;
 }
 
+hr {
+  border: 0;
+  height: 5px;
+  margin: 4rem 0;
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#9671fd),
+    to(#654ff0)
+  );
+  background-image: linear-gradient(to right, #9671fd, #654ff0);
+  border-radius: 5px;
+}
+
 a {
-  text-decoration: underline;
+  text-decoration: none;
+  border-bottom: 1px solid #fff;
 }
 
 a:hover {
-  color: #fff;
-  border-bottom: 0px solid #fff;
+  color: #654ff0;
+  text-decoration: none;
+  border-bottom: 1px solid #654ff0;
 }
 
 .title {
   text-decoration: none;
+  border-bottom: 0px;
 }
 
 .language-title {
@@ -79,4 +97,11 @@ footer .flex-row > * {
 
 span.hljs-comment {
   color: #a69685 !important;
+}
+
+.highlight {
+  background-color: #654ff0;
+  padding: 2px 10px;
+  color: #fff;
+  letter-spacing: -0.5px;
 }
