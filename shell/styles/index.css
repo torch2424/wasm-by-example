@@ -31,6 +31,10 @@ a:hover {
   text-decoration: none;
 }
 
+.title h1 {
+  font-size: 1.8em;
+}
+
 .language-title {
   font-size: 1.35em;
 }
