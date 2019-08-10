@@ -80,3 +80,25 @@ footer .flex-row > * {
 span.hljs-comment {
   color: #a69685 !important;
 }
+
+blockquote {
+  color: #7a7a7a;
+  font-style: normal;
+  background-color: #1f1f1f;
+  border-radius: 4px;
+  border-left: 9px solid #654ff0;
+  padding: 20px 45px 20px 26px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+blockquote > .label {
+  font-weight: 700;
+  font-size: 0.8em;
+  color: #654ff0;
+}
+
+blockquote p {
+  font-size: 1.2em;
+  text-align: justify;
+  margin: 0;
+}
