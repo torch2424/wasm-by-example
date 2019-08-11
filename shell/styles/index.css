@@ -10,8 +10,11 @@ body {
 }
 
 pre {
-  border: 2px solid #424242;
-  background-color: #202020;
+  background-color: #1f1f1f;
+  border-radius: 4px;
+  border-top: 4px solid #654ff0;
+  padding: 24px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 }
 
 iframe {
@@ -99,6 +102,7 @@ span.hljs-comment {
   color: #a69685 !important;
 }
 
+code,
 .highlight {
   background-color: #654ff0;
   padding: 2px 10px;
