@@ -9,9 +9,11 @@ body {
   max-width: 850px;
 }
 
-pre {
+pre,
+iframe {
   background-color: #1f1f1f;
-  border-radius: 4px;
+  border-radius: 10px;
+  border: none;
   border-top: 4px solid #654ff0;
   padding: 24px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
