@@ -94,6 +94,11 @@ a:hover {
   border-bottom: 0px;
 }
 
+.title:hover {
+  text-decoration: none;
+  border-bottom: 0px;
+}
+
 .title h1 {
   font-size: 1.8em;
 }
