@@ -154,13 +154,14 @@ span.hljs-comment {
 }
 
 blockquote {
-  color: #7a7a7a;
+  color: #828a9f;
   font-style: normal;
   background-color: #1f1f1f;
   border-radius: 4px;
   border-left: 9px solid #654ff0;
   padding: 20px 45px 20px 26px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  margin: 0;
 }
 
 blockquote > .label {
