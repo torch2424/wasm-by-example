@@ -94,6 +94,10 @@ a:hover {
   border-bottom: 0px;
 }
 
+.title h1 {
+  font-size: 1.8em;
+}
+
 .language-title {
   font-size: 1.35em;
 }
