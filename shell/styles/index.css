@@ -84,9 +84,9 @@ a {
 }
 
 a:hover {
-  color: #654ff0;
+  color: #c9a4ff;
   text-decoration: none;
-  border-bottom: 1px solid #654ff0;
+  border-bottom: 1px solid #9671fd;
 }
 
 .title {
@@ -95,6 +95,7 @@ a:hover {
 }
 
 .title:hover {
+  color: #9671fd;
   text-decoration: none;
   border-bottom: 0px;
 }
@@ -155,8 +156,10 @@ span.hljs-comment {
 
 code,
 .highlight {
-  background-color: #654ff0;
-  padding: 2px 10px;
+  background-color: #4c36d7;
   color: #fff;
+
   letter-spacing: -0.5px;
+  border-radius: 5px;
+  padding: 2px 10px;
 }
