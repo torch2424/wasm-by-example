@@ -155,7 +155,7 @@ span.hljs-comment {
 }
 
 blockquote {
-  color: #c2b3ea;
+  color: #ded9ed;
   font-style: normal;
   background-color: #1f1f1f;
   border-radius: 4px;
@@ -168,12 +168,11 @@ blockquote {
 blockquote > .label {
   font-weight: 700;
   font-size: 0.8em;
-  color: #654ff0;
+  color: #aca1f3;
 }
 
 blockquote p {
-  font-size: 1.2em;
-  text-align: justify;
+  font-size: 1.1em;
   margin: 0;
 }
 

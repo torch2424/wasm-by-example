@@ -20,6 +20,7 @@ Wasm By Example is a [website](https://wasmbyexample.dev/) containing simple exa
     - [Adding a new Reading Language (Translation) to an Example](#adding-a-new-reading-language-translation-to-an-example)
   - [Improving the shell (the base website)](#improving-the-shell-the-base-website)
   - [Any other contributions](#any-other-contributions)
+- [Privacy](#privacy)
 - [License](#license)
 
 # Motivation
@@ -127,6 +128,10 @@ Improving the shell (E.g the language switcher or typos in the landing page and 
 ## Any other contributions
 
 For all other types of contributions (E.g perhaps you are a platform that wants to expand on Wasm By Example or something), please open an issue first describing the idea, and then we can work on a PR that works for the communitty at large.
+
+# Privacy
+
+Google Analytics is used on Wasm By Example, and is only used to record [Basic visit data](https://support.google.com/analytics/answer/6004245?ref_topic=2919631), as the script is only loaded.
 
 # License
 
