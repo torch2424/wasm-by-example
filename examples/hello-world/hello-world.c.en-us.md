@@ -2,7 +2,7 @@
 
 ## Overview
 
-Let's do a "Hello world" type of program in [C](https://en.wikipedia.org/wiki/C_(programming_language)) using [Emscripten](https://emscripten.org)!
+Let's do a "Hello world" type of program in [C](<https://en.wikipedia.org/wiki/C_(programming_language)>) using [Emscripten](https://emscripten.org)!
 
 ---
 
@@ -60,4 +60,3 @@ emcc hello.c -O3 -o hello.html
 ```
 
 You can then run a local webserver (like `python -m SimpleHTTPServer 8000`) and browse to `localhost:8000/hello.html`, where you'll see the expected output.
-
