@@ -6,9 +6,7 @@ window.WASM_BY_EXAMPLE_PROGRAMMING_LANGUAGES["Rust"] = "rust";
 window.WASM_BY_EXAMPLE_PROGRAMMING_LANGUAGES[
   "AssemblyScript (TypeScript-like)"
 ] = "assemblyscript";
-// TODO:
-// window.WASM_BY_EXAMPLE_PROGRAMMING_LANGUAGES["emscripten (C/C++)"] =
-// "emscripten";
+window.WASM_BY_EXAMPLE_PROGRAMMING_LANGUAGES["Emscripten (C/C++)"] = "c";
 
 // Define Global Reading Languages
 window.WASM_BY_EXAMPLE_READING_LANGUAGES = {};
