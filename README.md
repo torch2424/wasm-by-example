@@ -95,7 +95,7 @@ Where the variables represent the following ideas:
 
 - `EXAMPLE_NAME` - is the name / title of the example.
 - `PROGRAMMING_LANGUAGE` - is the programming language used for the code snippets (e.g Rust).
-- `READING_LANGUAGE` - is the langauge that the idea is read / spoken (e.g English).
+- `READING_LANGUAGE` - is the language that the idea is read / spoken (e.g English).
 
 It is highly reccomended examples also offer a demo where reasonable. Demos should be placed:
 
