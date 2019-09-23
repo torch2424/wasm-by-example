@@ -270,7 +270,7 @@ Finally, let's make sure we have the following to our `index.html` to provide bu
 <!-- Other HTML here. -->
 ```
 
-And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/reading-and-writing-audio/demo/assemblyscript)) below! **Note:** This was a lot of Javascript getting the Audio stuff all set up, this I highly reccomended click the demo source code link just provided to get a entire view of everything going on.
+And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/reading-and-writing-audio/demo/assemblyscript)) below! **Note:** This was a lot of Javascript getting the Audio stuff all set up, this I highly recommended click the demo source code link just provided to get a entire view of everything going on.
 
 ---
 
