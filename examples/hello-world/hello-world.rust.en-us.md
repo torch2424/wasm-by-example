@@ -75,7 +75,7 @@ This will output a `pkg/` directory containing our wasm module, wrapped in a js 
 ```javascript
 // Import our outputted wasm ES6 module
 // Which, export default's, an initialization function
-import wasmInit from "./pkg/exports.js";
+import init from "./pkg/hello_world.js";
 
 const runWasm = async () => {
   // Instantiate our wasm module
