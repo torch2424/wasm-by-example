@@ -7,7 +7,8 @@ const exampleOrder = [
   "importing-javascript-functions-into-webassembly",
   "reading-and-writing-graphics",
   "reading-and-writing-audio",
-  "strings"
+  "strings",
+  "classes"
 ];
 
 // Catgeories
@@ -27,12 +28,12 @@ const applyingTheConcepts = {
   examples: ["reading-and-writing-graphics", "reading-and-writing-audio"]
 };
 
-const highLevelDataStructures = {
-  title: "High Level Data Structures",
-  examples: ["strings"]
+const ecosystemAndLanguage = {
+  title: "Ecosystem tools and Language features",
+  examples: ["strings", "classes"]
 };
 
 module.exports = {
   exampleOrder,
-  categories: [concepts, applyingTheConcepts, highLevelDataStructures]
+  categories: [concepts, applyingTheConcepts, ecosystemAndLanguage]
 };
