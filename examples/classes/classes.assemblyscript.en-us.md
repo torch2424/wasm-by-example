@@ -1,7 +1,5 @@
 # Classes in AssemblyScript
 
-**Before getting started, be sure to check out all of the languages available, by clicking the "languages" dropdown in the header.**
-
 ## Overview
 
 Like TypeScript, AssemblyScript offers several OOP features such as classes and
@@ -9,8 +7,9 @@ inheritance. You can create classes in AssemblyScript, and then use tools such a
 tutorial, I am going to walk you through creating a class and subclass in AssemblyScript
 and then using as-bind to create objects from those classes within JavaScript. The first
 thing we should do is install the as-bind module using `npm`:
-```
-npm i as-bind
+
+```bash
+npm i --save as-bind
 ```
 
 Later in this tutorial, we will need to include the as-bind library when we compile our WebAssembly
@@ -18,7 +17,8 @@ module. Let’s create a class called `Vector2D`, which is a vector in 2D space 
 directional `x` and `y` component. We will then create a second class called `Vector3D` that
 extends `Vector2D` adding a `z` and `w` component. Create a file called `ASBindTest.ts` and
 add the following code:
-```
+
+```typescript
 // Vector2D is a mathematical vector in 2D space.
 // It has an x and y directional component and a magnitude
 export class Vector2D {
@@ -45,7 +45,7 @@ export class Vector2D {
 export class Vector3D extends Vector2D {
   // This adds a z attribute to the x and y attributes inherited from Vector2D
   z: i32;
-  
+
   // I know It’s not technically a 3D vector if it has a w component :-p
   // I have this w component as a private attribute to demonstrate that
   // it will not be exported
@@ -77,7 +77,7 @@ v.w = 1;
 ```
 
 As you can see, there are currently some limitations to OOP within AssemblyScript. Many
-of these limitations are because several language features are still under construction. 
+of these limitations are because several language features are still under construction.
 Classes in AssemblyScript can not yet implement an interface. AssemblyScript does not
 enforce access level modifiers such as `public`, `private`, and `protected`. The `private`
 keyword does prevent a public class from exporting the attribute or method to JavaScript,
@@ -85,7 +85,7 @@ but that is all. Now that we have our AssemblyScript written, we need to compile
 WASM module. To use `as-bind`, we have to include the `as-bind` library that we installed
 using `npm`. Use this `asc` command to compile the WASM module:
 
-```
+```bash
 asc ./node_modules/as-bind/lib/assembly/as-bind.ts ASBindTest.ts -o ASBindTest.wasm
 ```
 
@@ -93,7 +93,7 @@ Compiling our code with the `as-bind.ts` file simplifies what we must do from ou
 I will be using Node.js to run the JavaScript that calls into our WebAssembly module.
 Create a file called `ASBindTest.js` and add the following code:
 
-```
+```typescript
 // I'm using node for this example
 const { AsBind } = require("as-bind");
 const fs = require("fs");
@@ -129,13 +129,13 @@ classes we exported from that module in the unboundExports object inside. In the
 above, I used the destructuring syntax to pull them into class constructor variables. You
 can run `ASBindTest.js` using node with the following command:
 
-```
+```bash
 node ASBindTest.js
 ```
 
 When you run it, you should see the following output:
 
-```
+```plaintext
   ----- 2D VECTOR -----
   x: 3
   y: 4
@@ -157,4 +157,4 @@ AssemblyScript and recompile, we would see both magnitude lines in our console r
 `Magnitude: 5` instead of the second one reading `Magnitude: 7.071067810058594`.
 That is because AssemblyScript has not yet implemented a method for looking up function
 overrides. The `Magnitude` function does not know that it should be calling the `MagSQ`
-function for the `Vector3D` class and not the `Vector2D` class. 
+function for the `Vector3D` class and not the `Vector2D` class.
