@@ -60,6 +60,6 @@ Lastly, lets load our ES6 Module, `index.js` Javascript file in our `index.html`
 
 ## Demo
 
-<iframe width="350px" height="200px" title="Rust Demo" src="/examples/strings/demo/rust/"></iframe>
+<iframe width="350px" height="200px" title="Rust Demo" src="/demo-redirect?example-name=strings"></iframe>
 
 This is the end of the examples for now! More will be in the works, and feel free to [fix, suggest, or contribute examples](https://github.com/torch2424/wasm-by-example)!

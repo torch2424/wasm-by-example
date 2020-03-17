@@ -209,6 +209,6 @@ And you should get something similar to the demo ([Source Code](/source-redirect
 
 ## Demo
 
-<iframe width="300px" height="300px" title="Rust Demo" src="/examples/reading-and-writing-graphics/demo/rust/"></iframe>
+<iframe width="300px" height="300px" title="Rust Demo" src="/demo-redirect?example-name=reading-and-writing-graphics"></iframe>
 
 Next, lets took a look at an example of implementing [Reading and Writing Audio with WebAssembly](/example-redirect?exampleName=reading-and-writing-audio).

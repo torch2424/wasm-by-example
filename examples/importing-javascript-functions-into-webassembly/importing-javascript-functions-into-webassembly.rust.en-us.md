@@ -64,6 +64,6 @@ Lastly, lets load our ES6 Module, `index.js` Javascript file in our `index.html`
 
 ## Demo
 
-<iframe title="Rust Demo" src="/examples/importing-javascript-functions-into-webassembly/demo/rust/"></iframe>
+<iframe title="Rust Demo" src="/demo-redirect?example-name=importing-javascript-functions-into-webassembly"></iframe>
 
 And that's it for the basics! Next, lets took a look at some "Advanced Web Demos", with an example of [Reading and Writing Graphics with WebAssembly](/example-redirect?exampleName=reading-and-writing-graphics).

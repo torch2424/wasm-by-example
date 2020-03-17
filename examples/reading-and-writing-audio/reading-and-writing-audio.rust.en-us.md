@@ -301,6 +301,6 @@ And you should get something similar to the demo ([Source Code](/source-redirect
 
 ## Demo
 
-<iframe width="100%" height="500px" title="Rust Audio Demo" src="/examples/reading-and-writing-audio/demo/rust/"></iframe>
+<iframe width="100%" height="500px" title="Rust Audio Demo" src="/demo-redirect?example-name=reading-and-writing-audio"></iframe>
 
 Next, lets took a look at high level data structures, specifcally, by passing around [strings](/example-redirect?exampleName=strings).

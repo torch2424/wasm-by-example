@@ -1,3 +1,8 @@
+// const WASM_BY_EXAMPLE_VERSION, and const WASM_BY_EXAMPLE_EXAMPLES_BY_LANGUAGE
+// added by the build system. So imagine there is a:
+// const WASM_BY_EXAMPLE_VERSION = "0.0.0"
+// const WASM_BY_EXAMPLE_EXAMPLES_BY_LANGUAGE = [/*Object from build system here*/];
+
 // Define our Globals
 
 // Define Global Programming Languages
@@ -14,8 +19,10 @@ window.WASM_BY_EXAMPLE_READING_LANGUAGES["English (US)"] = "en-us";
 
 // Define Default Settings
 window.WASM_BY_EXAMPLE = {
+  version: WASM_BY_EXAMPLE_VERSION,
   programmingLanguage: "rust",
-  readingLanguage: "en-us"
+  readingLanguage: "en-us",
+  exampleName: undefined
 };
 
 // Define some constants
@@ -33,6 +40,7 @@ const setLanguagePreferenceFromForm = () => {
   languageSelectKeys.forEach(key => {
     const select = document.querySelector(`select#${key}`);
     if (select && select.value) {
+      WASM_BY_EXAMPLE[key] = select.value;
       localStorage.setItem(key, select.value);
     }
   });
@@ -41,7 +49,41 @@ const setLanguagePreferenceFromForm = () => {
 const submitSettingsForm = () => {
   setLanguagePreferenceFromForm();
 
-  location.pathname = "/";
+  // Check if we should reload, go home, or go to the respective example
+  // in the new language
+  if (location.pathname.includes("/examples/")) {
+    // Check if there is an equivalent language in the new target language
+    const isExampleInNewLanguage = WASM_BY_EXAMPLE_EXAMPLES_BY_LANGUAGE.some(
+      exampleByLanguage => {
+        // Check if this examleByLanguage is our target language
+        if (
+          exampleByLanguage.programmingLanguage ===
+            WASM_BY_EXAMPLE.programmingLanguage ||
+          exampleByLanguage.programmingLanguage === "all"
+        ) {
+          // Look through the exampleBylanguage (which is our target)
+          // And find the example with our current exampleName
+          return exampleByLanguage.examples.some(example => {
+            return example.exampleName === WASM_BY_EXAMPLE.exampleName;
+          });
+        }
+        return;
+      }
+    );
+    if (isExampleInNewLanguage) {
+      // Go to the example through the example-redirect
+      // Using .href to not URL Escape the ?.
+      location.href = `/example-redirect?example-name=${
+        WASM_BY_EXAMPLE.exampleName
+      }`;
+    } else {
+      // Go Back to home
+      location.pathname = "/";
+    }
+  } else {
+    // Reload, since we aren't on an example page
+    location.reload();
+  }
 };
 
 // Initialization IIFE
@@ -100,5 +142,19 @@ const submitSettingsForm = () => {
     });
     // Set value
     readingLanguageSelect.value = window.WASM_BY_EXAMPLE.readingLanguage;
+  }
+
+  // Check if we are on an examples page
+  const isOnExamplePage = location.pathname.includes("/examples/");
+  if (isOnExamplePage) {
+    // Parse out the example name
+    const pathSplit = location.pathname.split("/");
+    const filename = pathSplit[pathSplit.length - 1];
+    const filenameSplit = filename.split(".");
+    const exampleName = filenameSplit[0];
+    window.WASM_BY_EXAMPLE.exampleName = exampleName;
+
+    // Set the example name into localStorage
+    localStorage.setItem("exampleName", exampleName);
   }
 })();

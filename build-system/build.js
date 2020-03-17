@@ -10,6 +10,7 @@ const CleanCSS = require("clean-css");
 const Terser = require("terser");
 
 const exampleInfo = require("./example-info");
+const packageJson = require("../package.json");
 
 console.log("Building...");
 console.log(" ");
@@ -41,6 +42,7 @@ marked.setOptions({
 });
 
 const mustacheData = {
+  version: packageJson.version,
   styles: {
     normalize: minifyCss("node_modules/normalize.css/normalize.css"),
     sakura: minifyCss("node_modules/sakura.css/css/sakura-dark.css"),
@@ -48,10 +50,13 @@ const mustacheData = {
     index: minifyCss("shell/styles/index.css")
   },
   js: {
-    index: minifyJs("shell/js/index.js"),
+    index: `const WASM_BY_EXAMPLE_VERSION = "${packageJson.version}";${minifyJs(
+      "shell/js/index.js"
+    )}`,
     examplesList: minifyJs("shell/js/examplesList.js"),
     examplesRedirect: minifyJs("shell/js/examplesRedirect.js"),
-    sourceRedirect: minifyJs("shell/js/sourceRedirect.js")
+    sourceRedirect: minifyJs("shell/js/sourceRedirect.js"),
+    demoRedirect: minifyJs("shell/js/demoRedirect.js")
   },
   partials: {
     head: fs.readFileSync("shell/partials/head.html", "utf8"),
@@ -268,6 +273,11 @@ const buildTask = async () => {
 
   // Finally, with the data, render all of our files
 
+  // First, Add the example listings to our index.js
+  mustacheData.js.index = `const WASM_BY_EXAMPLE_EXAMPLES_BY_LANGUAGE = ${JSON.stringify(
+    mustacheData.examplesByLanguage
+  )};${mustacheData.js.index}`;
+
   // Render all the normal pages
   const shellStandardPages = [
     "index.html",
@@ -275,6 +285,7 @@ const buildTask = async () => {
     "additional-resources.html",
     "example-redirect.html",
     "source-redirect.html",
+    "demo-redirect.html",
     "all-examples-list.html"
   ];
   shellStandardPages.forEach(page => {

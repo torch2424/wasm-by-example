@@ -1,6 +1,6 @@
 {
   "name": "wasm-by-example",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A website of examples in how to do common things in WebAssembly",
   "main": "index.js",
   "directories": {
@@ -44,7 +44,7 @@
     "cpy": "^7.2.0",
     "highlight.js": "^9.15.6",
     "husky": "^2.3.0",
-    "marked": "^0.6.2",
+    "marked": "^0.8.0",
     "mkdirp": "^0.5.1",
     "mustache": "^3.0.1",
     "npm-run-all": "^4.1.5",
@@ -52,7 +52,7 @@
     "pretty-quick": "^1.11.0",
     "recursive-copy": "^2.0.10",
     "recursive-readdir": "^2.2.2",
-    "serve": "^11.0.2",
+    "serve": "^11.3.0",
     "terser": "^4.0.0",
     "watch": "^1.0.2"
   },
