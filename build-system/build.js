@@ -273,6 +273,11 @@ const buildTask = async () => {
 
   // Finally, with the data, render all of our files
 
+  // First, Add the example listings to our index.js
+  mustacheData.js.index = `const WASM_BY_EXAMPLE_EXAMPLES_BY_LANGUAGE = ${JSON.stringify(
+    mustacheData.examplesByLanguage
+  )};${mustacheData.js.index}`;
+
   // Render all the normal pages
   const shellStandardPages = [
     "index.html",
