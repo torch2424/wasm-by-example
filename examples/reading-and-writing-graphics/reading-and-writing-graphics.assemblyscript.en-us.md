@@ -194,6 +194,6 @@ And you should get something similar to the demo ([Source Code](/source-redirect
 
 ## Demo
 
-<iframe width="300px" height="300px" title="AssemblyScript Demo" src="/examples/reading-and-writing-graphics/demo/assemblyscript/"></iframe>
+<iframe width="300px" height="300px" title="AssemblyScript Demo" src="/demo-redirect?example-name=reading-and-writing-graphics"></iframe>
 
 Next, lets took a look at an example of [Reading and Writing Audio with WebAssembly](/example-redirect?exampleName=reading-and-writing-audio).

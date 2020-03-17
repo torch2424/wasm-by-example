@@ -276,6 +276,6 @@ And you should get something similar to the demo ([Source Code](/source-redirect
 
 ## Demo
 
-<iframe width="100%" height="500px" title="AssemblyScript Audio Demo" src="/examples/reading-and-writing-audio/demo/assemblyscript/"></iframe>
+<iframe width="100%" height="500px" title="AssemblyScript Audio Demo" src="/demo-redirect?example-name=reading-and-writing-audio"></iframe>
 
 This is the end of the examples for now! More will be in the works, and feel free to [fix, suggest, or contribute examples](https://github.com/torch2424/wasm-by-example)!

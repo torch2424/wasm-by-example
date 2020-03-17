@@ -19,7 +19,9 @@
 
   // Set the path, and clear the search
   if (exampleName) {
-    window.location.href = `/examples/${exampleName}/${exampleName}.${programmingLanguage}.${readingLanguage}.html`;
+    window.location.href = `/examples/${exampleName}/demo/${programmingLanguage}/?version=${
+      WASM_BY_EXAMPLE.VERSION
+    }`;
   } else {
     window.location.href = "/";
   }

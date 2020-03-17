@@ -1,3 +1,6 @@
+// const WASM_BY_EXAMPLE added by the build system. So image there is a:
+// const WASM_BY_EXAMPLE_VERSION = "0.0.0"
+
 // Define our Globals
 
 // Define Global Programming Languages
@@ -14,8 +17,10 @@ window.WASM_BY_EXAMPLE_READING_LANGUAGES["English (US)"] = "en-us";
 
 // Define Default Settings
 window.WASM_BY_EXAMPLE = {
+  version: WASM_BY_EXAMPLE_VERSION,
   programmingLanguage: "rust",
-  readingLanguage: "en-us"
+  readingLanguage: "en-us",
+  exampleName: undefined
 };
 
 // Define some constants
@@ -100,5 +105,19 @@ const submitSettingsForm = () => {
     });
     // Set value
     readingLanguageSelect.value = window.WASM_BY_EXAMPLE.readingLanguage;
+  }
+
+  // Check if we are on an examples page
+  const isOnExamplePage = location.pathname.includes("/examples/");
+  if (isOnExamplePage) {
+    // Parse out the example name
+    const pathSplit = location.pathname.split("/");
+    const filename = pathSplit[pathSplit.length - 1];
+    const filenameSplit = filename.split(".");
+    const exampleName = filenameSplit[0];
+    window.WASM_BY_EXAMPLE.exampleName = exampleName;
+
+    // Set the example name into localStorage
+    localStorage.setItem("exampleName", exampleName);
   }
 })();
