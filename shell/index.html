@@ -9,6 +9,7 @@
       {{{styles.normalize}}}
       {{{styles.sakura}}}
       {{{styles.index}}}
+      {{{styles.examplesList}}}
     </style>
   </head>
   <body>
@@ -45,7 +46,10 @@
     <!-- List of examples -->
     <h2>Examples</h2>
     {{#categories}}
-    <h3 style="display: none" class="{{class}}">{{title}}</h3>
+    <h3 style="display: none" class="{{class}} example-category-title">
+      {{title}}
+    </h3>
+    <p class="example-category-description">{{description}}</p>
     <ul>
       {{#examples}}
       <li
