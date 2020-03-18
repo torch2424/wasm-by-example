@@ -47,7 +47,8 @@ const mustacheData = {
     normalize: minifyCss("node_modules/normalize.css/normalize.css"),
     sakura: minifyCss("node_modules/sakura.css/css/sakura-dark.css"),
     highlightJs: minifyCss("node_modules/highlight.js/styles/gruvbox-dark.css"),
-    index: minifyCss("shell/styles/index.css")
+    index: minifyCss("shell/styles/index.css"),
+    examplesList: minifyCss("shell/styles/examples-list.css")
   },
   js: {
     index: `const WASM_BY_EXAMPLE_VERSION = "${packageJson.version}";${minifyJs(
@@ -216,6 +217,7 @@ const buildTask = async () => {
   exampleInfo.categories.forEach((category, index) => {
     mustacheData.categories[index] = {};
     mustacheData.categories[index].title = category.title;
+    mustacheData.categories[index].description = category.description;
     mustacheData.categories[index].class = "";
 
     mustacheData.categories[index].examples = [];
