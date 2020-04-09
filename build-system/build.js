@@ -315,6 +315,9 @@ const buildTask = async () => {
     dot: true
   });
 
+  // Copy over our manifest.json (PWA Support)
+  await cpy(["shell/manifest.json"], "dist/");
+
   // Generate our Service Worker
   const workboxResponse = await workboxBuild.generateSW({
     globDirectory: "dist",
