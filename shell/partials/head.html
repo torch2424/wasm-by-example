@@ -6,6 +6,21 @@
   name="description"
   content="A hands-on introduction into WebAssembly ( Wasm ). Containing simple wasm examples and wasm tutorials on how to implement concepts and various tasks using WebAssembly."
 />
+<!-- Add some PWA stuff -->
+<link rel="manifest" href="/manifest.json" />
+<meta name="theme-color" content="#654ff0" />
+<link rel="apple-touch-icon" href="/icon-apple.png" />
+
+<!-- Register our service worker -->
+<script>
+  // Check that service workers are supported
+  if ("serviceWorker" in navigator) {
+    // Use the window load event to keep the page load performant
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/service-worker.js");
+    });
+  }
+</script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script
   async

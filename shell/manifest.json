@@ -1,0 +1,16 @@
+{
+  "name": "Wasm By Example",
+  "short_name": "WasmByExample",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#252830",
+  "theme_color": "#654ff0",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
