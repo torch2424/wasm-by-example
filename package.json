@@ -54,7 +54,8 @@
     "recursive-readdir": "^2.2.2",
     "serve": "^11.3.0",
     "terser": "^4.0.0",
-    "watch": "^1.0.2"
+    "watch": "^1.0.2",
+    "workbox-build": "^5.1.2"
   },
   "dependencies": {
     "normalize.css": "^8.0.1",

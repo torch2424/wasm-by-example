@@ -8,6 +8,7 @@ const marked = require("marked");
 const Mustache = require("mustache");
 const CleanCSS = require("clean-css");
 const Terser = require("terser");
+const workboxBuild = require("workbox-build");
 
 const exampleInfo = require("./example-info");
 const packageJson = require("../package.json");
@@ -313,6 +314,15 @@ const buildTask = async () => {
     overwrite: true,
     dot: true
   });
+
+  // Generate our Service Worker
+  const workboxResponse = await workboxBuild.generateSW({
+    globDirectory: "dist",
+    globPatterns: ["**/*.{html,json,js,css,svg,jpg,wasm}"],
+    swDest: "dist/service-worker.js",
+    ignoreURLParametersMatching: [/.*exampleName.*/, /.*example-name.*/]
+  });
+  console.log("WorkBox Response: \n", workboxResponse, "\n");
 
   console.log("Done!");
   console.log(" ");

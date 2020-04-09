@@ -103,6 +103,6 @@ You should have something similar to the demo ([Source Code](/source-redirect?pa
 
 ## Demo
 
-<iframe title="AssemblyScript Demo" src="/demo-redirect?=hello-world"></iframe>
+<iframe title="AssemblyScript Demo" src="/demo-redirect?example-name=hello-world"></iframe>
 
 Next let's take a deeper look at WebAssembly [Exports](/example-redirect?exampleName=exports).
