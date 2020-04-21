@@ -127,7 +127,7 @@ Improving the shell (E.g the language switcher or typos in the landing page and 
 
 ## Any other contributions
 
-For all other types of contributions (E.g perhaps you are a platform that wants to expand on Wasm By Example or something), please open an issue first describing the idea, and then we can work on a PR that works for the communitty at large.
+For all other types of contributions (E.g perhaps you are a platform that wants to expand on Wasm By Example or something), please open an issue first describing the idea, and then we can work on a PR that works for the community at large.
 
 # Privacy
 
