@@ -2,7 +2,7 @@
 
 ## Overview
 
-Using buffers and pointers, is a great way to get started with WebAssembly, and drill in its concepts while being productive. But once we start wanting to use higher level data structures efficiently and easily, is where things will get a little more complicated. Thankfully, the rust/wasm communitty built [wasm-bindgen](https://github.com/rustwasm/wasm-bindgen), which is part of the wasm-pack workflow we have been using throughout the examples. As mentioned before, wasm-bindgen abstracts away linear memory, and allows using higher-level data structures between Rust and JavaScript.
+Using buffers and pointers, is a great way to get started with WebAssembly, and drill in its concepts while being productive. But once we start wanting to use higher level data structures efficiently and easily, is where things will get a little more complicated. Thankfully, the rust/wasm community built [wasm-bindgen](https://github.com/rustwasm/wasm-bindgen), which is part of the wasm-pack workflow we have been using throughout the examples. As mentioned before, wasm-bindgen abstracts away linear memory, and allows using higher-level data structures between Rust and JavaScript.
 
 Let's kick things off! Let's see how we can use strings in WebAssembly, and share them with JavaScript:
 
