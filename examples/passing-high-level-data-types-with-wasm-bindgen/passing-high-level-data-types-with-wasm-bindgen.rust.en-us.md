@@ -64,6 +64,6 @@ Lastly, lets load our ES6 Module, `index.js` Javascript file in our `index.html`
 
 ---
 
-**[wasm-bindgen](https://github.com/rustwasm/wasm-bindgen) has support for many different types!** I'd highly reccomend taking a look at the [wasm-bindgen book](https://rustwasm.github.io/docs/wasm-bindgen/), and in particular, the section of the [supported types by wasm-bindgen](https://rustwasm.github.io/docs/wasm-bindgen/reference/types.html).
+**[wasm-bindgen](https://github.com/rustwasm/wasm-bindgen) supports more than just strings, and has support for many different types!** I'd highly reccomend taking a look at the [wasm-bindgen book](https://rustwasm.github.io/docs/wasm-bindgen/), and in particular, the section of the [supported types by wasm-bindgen](https://rustwasm.github.io/docs/wasm-bindgen/reference/types.html).
 
 Feel free to [fix, suggest, or contribute more examples for language features or communitty tools](https://github.com/torch2424/wasm-by-example)!

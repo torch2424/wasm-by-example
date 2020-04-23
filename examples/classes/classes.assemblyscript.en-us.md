@@ -9,7 +9,7 @@ and then using as-bind to create objects from those classes within JavaScript. T
 thing we should do is install the as-bind module using `npm`:
 
 ```bash
-npm i --save as-bind
+npm install --save as-bind
 ```
 
 Later in this tutorial, we will need to include the as-bind library when we compile our WebAssembly
