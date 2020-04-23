@@ -159,4 +159,4 @@ That is because AssemblyScript has not yet implemented a method for looking up f
 overrides. The `Magnitude` function does not know that it should be calling the `MagSQ`
 function for the `Vector3D` class and not the `Vector2D` class.
 
-The entire source code to the demo can be found [here](/source-redirect?path=examples/hello-world/demo/assemblyscript).
+The entire source code to the demo can be found [here](/source-redirect?path=examples/classes/demo/assemblyscript).
