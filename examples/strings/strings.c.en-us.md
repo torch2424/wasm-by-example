@@ -2,7 +2,7 @@
 
 ## Overview
 
-Let's implement the classical Caesar cipher in [C++](<https://en.wikipedia.org/wiki/C%2B%2B>) using [Emscripten](https://emscripten.org)!
+Let's implement the classical Caesar cipher in [C++](https://en.wikipedia.org/wiki/C%2B%2B) using [Emscripten](https://emscripten.org)!
 
 ---
 
@@ -57,7 +57,7 @@ The `-Os` flag tells Emscripten to optimize our code for maximum performance. Th
 
 The wasm file contains the compiled code, but we need to write JS to load and run it. Let's do that!
 
-First, we load the wasm.  Since this involves async operations, we'll do everything inside an anonymous async function.
+First, we load the wasm. Since this involves async operations, we'll do everything inside an anonymous async function.
 
 ```javascript
 (async () => {
@@ -69,69 +69,69 @@ First, we load the wasm.  Since this involves async operations, we'll do everyth
 Then we extract our wasm functions, and the memory shared between wasm and JS:
 
 ```javascript
-  const { memory, caesarEncrypt, caesarDecrypt } = wasm.instance.exports;
+const { memory, caesarEncrypt, caesarDecrypt } = wasm.instance.exports;
 ```
 
 Julius Caesar is recorded as having preferred a shift of 3 characters down the Latin alphabet for his encryption key. Let's do the same! We will encrypt the secret message "helloworld":
 
 ```javascript
-  const plaintext = 'helloworld';
-  const myKey = 3;
+const plaintext = "helloworld";
+const myKey = 3;
 ```
 
-Sadly, wasm can only work with numbers (and arrays of numbers).  Fortunately, we can get around this with helper functions to handle encoding and decoding text to and from arrays of integers!  Let's write a couple functions that handle our encoding scheme where each letter corresponds to its zero-based position in the alphabet:
+Sadly, wasm can only work with numbers (and arrays of numbers). Fortunately, we can get around this with helper functions to handle encoding and decoding text to and from arrays of integers! Let's write a couple functions that handle our encoding scheme where each letter corresponds to its zero-based position in the alphabet:
 
 ```javascript
-  const encode = function stringToIntegerArray(string, array) {
-    const alphabet = 'abcdefghijklmnopqrstuvwxyz';
-    for (let i = 0; i < string.length; i++) {
-      array[i] = alphabet.indexOf(string[i]);
-    }
+const encode = function stringToIntegerArray(string, array) {
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+  for (let i = 0; i < string.length; i++) {
+    array[i] = alphabet.indexOf(string[i]);
   }
+};
 
-  const decode = function integerArrayToString(array) {
-    const alphabet = 'abcdefghijklmnopqrstuvwxyz';
-    let string = '';
-    for (let i = 0; i < array.length; i++) {
-      string += alphabet[array[i]];
-    }
-    return string;
+const decode = function integerArrayToString(array) {
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+  let string = "";
+  for (let i = 0; i < array.length; i++) {
+    string += alphabet[array[i]];
   }
+  return string;
+};
 ```
 
-Here comes the fun part.  We create a typed array which acts as a sort of window into the memory shared between JS and wasm.  This will allow us to send and retrieve our encoded text to and from the functions we wrote in C++!
+Here comes the fun part. We create a typed array which acts as a sort of window into the memory shared between JS and wasm. This will allow us to send and retrieve our encoded text to and from the functions we wrote in C++!
 
 ```javascript
-  const myArray = new Int32Array(memory.buffer, 0, plaintext.length);
+const myArray = new Int32Array(memory.buffer, 0, plaintext.length);
 ```
 
-That second argument, `0`, means our array begins at the very beginning of our shared memory.  In C++ you would call it a pointer.  Now we encode our secret message in order to prepare it for encryption:
+That second argument, `0`, means our array begins at the very beginning of our shared memory. In C++ you would call it a pointer. Now we encode our secret message in order to prepare it for encryption:
 
 ```javascript
-  encode(plaintext, myArray);
+encode(plaintext, myArray);
 ```
 
-Our encode function doesn't return anything; it just inserts the encoded letters into our array.  Let's check:
+Our encode function doesn't return anything; it just inserts the encoded letters into our array. Let's check:
 
 ```javascript
-  console.log(myArray);         // Int32Array(10) [7, 4, 11, 11, 14, 22, 14, 17, 11, 3]
-  console.log(decode(myArray)); // helloworld
+console.log(myArray); // Int32Array(10) [7, 4, 11, 11, 14, 22, 14, 17, 11, 3]
+console.log(decode(myArray)); // helloworld
 ```
 
-Looks good!  Now that our encoded plaintext exists in our shared memory, we can call our encrypt function to tell the wasm to encrypt it:
+Looks good! Now that our encoded plaintext exists in our shared memory, we can call our encrypt function to tell the wasm to encrypt it:
 
 ```javascript
-  caesarEncrypt(myArray.byteOffset, myArray.length, myKey);
+caesarEncrypt(myArray.byteOffset, myArray.length, myKey);
 ```
 
-That first argument refers to same value as the pointer we talked about earlier. Did it work?  Let's see:
+That first argument refers to same value as the pointer we talked about earlier. Did it work? Let's see:
 
 ```javascript
-  console.log(myArray);         // Int32Array(10) [10, 7, 14, 14, 17, 25, 17, 20, 14, 6]
-  console.log(decode(myArray)); // khoorzruog
+console.log(myArray); // Int32Array(10) [10, 7, 14, 14, 17, 25, 17, 20, 14, 6]
+console.log(decode(myArray)); // khoorzruog
 ```
 
-Looks like all is going according to plan, and our highly confidential message has been secured.  Let's pretend we are the intended recipient (we are, after all), and try decrypting it with the same key:
+Looks like all is going according to plan, and our highly confidential message has been secured. Let's pretend we are the intended recipient (we are, after all), and try decrypting it with the same key:
 
 ```javascript
   caesarDecrypt(myArray.byteOffset, myArray.length, myKey);
@@ -140,9 +140,11 @@ Looks like all is going according to plan, and our highly confidential message h
 })();                           // don't forget to close that async function!
 ```
 
-Awesome!  
+Awesome!
 
-If you wrap this code between `<script></script>` tags inside an `.html` file, you can run it if it's hosted on a webserver, like localhost.  It won't work if you simply open the file directly.  This is because of security precautions that prevent your browser from loading files (`caesar.wasm`, in this case) straight from your harddrive.
+If you wrap this code between `<script></script>` tags inside an `.html` file, you can run it if it's hosted on a webserver, like localhost. It won't work if you simply open the file directly. This is because of security precautions that prevent your browser from loading files (`caesar.wasm`, in this case) straight from your harddrive.
+
+You should have something similar to the demo ([Source Code](/source-redirect?path=examples/strings/demo/c)) below:
 
 ## Demo
 
