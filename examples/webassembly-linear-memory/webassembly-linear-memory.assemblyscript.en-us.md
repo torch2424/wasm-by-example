@@ -74,7 +74,7 @@ const runWasm = async () => {
 runWasm();
 ```
 
-Lastly, lets load our ES6 Module, `index.js` Javascript file in our `index.html`. And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/webassembly-linear-memory/demo/assemblyscript)) below!
+Lastly, lets load our ES6 Module, `index.js` Javascript file in an `index.html`. And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/webassembly-linear-memory/demo/assemblyscript)) below!
 
 ---
 
