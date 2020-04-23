@@ -8,7 +8,9 @@ const exampleOrder = [
   "reading-and-writing-graphics",
   "reading-and-writing-audio",
   "strings",
-  "classes"
+  "classes",
+  "passing-high-level-data-types-with-wasm-bindgen",
+  "passing-high-level-data-types-with-as-bind"
 ];
 
 // Catgeories
@@ -36,7 +38,12 @@ const ecosystemAndLanguage = {
   title: "Ecosystem tools and Language features",
   description:
     "Examples that highlight tools, libraries, and features of your selected programming language. These ecosystem components can drastically help in building powerful applications. For example, tools can be used to help pass data between your host runtime and WebAssembly module, and/or languages features can abstract away some of the lower-level parts of WebAssembly such as memory management.",
-  examples: ["strings", "classes"]
+  examples: [
+    "strings",
+    "classes",
+    "passing-high-level-data-types-with-wasm-bindgen",
+    "passing-high-level-data-types-with-as-bind"
+  ]
 };
 
 module.exports = {

@@ -1,10 +1,10 @@
-# Strings
+# Passing High Level Data Types with `wasm-bindgen`
 
 ## Overview
 
 Using buffers and pointers, is a great way to get started with WebAssembly, and drill in its concepts while being productive. But once we start wanting to use higher level data structures efficiently and easily, is where things will get a little more complicated. Thankfully, the rust/wasm community built [wasm-bindgen](https://github.com/rustwasm/wasm-bindgen), which is part of the wasm-pack workflow we have been using throughout the examples. As mentioned before, wasm-bindgen abstracts away linear memory, and allows using higher-level data structures between Rust and JavaScript.
 
-Let's kick things off! Let's see how we can use strings in WebAssembly, and share them with JavaScript:
+Let's kick things off! To show off how we can use `wasm-bindgen`, let's see how we can use strings in WebAssembly and share them with JavaScript:
 
 ---
 
@@ -54,12 +54,16 @@ const runWasm = async () => {
 runWasm();
 ```
 
-Lastly, lets load our ES6 Module, `index.js` Javascript file in our `index.html`. And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/strings/demo/rust)) below!
+Lastly, lets load our ES6 Module, `index.js` Javascript file in our `index.html`. And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/passing-high-level-data-types-with-wasm-bindgen/demo/rust)) below!
 
 ---
 
 ## Demo
 
-<iframe width="350px" height="200px" title="Rust Demo" src="/demo-redirect?example-name=strings"></iframe>
+<iframe width="350px" height="200px" title="Rust Demo" src="/demo-redirect?example-name=passing-high-level-data-types-with-wasm-bindgen"></iframe>
 
-This is the end of the examples for now! More will be in the works, and feel free to [fix, suggest, or contribute examples](https://github.com/torch2424/wasm-by-example)!
+---
+
+**[wasm-bindgen](https://github.com/rustwasm/wasm-bindgen) has support for many different types!** I'd highly reccomend taking a look at the [wasm-bindgen book](https://rustwasm.github.io/docs/wasm-bindgen/), and in particular, the section of the [supported types by wasm-bindgen](https://rustwasm.github.io/docs/wasm-bindgen/reference/types.html).
+
+Feel free to [fix, suggest, or contribute more examples for language features or communitty tools](https://github.com/torch2424/wasm-by-example)!
