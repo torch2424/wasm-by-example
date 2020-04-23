@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "build": "asc ./node_modules/as-bind/lib/assembly/as-bind.ts ASBindTest.ts -o ASBindTest.wasm"
+  },
+  "dependencies": {
+    "as-bind": "^0.3.1"
+  },
+  "devDependencies": {
+    "assemblyscript": "^0.9.4"
+  }
+}
