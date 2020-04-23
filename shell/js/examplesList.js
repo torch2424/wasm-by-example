@@ -15,7 +15,10 @@ const goToExample = (
 
   // Only show the examples with the langauges in their class
   const css = `
-    h3.${programmingLanguage}.${readingLanguage}, h3.all.${readingLanguage} {
+    .example-category-title.${programmingLanguage}.${readingLanguage}, 
+    .example-category-title.all.${readingLanguage},
+    .example-category-description.${programmingLanguage}.${readingLanguage}, 
+    .example-category-description.all.${readingLanguage} {
       display:block !important;
     }
     .${programmingLanguage}.${readingLanguage}, .all.${readingLanguage} { 

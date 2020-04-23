@@ -227,11 +227,10 @@ const buildTask = async () => {
     mustacheData.examples.forEach(example => {
       if (category.examples.includes(example.exampleName)) {
         mustacheData.categories[index].examples.push(example);
-
         // Next add the appropriate classes if not added already
         if (
           !mustacheData.categories[index].class.includes(
-            example.programmingLanguage
+            ` ${example.programmingLanguage} `
           )
         ) {
           mustacheData.categories[index].class += `${
