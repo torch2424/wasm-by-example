@@ -3,7 +3,7 @@
 First, we should answer the question, "What is WASI"? WASI is the [WebAssembly System Interface](https://wasi.dev/), "a modular system interface for WebAssembly". To help explain this, let's break it down to:
 
 - **What can WASI do for my WebAssembly Applications?**
-  - WASI offers a standardized set of APIs for WebAssembly modules to access system resource such as a FileSystem, Networking, Time, Random, etc... .
+  - WASI offers a [standardized set of APIs](https://github.com/WebAssembly/WASI/blob/master/phases/snapshot/docs.md) for WebAssembly modules to access system resource such as a FileSystem, Networking, Time, Random, etc... .
 - **How do WebAssembly modules use WASI?**
   - A WebAssembly module will use their importObject ([Similar to how we do this for the browser in the "Importing Javascript Functions Into Webassembly"](/example-redirect?exampleName=importing-javascript-functions-into-webassembly)), to be able to access the standardized WASI API bindings (meaning the names of these importObject functions map directly to the agreed-upon WASI implementation).
 
