@@ -1,35 +1,17 @@
 package main
 
-var buffer [10]uint8;
+// Declare a main function, this is the entrypoint into our go module
+// That will be run. In our hello world, we won't need this
+func main() {}
 
-func jsadd(x, y int) int
 
-func main() {
-   println("adding two numbers:", jsadd(2, 3))
-}
-
+// This exports an add function.
+// It takes in two 32-bit integer values
+// And returns a 32-bit integer value.
+// To make this function callable from JavaScript, 
+// we need to add the: "go:export add" comment above the function
 //go:export add
 func add(x int, y int) int {
     return x + y;
 }
 
-//go:export getWasmMemoryBufferPointer
-func getWasmMemoryBufferPointer() *[10]uint8 {
-  bufferPointer := &buffer;
-  (*bufferPointer)[0] = 12;
-  (*bufferPointer)[1] = 12;
-  println("buffer 0:", buffer[0]);
-  println("buffer 1:", buffer[1]);
-  return bufferPointer;
-}
-
-//go:export logBuffer
-func logBuffer() {
-  println("buffer pointer:", &buffer);
-
-  bufferPointer := &buffer;
-  println("buffer 0:", (*bufferPointer)[0]);
-  println("buffer 1:", buffer[1]);
-  println("buffer 2:", buffer[2]);
-  println("buffer 3:", buffer[3]);
-}
