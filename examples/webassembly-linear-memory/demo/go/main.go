@@ -1,35 +1,34 @@
 package main
 
-var buffer [10]uint8;
 
-func jsadd(x, y int) int
+// Create a byte (uint8, not Go byte) buffer, which will be available in Wasm Memory. 
+// We can then share this buffer with JS and Wasm.
+const BUFFER_SIZE int = 2;
+var buffer [BUFFER_SIZE]uint8;
 
-func main() {
-   println("adding two numbers:", jsadd(2, 3))
-}
+// Declare a main function, this is the entrypoint into our go module
+// That will be run. In our example, we won't need this
+func main() {}
 
-//go:export add
-func add(x int, y int) int {
-    return x + y;
-}
-
+// Function to return a pointer (Index) to our buffer in wasm memory
 //go:export getWasmMemoryBufferPointer
-func getWasmMemoryBufferPointer() *[10]uint8 {
-  bufferPointer := &buffer;
-  (*bufferPointer)[0] = 12;
-  (*bufferPointer)[1] = 12;
-  println("buffer 0:", buffer[0]);
-  println("buffer 1:", buffer[1]);
-  return bufferPointer;
+func getWasmMemoryBufferPointer() *[BUFFER_SIZE]uint8 {
+  return &buffer
 }
 
-//go:export logBuffer
-func logBuffer() {
-  println("buffer pointer:", &buffer);
-
-  bufferPointer := &buffer;
-  println("buffer 0:", (*bufferPointer)[0]);
-  println("buffer 1:", buffer[1]);
-  println("buffer 2:", buffer[2]);
-  println("buffer 3:", buffer[3]);
+// Function to store the passed value at index 0,
+// in our buffer 
+//go:export storeValueInWasmMemoryBufferIndexZero
+func storeValueInWasmMemoryBufferIndexZero(value uint8) {
+  buffer[0] = value
 }
+
+// Function to read from index 1 of our buffer
+// And return the value at the index
+//go:export readWasmMemoryBufferAndReturnIndexOne
+func readWasmMemoryBufferAndReturnIndexOne() uint8 {
+  return buffer[1]
+}
+
+
+

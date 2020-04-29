@@ -1,40 +1,57 @@
 // Imports are from the demo-util folder in the repo
 // https://github.com/torch2424/wasm-by-example/blob/master/demo-util/
 import { wasmBrowserInstantiate } from "/demo-util/instantiateWasm.js";
+import { domConsoleLog } from "/demo-util/domConsole.js";
 
 const go = new Go(); // Defined in wasm_exec.js. Don't forget to add this in your index.html.
 
-const jsAdd = (x, y) => x + y;
-
 const runWasmAdd = async () => {
   const importObject = go.importObject;
-  importObject.env["./main.go.jsadd"] = jsAdd;
 
   // Instantiate our wasm module
   const wasmModule = await wasmBrowserInstantiate("./main.wasm", importObject);
 
-  console.log("exports", wasmModule.instance.exports);
-
   // You have to run the go instance before doing anything else, or else println and things won't work
   go.run(wasmModule.instance);
 
-  // Call the Add function export from wasm, save the result
-  const addResult = wasmModule.instance.exports.add(24, 24);
+  /**
+   * Part one: Write in Wasm, Read in JS
+   */
+  domConsoleLog("Write in Wasm, Read in JS, Index 0:");
 
-  const bufferPointer = wasmModule.instance.exports.getWasmMemoryBufferPointer();
+  // First, let's have wasm write to our buffer
+  wasmModule.instance.exports.storeValueInWasmMemoryBufferIndexZero(24);
 
-  console.log(bufferPointer);
+  // Next, let's create a Uint8Array of our wasm memory
+  let wasmMemory = new Uint8Array(wasmModule.instance.exports.memory.buffer);
 
-  const wasmMemory = new Uint8Array(wasmModule.instance.exports.memory.buffer);
-  wasmMemory[bufferPointer] = 24;
+  // Then, let's get the pointer to our buffer that is within wasmMemory
+  let bufferPointer = wasmModule.instance.exports.getWasmMemoryBufferPointer();
 
-  // console.log(wasmMemory);
+  // Then, let's read the written value at index zero of the buffer,
+  // by accessing the index of wasmMemory[bufferPointer + bufferIndex]
+  domConsoleLog(wasmMemory[bufferPointer + 0]); // Should log "24"
 
-  // console.log(wasmMemory[bufferPointer]);
+  /**
+   * Part two: Write in JS, Read in Wasm
+   */
+  domConsoleLog("Write in JS, Read in Wasm, Index 1:");
 
-  wasmModule.instance.exports.logBuffer();
+  // First, let's write to index one of our buffer
+  wasmMemory[bufferPointer + 1] = 25;
 
-  // Set the result onto the body
-  document.body.textContent = `Hello World! addResult: ${addResult}`;
+  // Then, let's have wasm read index one of the buffer,
+  // and return the result
+  domConsoleLog(
+    wasmModule.instance.exports.readWasmMemoryBufferAndReturnIndexOne()
+  ); // Should log "25"
+
+  /**
+   * NOTE: if we were to continue reading and writing memory,
+   * depending on how the memory is grown by rust, you may have
+   * to re-create the Uint8Array since memory layout could change.
+   * For example, `let wasmMemory = new Uint8Array(rustWasm.memory.buffer);`
+   * In this example, we did not, but be aware this may happen :)
+   */
 };
 runWasmAdd();
