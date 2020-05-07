@@ -67,6 +67,8 @@ In this HTML, we are loading an `index.js` (which we will create in the next ste
 cp $(tinygo env TINYGOROOT)/targets/wasm_exec.js .
 ```
 
+It is also very important to notice: **Your wasm_exec.js must match the TinyoGo compiler version, of the TinyGo compiler that compiled your Tiny Go Wasm module**. Therefore, you should update `wasm_exec.js` whenever you update your TinyGo compiler.
+
 Lastly, lets create our `index.js` JavaScript file. In our `index.js`, add a function for loading Wasm modules using the [WebAssembly Web APIs](https://developer.mozilla.org/en-US/docs/WebAssembly):
 
 ```javascript
