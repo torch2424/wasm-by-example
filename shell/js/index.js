@@ -12,6 +12,7 @@ window.WASM_BY_EXAMPLE_PROGRAMMING_LANGUAGES[
   "AssemblyScript (TypeScript-like)"
 ] = "assemblyscript";
 window.WASM_BY_EXAMPLE_PROGRAMMING_LANGUAGES["Emscripten (C/C++)"] = "c";
+window.WASM_BY_EXAMPLE_PROGRAMMING_LANGUAGES["TinyGo (Go)"] = "go";
 
 // Define Global Reading Languages
 window.WASM_BY_EXAMPLE_READING_LANGUAGES = {};

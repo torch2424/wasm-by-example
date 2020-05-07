@@ -29,7 +29,7 @@ Then, let's compile that into a wasm module, using the [AssemblyScript Compiler]
 asc hello-world.ts -b hello-world.wasm
 ```
 
-Next, lets create a `hello-world.js` JavaScript file, and add a function for loading Wasm modules:
+Next, lets create a `hello-world.js` JavaScript file, and add a function for loading Wasm modules using the [WebAssembly Web APIs](https://developer.mozilla.org/en-US/docs/WebAssembly):
 
 ```javascript
 // https://github.com/torch2424/wasm-by-example/blob/master/demo-util/
