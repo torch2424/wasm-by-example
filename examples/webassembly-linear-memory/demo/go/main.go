@@ -11,7 +11,7 @@ var buffer [BUFFER_SIZE]uint8;
 func main() {}
 
 // Function to return a pointer (Index) to our buffer in wasm memory
-//go:export getWasmMemoryBufferPointer
+//export getWasmMemoryBufferPointer
 func getWasmMemoryBufferPointer() *[BUFFER_SIZE]uint8 {
   return &buffer
 }

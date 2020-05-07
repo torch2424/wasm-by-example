@@ -8,8 +8,8 @@ func main() {}
 // It takes in two 32-bit integer values
 // And returns a 32-bit integer value.
 // To make this function callable from JavaScript, 
-// we need to add the: "go:export add" comment above the function
-//go:export callMeFromJavascript
+// we need to add the: "export myFunctionName" comment above the function
+//export callMeFromJavascript
 func callMeFromJavascript(x int, y int) int {
     return addIntegerWithConstant(x, y);
 }

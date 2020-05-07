@@ -10,7 +10,7 @@ func main() {}
 // Export a function that takes in an integer
 // and calls an imported function from the importObject
 // to log out that integer, back inside of JavaScript
-//go:export printIntFromWasm
+//export printIntFromWasm
 func printIntFromWasm(x int) {
     jsPrintInt(x)
 }
