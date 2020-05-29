@@ -10,7 +10,9 @@ const exampleOrder = [
   "passing-high-level-data-types-with-wasm-bindgen",
   "passing-high-level-data-types-with-as-bind",
   "strings",
-  "classes"
+  "classes",
+  "wasi-introduction",
+  "wasi-hello-world"
 ];
 
 // Catgeories
@@ -46,7 +48,19 @@ const ecosystemAndLanguage = {
   ]
 };
 
+const webassemblyOutsideTheBrowser = {
+  title: "WebAssembly Outside of the Browser",
+  description:
+    "Examples that highlight the WebAssembly System Interface (WASI), standalone WebAssembly runtimes, tools for applications that use WASI, and use cases for tasks like cloud computing and internet-of-things devices. WebAssembly has a lot of key features that make it great for the browser web, and these same features make it a popular choice for uses outside of the browser as well.",
+  examples: ["wasi-introduction", "wasi-hello-world"]
+};
+
 module.exports = {
   exampleOrder,
-  categories: [concepts, applyingTheConcepts, ecosystemAndLanguage]
+  categories: [
+    concepts,
+    applyingTheConcepts,
+    ecosystemAndLanguage,
+    webassemblyOutsideTheBrowser
+  ]
 };
