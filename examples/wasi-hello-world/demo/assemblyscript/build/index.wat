@@ -4090,7 +4090,7 @@
    call $~lib/string/String.__concat
    local.tee $0
    i32.const 704
-   i32.const 29
+   i32.const 26
    i32.const 3
    call $~lib/wasi/index/abort
    unreachable
