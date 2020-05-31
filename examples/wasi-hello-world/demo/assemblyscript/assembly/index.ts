@@ -19,13 +19,10 @@ let filePath: string = "helloworld.txt";
 let fileOrNull: Descriptor | null = FileSystem.open(filePath, "w+");
 
 // Check if the FileSystem.open() returned null.
-// This null check is done by:
-// casting the Descriptor | null type to a pointer (usize)
-// and checking if the pointer is zero.
 // If fileOrNull is null, that means we could not create/open the file
 // (Probably because we did not add the `--dir` flag)
 // Throw an error.
-if (changetype<usize>(fileOrNull) == 0) {
+if (fileOrNull == null) {
   throw new Error("Could not open the file " + filePath);
 }
 
