@@ -17,6 +17,7 @@ window.WASM_BY_EXAMPLE_PROGRAMMING_LANGUAGES["TinyGo (Go)"] = "go";
 // Define Global Reading Languages
 window.WASM_BY_EXAMPLE_READING_LANGUAGES = {};
 window.WASM_BY_EXAMPLE_READING_LANGUAGES["English (US)"] = "en-us";
+window.WASM_BY_EXAMPLE_READING_LANGUAGES["Brazilian Portuguese"] = "pt-br";
 
 // Define Default Settings
 window.WASM_BY_EXAMPLE = {
@@ -53,6 +54,15 @@ const submitSettingsForm = () => {
   // Check if we should reload, go home, or go to the respective example
   // in the new language
   if (location.pathname.includes("/examples/")) {
+    // Check if the example is an "all" programming languages
+    if (location.pathname.includes(".all.")) {
+      // Go to the example with the name
+      location.href = `/example-redirect?exampleName=${
+        WASM_BY_EXAMPLE.exampleName
+      }&programmingLanguage=all`;
+      return;
+    }
+
     // Check if there is an equivalent language in the new target language
     const isExampleInNewLanguage = WASM_BY_EXAMPLE_EXAMPLES_BY_LANGUAGE.some(
       exampleByLanguage => {
@@ -74,7 +84,7 @@ const submitSettingsForm = () => {
     if (isExampleInNewLanguage) {
       // Go to the example through the example-redirect
       // Using .href to not URL Escape the ?.
-      location.href = `/example-redirect?example-name=${
+      location.href = `/example-redirect?exampleName=${
         WASM_BY_EXAMPLE.exampleName
       }`;
     } else {
