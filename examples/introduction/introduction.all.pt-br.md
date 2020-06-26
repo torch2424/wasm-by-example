@@ -1,5 +1,3 @@
-introduction.all.pt-br.md
-
 # Introdução
 
 Vamos fazer uma breve introdução aos principais conceitos do WebAssembly:
