@@ -5,7 +5,7 @@ import { domConsoleLog } from "/demo-util/domConsole.js";
 
 const go = new Go(); // Defined in wasm_exec.js. Don't forget to add this in your index.html.
 
-const runWasmAdd = async () => {
+const runWasm = async () => {
   // Get the importObject from the go instance.
   const importObject = go.importObject;
   // Set our function we want to use from WebAssembly, on our importObject
@@ -22,7 +22,7 @@ const runWasmAdd = async () => {
   // Allow the wasm_exec go instance, bootstrap and execute our wasm module
   go.run(wasmModule.instance);
 
-  // Call the Add function export from wasm, save the result
+  // Call the export from wasm
   wasmModule.instance.exports.printIntFromWasm(24);
 };
-runWasmAdd();
+runWasm();
