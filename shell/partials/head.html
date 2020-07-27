@@ -50,9 +50,11 @@
       });
 
       // Delete the old caches
-      cacheNames.slice(1).forEach(oldCacheName => {
-        caches.delete(oldCacheName);
-      });
+      if (cacheNames.length > 1) {
+        cacheNames.slice(1).forEach(oldCacheName => {
+          caches.delete(oldCacheName);
+        });
+      }
     });
   }
 </script>
