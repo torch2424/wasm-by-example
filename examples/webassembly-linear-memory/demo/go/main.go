@@ -1,6 +1,5 @@
 package main
 
-
 // Create a byte (uint8, not Go byte) buffer, which will be available in Wasm Memory. 
 // We can then share this buffer with JS and Wasm.
 const BUFFER_SIZE int = 2;
@@ -29,6 +28,4 @@ func storeValueInWasmMemoryBufferIndexZero(value uint8) {
 func readWasmMemoryBufferAndReturnIndexOne() uint8 {
   return buffer[1]
 }
-
-
 
