@@ -5,7 +5,7 @@ import { domConsoleLog } from "/demo-util/domConsole.js";
 
 const go = new Go(); // Defined in wasm_exec.js. Don't forget to add this in your index.html.
 
-const runWasmAdd = async () => {
+const runWasm = async () => {
   const importObject = go.importObject;
 
   // Instantiate our wasm module
@@ -54,4 +54,4 @@ const runWasmAdd = async () => {
    * In this example, we did not, but be aware this may happen :)
    */
 };
-runWasmAdd();
+runWasm();
