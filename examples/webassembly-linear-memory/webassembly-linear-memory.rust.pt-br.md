@@ -65,7 +65,7 @@ Então, compilamos com o [wasm-pack](https://github.com/rustwasm/wasm-pack), que
 wasm-pack build --target web
 ```
 
-Depois, criamos um arquivo `index.js` para carregar e executar o wasm que foi gerado. E vamos importar o módulo de inicialização do `pkg/webassembly_linear_memory.js` que tambe ém foi gerado pelo wasm-pack. Então, vamos invocar o módulo passando a localização do nosso arquivo wasm `pkg/webassembly_linear_memory_bg.wasm`, também gerado pelo wasm-pack. A seguir, vamos ler e escrever na memória tanto a partir do Wasm como do JS. **Por favor leia os comentários para ter mais contexto. E não deixe de ler a nota no final deste exemplo de código.** Vamos nos aprofundar no nosso `index.js` final:
+Depois, criamos um arquivo `index.js` para carregar e executar o wasm que foi gerado. E vamos importar o módulo de inicialização do `pkg/webassembly_linear_memory.js` que também foi gerado pelo wasm-pack. Então, vamos invocar o módulo passando a localização do nosso arquivo wasm `pkg/webassembly_linear_memory_bg.wasm`, também gerado pelo wasm-pack. A seguir, vamos ler e escrever na memória tanto a partir do Wasm como do JS. **Por favor leia os comentários para ter mais contexto. E não deixe de ler a nota no final deste exemplo de código.** Vamos nos aprofundar no nosso `index.js` final:
 
 ```javascript
 const runWasm = async () => {
@@ -120,4 +120,4 @@ Finalmente, vamos carregar o nosso Módulo ES6, o arquivo Javascript `index.js`,
 
 <iframe width="350px" height="200px" title="Rust Demo" src="/demo-redirect?example-name=webassembly-linear-memory"></iframe>
 
-A seguir, vamos ver [como importar funçōes do JavaScript no WebAssembly](/example-redirect?exampleName=importing-javascript-functions-into-webassembly).
+A seguir, vamos ver [Como Importar Funçōes do JavaScript no WebAssembly](/example-redirect?exampleName=importing-javascript-functions-into-webassembly).

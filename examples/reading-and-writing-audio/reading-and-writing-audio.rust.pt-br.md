@@ -115,7 +115,7 @@ const originalAudioSamples = new Float32Array(numberOfSamples);
 const amplifiedAudioSamples = new Float32Array(numberOfSamples);
 ```
 
-Agora, vamos configurar algumas conversões de tipo no nosso `index.js`, porque a API de Áudio Web recebe números de ponto flutuantes (entre -1.0 e 1.0) como amostras de áudio, mas **apenas para efeitos de demonstração** eu gostaria de mostras como fazer isso usando apenas bytes na memória linear do Wasm. Como este é um tipo de trabalho desnecessário, isso **não deveria ser feito em produção**. Em vez disso você provavelmente vai querer usar estruturas de dados de mais alto nível, que mostraremos em exemplos futuros. Mas, assim é como faríamos a conversão se quiséssemos prosseguir com uma matriz de bytes:
+Agora, vamos configurar algumas conversões de tipo no nosso `index.js`, porque a API de Áudio Web recebe números de ponto flutuantes (entre -1.0 e 1.0) como amostras de áudio, mas **apenas para efeitos de demonstração** eu gostaria de mostrar como fazer isso usando apenas bytes na memória linear do Wasm. Como este é um tipo de trabalho desnecessário, isso **não deveria ser feito em produção**. Em vez disso você provavelmente vai querer usar estruturas de dados de mais alto nível, que mostraremos em exemplos futuros. Mas, assim é como faríamos a conversão se quiséssemos prosseguir com uma matriz de bytes:
 
 ```javascript
 // Function to convert float samples to byte samples
@@ -303,4 +303,4 @@ Com tudo isso você deveria obter algo parecido à demo ([Código Fonte](/source
 
 <iframe width="100%" height="500px" title="Rust Audio Demo" src="/demo-redirect?example-name=reading-and-writing-audio"></iframe>
 
-No próximo exemplo, daremos uma olhada nas estruturas de alto nível, espeficamente como movimentar [strings](/example-redirect?exampleName=strings).
+No próximo exemplo, daremos uma olhada nas estruturas de alto nível, especificamente como movimentar [strings](/example-redirect?exampleName=strings).

@@ -1,6 +1,6 @@
 # Olá, Mundo
 
-**Antes de começar, lembre-se de conferir todas as linguagens disponíveis, clicando o seletor "languages" acima.**
+**Antes de começar, lembre-se de conferir todas as linguagens disponíveis, clicando o seletor "Language" acima.**
 
 ## Visão Geral
 
@@ -24,7 +24,7 @@ A seguir, vamos criar nosso "crate" de rust no diretório atual usando cargo:
 cargo init
 ```
 
-Então, vamos editar o nosso novo `Cargo.toml` para implementar [wasm-pack](https://github.com/rustwasm/wasm-pack#-quickstart-guide) como mencionado nesse guia rápido de início:
+Então, vamos editar o nosso novo `Cargo.toml` para implementar [wasm-pack](https://github.com/rustwasm/wasm-pack#-quickstart-guide) como mencionado neste guia rápido de início:
 
 ```toml
 [package]
@@ -64,7 +64,7 @@ pub fn add(a: i32, b: i32) -> i32 {
 }
 ```
 
-A partir de então, vamos compilar o nosso crate, usando wasm-pack, em um módulo wasm. Rode então o seguinte comando, observe que ele inclui [--target web](https://rustwasm.github.io/docs/wasm-pack/commands/build.html#target). A ferramenta wasm-pack pode gerar vários tipos de formatos de saída, especialmente para bundlers como o Webpack ou o Rollup. Mas como neste caso queremos um módulo ES6, utilizamos o alvo `web` abaixo:
+A partir de então, vamos compilar o nosso crate, usando wasm-pack, em um módulo wasm. Rode então o seguinte comando, observe que ele inclui [--target web](https://rustwasm.github.io/docs/wasm-pack/commands/build.html#target). A ferramenta wasm-pack pode gerar vários tipos de formatos de saída, especialmente para bundlers como o Webpack ou o Rollup. Mas como neste caso queremos um módulo ES6, utilizamos abaixo o alvo `web`:
 
 ```bash
 wasm-pack build --target web

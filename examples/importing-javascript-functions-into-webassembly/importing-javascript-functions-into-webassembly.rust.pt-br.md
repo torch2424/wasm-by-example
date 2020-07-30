@@ -58,7 +58,7 @@ const runWasm = async () => {
 runWasm();
 ```
 
-Por último, carregamo o nosso Módulo ES6, o arquivo Javascript `index.js` no nosso `index.html`. E você deveria obter um resultado similar à demo ([Código Fonte](/source-redirect?path=examples/importing-javascript-functions-into-webassembly/demo/rust)) abaixo!
+Por último, carregamos o nosso Módulo ES6, o arquivo Javascript `index.js` no nosso `index.html`. E você deveria obter um resultado similar à demo ([Código Fonte](/source-redirect?path=examples/importing-javascript-functions-into-webassembly/demo/rust)) abaixo!
 
 ---
 
