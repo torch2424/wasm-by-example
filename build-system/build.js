@@ -318,12 +318,19 @@ const buildTask = async () => {
   await cpy(["shell/manifest.json"], "dist/");
 
   // Generate our Service Worker
+  // TODO: Once bug is fixed, set cache strategy on precache
+  // https://github.com/GoogleChrome/workbox/issues/1767
+  const getEpoch = () => Date.now();
+  const cacheId = `wasm-by-example%%${getEpoch()}%%`;
   const workboxResponse = await workboxBuild.generateSW({
+    cacheId: cacheId,
     globDirectory: "dist",
-    globPatterns: ["**/*.{html,json,js,css,svg,jpg,wasm}"],
+    globPatterns: ["**/*.{html,json,js,css,svg,jpg,png,wasm}"],
     swDest: "dist/service-worker.js",
-    ignoreURLParametersMatching: [/.*exampleName.*/, /.*example-name.*/]
+    ignoreURLParametersMatching: [/.*exampleName.*/, /.*example-name.*/],
+    skipWaiting: true
   });
+  console.log("Cache Id: ", cacheId);
   console.log("WorkBox Response: \n", workboxResponse, "\n");
 
   console.log("Done!");

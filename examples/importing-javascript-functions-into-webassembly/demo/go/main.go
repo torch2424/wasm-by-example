@@ -1,5 +1,8 @@
 package main
 
+// Declare a function however do no give it a block of functionality.
+// We will be overriding this function in our javascript later so that
+// it calls our imported function
 func jsPrintInt(x int)
 
 // Declare a main function, this is the entrypoint into our go module

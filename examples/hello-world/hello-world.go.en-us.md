@@ -31,7 +31,7 @@ func main() {}
 // we need to add the: "export add" comment above the function
 //export add
 func add(x int, y int) int {
-return x + y;
+  return x + y;
 }
 ```
 
