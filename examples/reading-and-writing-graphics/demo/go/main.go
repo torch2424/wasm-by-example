@@ -27,9 +27,15 @@ func getGraphicsBufferPointer() *[BUFFER_SIZE]uint8 {
   return &graphicsBuffer
 }
 
+// Function to return the size of our buffer in wasm memory
+//export getGraphicsBufferSize
+func getGraphicsBufferSize() int {
+  return BUFFER_SIZE;
+}
+
 // Function to generate our checkerboard, pixel by pixel
-//export generateCheckerboard
-func generateCheckerboard(
+//export generateCheckerBoard
+func generateCheckerBoard(
   darkValueRed uint8,
   darkValueGreen uint8,
   darkValueBlue uint8,
@@ -40,8 +46,8 @@ func generateCheckerboard(
   // Since Linear memory is a 1 dimensional array, but we want a grid
   // we will be doing 2d to 1d mapping
   // https://softwareengineering.stackexchange.com/questions/212808/treating-a-1d-data-structure-as-2d-grid
-  for y := 0; y <= CHECKERBOARD_SIZE; y++ {
-    for x := 0; x <= CHECKERBOARD_SIZE; x++ {
+  for y := 0; y < CHECKERBOARD_SIZE; y++ {
+    for x := 0; x < CHECKERBOARD_SIZE; x++ {
       // Set our default case to be dark squares
       isDarkSquare := true;
 
@@ -69,7 +75,7 @@ func generateCheckerboard(
 
       // Let's calculate our index, using our 2d -> 1d mapping.
       // And then multiple by 4, for each pixel property (r,g,b,a).
-      squareNumber := y * CHECKERBOARD_SIZE + x;
+      squareNumber := (y * CHECKERBOARD_SIZE) + x;
       squareRgbaIndex := squareNumber * 4;
 
       graphicsBuffer[squareRgbaIndex + 0] = squareValueRed; // Red

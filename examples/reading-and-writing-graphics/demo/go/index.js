@@ -1,7 +1,6 @@
 // Imports are from the demo-util folder in the repo
 // https://github.com/torch2424/wasm-by-example/blob/master/demo-util/
 import { wasmBrowserInstantiate } from "/demo-util/instantiateWasm.js";
-import { domConsoleLog } from "/demo-util/domConsole.js";
 
 const go = new Go(); // Defined in wasm_exec.js. Don't forget to add this in your index.html.
 
@@ -23,6 +22,12 @@ const runWasm = async () => {
 
   // Create a Uint8Array to give us access to Wasm Memory
   const wasmByteMemoryArray = new Uint8Array(memory.buffer);
+
+  // Get the pointer (index) to where our graphics buffer is located in wasm linear memory
+  const graphicsBufferPointer = exports.getGraphicsBufferPointer();
+
+  // Get the size of our graphics buffer that is located in wasm linear memory
+  const graphicsBufferSize = exports.getGraphicsBufferSize();
 
   // Get our canvas element from our index.html
   const canvasElement = document.querySelector("canvas");
@@ -61,8 +66,8 @@ const runWasm = async () => {
     // Pull out the RGBA values from Wasm memory, the we wrote to in wasm,
     // starting at the checkerboard pointer (memory array index)
     const imageDataArray = wasmByteMemoryArray.slice(
-      exports.CHECKERBOARD_BUFFER_POINTER.valueOf(),
-      exports.CHECKERBOARD_BUFFER_SIZE.valueOf()
+      graphicsBufferPointer,
+      graphicsBufferPointer + graphicsBufferSize
     );
 
     // Set the values to the canvas image data
