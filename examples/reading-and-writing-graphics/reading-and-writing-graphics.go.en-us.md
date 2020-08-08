@@ -2,7 +2,7 @@
 
 ## Overview
 
-As stated before, **WebAssembly is a great fit for computationally intensive tasks**. And even the official [AssemblyScript Documentation covers this](https://docs.assemblyscript.org/faq#is-webassembly-always-faster). For example, Tasks that involve things like big data, heavy logic with conditionals, or nested looping. Thus, generating / rendering graphics **can** get a significant speedup by moving these mentioned parts into WebAssembly. In this example, we will be generating 20x20 colored checkerboard images once per second, and displaying them on a [HTML5 Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) using [Pixel Manipulation on the ImageData Object](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas). In fancy graphics terms, this is a rasterizer.
+As stated before, **WebAssembly is a great fit for computationally intensive tasks**. For example, Tasks that involve things like big data, heavy logic with conditionals, or nested looping. Thus, generating / rendering graphics **can** get a significant speedup by moving these mentioned parts into WebAssembly. In this example, we will be generating 20x20 colored checkerboard images once per second, and displaying them on a [HTML5 Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) using [Pixel Manipulation on the ImageData Object](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas). In fancy graphics terms, this is a rasterizer.
 
 **NOTE:** This example will continue to build on our simple buffer/pointer memory passing. This could be implemented using higher-level data structures, and these data structures will be covered in later examples.
 
@@ -12,96 +12,145 @@ So let's get into the example:
 
 ## Implementation
 
-As usual, let's get started with our `index.ts` file. You will notice here we grow our memory, as in order to pass back our pixel values into Javascript, we will write these values into Wasm Memory. That way, Javascript can read them later. Please be sure to read the comments in the following code examples, and be sure to follow links or look at previous examples if something does not make sense. Let's get into it:
+As usual, let's get started with our `main.go` file. You will notice here we set up a buffer, similar to the [WebAssembly Linear Memory example](/example-redirect?exampleName=webassembly-linear-memory). By doing this, Javascript can read the values placed into the buffer later. Please be sure to read the comments in the following code examples, and be sure to follow links or look at previous examples if something does not make sense. Let's get into it:
 
-```typescript
-// Set up our memory
-// By growing our Wasm Memory by 1 page (64KB)
-memory.grow(1);
+```go
+package main
 
-// Define the size of our checkerboard
-const CHECKERBOARD_SIZE: i32 = 20;
+// Define the size of our "checkerboard"
+const CHECKERBOARD_SIZE int = 20;
 
-// Create a buffer/pointer (array index and size) to where
-// in memory we are storing the pixels.
-// NOTE: Be sure to set a correct --memoryBase when
-// when writing to memory directly like we are here.
-// https://docs.assemblyscript.org/details/compiler
-export const CHECKERBOARD_BUFFER_POINTER: i32 = 0;
-export const CHECKERBOARD_BUFFER_SIZE: i32 =
-  CHECKERBOARD_SIZE * CHECKERBOARD_SIZE * 4;
+/*
+* 1. What is going on here?
+* Create a byte buffer.
+* We will use for putting the output of our graphics,
+* to pass the output to js.
+*
+* 2. Why is the size CHECKERBOARD_SIZE * CHECKERBOARD_SIZE * 4?
+* We want to have 20 pixels by 20 pixels. And 4 colors per pixel (r,g,b,a)
+* Which, the Canvas API Supports.
+*/
+const BUFFER_SIZE int = CHECKERBOARD_SIZE * CHECKERBOARD_SIZE * 4;
+var graphicsBuffer [BUFFER_SIZE]uint8;
+
+
+// Declare a main function, this is the entrypoint into our go module
+// That will be run. In our example, we won't need this
+func main() {}
+
+// Function to return a pointer (Index) to our buffer in wasm memory
+//export getGraphicsBufferPointer
+func getGraphicsBufferPointer() *[BUFFER_SIZE]uint8 {
+  return &graphicsBuffer
+}
+
+// Function to return the size of our buffer in wasm memory
+//export getGraphicsBufferSize
+func getGraphicsBufferSize() int {
+  return BUFFER_SIZE;
+}
 
 // Function to generate our checkerboard, pixel by pixel
-export function generateCheckerBoard(
-  darkValueRed: i32,
-  darkValueGreen: i32,
-  darkValueBlue: i32,
-  lightValueRed: i32,
-  lightValueGreen: i32,
-  lightValueBlue: i32
-): void {
+//export generateCheckerBoard
+func generateCheckerBoard(
+  darkValueRed uint8,
+  darkValueGreen uint8,
+  darkValueBlue uint8,
+  lightValueRed uint8,
+  lightValueGreen uint8,
+  lightValueBlue uint8,
+) {
   // Since Linear memory is a 1 dimensional array, but we want a grid
   // we will be doing 2d to 1d mapping
   // https://softwareengineering.stackexchange.com/questions/212808/treating-a-1d-data-structure-as-2d-grid
-  for (let x: i32 = 0; x < CHECKERBOARD_SIZE; x++) {
-    for (let y: i32 = 0; y < CHECKERBOARD_SIZE; y++) {
+  for y := 0; y < CHECKERBOARD_SIZE; y++ {
+    for x := 0; x < CHECKERBOARD_SIZE; x++ {
       // Set our default case to be dark squares
-      let isDarkSquare: boolean = true;
+      isDarkSquare := true;
 
       // We should change our default case if
       // We are on an odd y
-      if (y % 2 === 0) {
+      if y % 2 == 0 {
         isDarkSquare = false;
       }
 
       // Lastly, alternate on our x value
-      if (x % 2 === 0) {
+      if x % 2 == 0 {
         isDarkSquare = !isDarkSquare;
       }
 
       // Now that we determined if we are dark or light,
       // Let's set our square value
-      let squareValueRed = darkValueRed;
-      let squareValueGreen = darkValueGreen;
-      let squareValueBlue = darkValueBlue;
-      if (!isDarkSquare) {
-        squareValueRed = lightValueRed;
-        squareValueGreen = lightValueGreen;
-        squareValueBlue = lightValueBlue;
+      squareValueRed := darkValueRed;
+      squareValueGreen := darkValueGreen;
+      squareValueBlue := darkValueBlue;
+      if !isDarkSquare {
+      squareValueRed = lightValueRed;
+      squareValueGreen = lightValueGreen;
+      squareValueBlue = lightValueBlue;
       }
 
       // Let's calculate our index, using our 2d -> 1d mapping.
       // And then multiple by 4, for each pixel property (r,g,b,a).
-      let squareNumber = y * CHECKERBOARD_SIZE + x;
-      let squareRgbaIndex = squareNumber * 4;
+      squareNumber := (y * CHECKERBOARD_SIZE) + x;
+      squareRgbaIndex := squareNumber * 4;
 
-      // Finally store the values.
-      store<u8>(
-        CHECKERBOARD_BUFFER_POINTER + squareRgbaIndex + 0,
-        squareValueRed
-      ); // Red
-      store<u8>(
-        CHECKERBOARD_BUFFER_POINTER + squareRgbaIndex + 1,
-        squareValueGreen
-      ); // Green
-      store<u8>(
-        CHECKERBOARD_BUFFER_POINTER + squareRgbaIndex + 2,
-        squareValueBlue
-      ); // Blue
-      store<u8>(CHECKERBOARD_BUFFER_POINTER + squareRgbaIndex + 3, 255); // Alpha (Always opaque)
+      graphicsBuffer[squareRgbaIndex + 0] = squareValueRed; // Red
+      graphicsBuffer[squareRgbaIndex + 1] = squareValueGreen; // Green
+      graphicsBuffer[squareRgbaIndex + 2] = squareValueBlue; // Blue
+      graphicsBuffer[squareRgbaIndex + 3] = 255; // Alpha (Always Opaque)
     }
   }
 }
 ```
 
-Next, we can compile the module following the [Hello World](/example-redirect?exampleName=hello-world) examples compilation process, replacing the appropriate file names.
+Then, let's compile `main.go` into a wasm module, using the TinyGo compiler. This will output a `main.wasm`:
 
-Next, Let's load / instantiate the wasm module, `index.wasm` in a new `index.js` file. Again, we will follow the module instantiation from the [Hello World](/example-redirect?exampleName=hello-world) example. A lot of the logic here is expanding on the [WebAssembly Linear Memory Example](/example-redirect?exampleName=webassembly-linear-memory), but applying the learnings to a DOM API. The most important thing here is probably how we are copying out memory from Wasm, using `.slice` calls. Please see the reference links if things get confusing. Here is the `index.js` below!
+```bash
+tinygo build -o main.wasm -target wasm ./main.go
+```
+
+---
+
+Then, let's create an `index.html`, and get our appropriate `wasm_exec.js` following the steps laid out in the [Hello World Example](/example-redirect?exampleName=hello-world) example. Also, we will add a canvas element so we can output the framebuffer that we will be rendering. **Random tip:** use the [image-rendering](https://css-tricks.com/almanac/properties/i/image-rendering/) property to display pixel art, and other "sharp" images correctly.
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Reading and Writing Graphics - Go</title>
+  </head>
+  <body>
+    <canvas
+      width="20"
+      height="20"
+      style="image-rendering: pixelated; image-rendering: crisp-edges; width: 100%;"
+    ></canvas>
+    <script src="./wasm_exec.js"></script>
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>
+```
+
+Next, Let's load / instantiate the wasm module, `main.wasm` in a new `index.js` file. Again, we will follow the module instantiation from the [Hello World](/example-redirect?exampleName=hello-world) example. A lot of the logic here is expanding on the [WebAssembly Linear Memory Example](/example-redirect?exampleName=webassembly-linear-memory), but applying the learnings to a DOM API. The most important thing here is probably how we are copying out memory from Wasm, using `.slice` calls. Please see the reference links if things get confusing. Here is the `index.js` below!
 
 ```javascript
+// Imports are from the demo-util folder in the repo
+// https://github.com/torch2424/wasm-by-example/blob/master/demo-util/
+import { wasmBrowserInstantiate } from "/demo-util/instantiateWasm.js";
+
+const go = new Go(); // Defined in wasm_exec.js. Don't forget to add this in your index.html.
+
 const runWasm = async () => {
+  // Get the importObject from the go instance.
+  const importObject = go.importObject;
+
   // Instantiate our wasm module
-  const wasmModule = await wasmBrowserInstantiate("./index.wasm");
+  const wasmModule = await wasmBrowserInstantiate("./main.wasm", importObject);
+
+  // Allow the wasm_exec go instance, bootstrap and execute our wasm module
+  go.run(wasmModule.instance);
 
   // Get our exports object, with all of our exported Wasm Properties
   const exports = wasmModule.instance.exports;
@@ -111,6 +160,12 @@ const runWasm = async () => {
 
   // Create a Uint8Array to give us access to Wasm Memory
   const wasmByteMemoryArray = new Uint8Array(memory.buffer);
+
+  // Get the pointer (index) to where our graphics buffer is located in wasm linear memory
+  const graphicsBufferPointer = exports.getGraphicsBufferPointer();
+
+  // Get the size of our graphics buffer that is located in wasm linear memory
+  const graphicsBufferSize = exports.getGraphicsBufferSize();
 
   // Get our canvas element from our index.html
   const canvasElement = document.querySelector("canvas");
@@ -149,8 +204,8 @@ const runWasm = async () => {
     // Pull out the RGBA values from Wasm memory, the we wrote to in wasm,
     // starting at the checkerboard pointer (memory array index)
     const imageDataArray = wasmByteMemoryArray.slice(
-      exports.CHECKERBOARD_BUFFER_POINTER.valueOf(),
-      exports.CHECKERBOARD_BUFFER_SIZE.valueOf()
+      graphicsBufferPointer,
+      graphicsBufferPointer + graphicsBufferSize
     );
 
     // Set the values to the canvas image data
@@ -171,29 +226,12 @@ const runWasm = async () => {
 runWasm();
 ```
 
-Lastly, lets load our ES6 Module, `index.js` Javascript file in our `index.html`. And let's be sure to add a canvas element as well! **Random tip:** use the [image-rendering](https://css-tricks.com/almanac/properties/i/image-rendering/) property to display pixel art, and other "sharp" images correctly.
-
-```html
-<!-- Other HTML here. -->
-
-<body>
-  <canvas
-    width="20"
-    height="20"
-    style="image-rendering: pixelated; width: 100%;"
-  >
-  </canvas>
-</body>
-
-<!-- Other HTML here. -->
-```
-
-And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/reading-and-writing-graphics/demo/assemblyscript)) below!
+And you should get something similar to the demo ([Source Code](/source-redirect?path=examples/reading-and-writing-graphics/demo/go)) below!
 
 ---
 
 ## Demo
 
-<iframe width="300px" height="300px" title="AssemblyScript Demo" src="/demo-redirect?example-name=reading-and-writing-graphics"></iframe>
+<iframe width="300px" height="300px" title="Go Demo" src="/demo-redirect?example-name=reading-and-writing-graphics"></iframe>
 
 Next, lets took a look at an example of [Reading and Writing Audio with WebAssembly](/example-redirect?exampleName=reading-and-writing-audio).

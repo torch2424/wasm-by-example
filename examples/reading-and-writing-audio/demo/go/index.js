@@ -2,6 +2,8 @@
 // https://github.com/torch2424/wasm-by-example/blob/master/demo-util/
 import { wasmBrowserInstantiate } from "/demo-util/instantiateWasm.js";
 
+const go = new Go(); // Defined in wasm_exec.js. Don't forget to add this in your index.html.
+
 // Some general initialization for audio
 
 // Create our audio context
@@ -50,8 +52,6 @@ const byteSamplesToFloatSamples = byteSamples => {
   }
   return floatSamples;
 };
-
-const go = new Go(); // Defined in wasm_exec.js. Don't forget to add this in your index.html.
 
 const runWasm = async () => {
   // Get the importObject from the go instance.

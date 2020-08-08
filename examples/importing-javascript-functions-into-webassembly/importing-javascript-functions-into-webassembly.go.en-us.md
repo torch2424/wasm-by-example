@@ -81,4 +81,4 @@ runWasm();
 
 <iframe title="Go Demo" src="/demo-redirect?example-name=importing-javascript-functions-into-webassembly"></iframe>
 
-And that's it for the basics! We will be adding the "Advanced Web Demos" for Go a bit later. However, Feel free to [fix, suggest, or contribute more examples](https://github.com/torch2424/wasm-by-example)!
+And that's it for the basics! Next, lets took a look at some "Advanced Web Demos", with an example of [Reading and Writing Graphics with WebAssembly](/example-redirect?exampleName=reading-and-writing-graphics).
