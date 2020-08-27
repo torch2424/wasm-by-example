@@ -1,6 +1,7 @@
 # Exports
 
 ## Visão Geral
+
 No nosso [Exemplo de "Olá, Mundo"](/example-redirect?exampleName=hello-world), invocamos uma função exportada pelo WebAssembly, no nosso Javascript. Vamos nos aprofundar nos exports e em como usá-los.
 
 ---
