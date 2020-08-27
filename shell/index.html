@@ -4,74 +4,13 @@
     {{{partials.head}}}
 
     <title>Wasm By Example</title>
-
-    <style>
-      {{{styles.normalize}}}
-      {{{styles.sakura}}}
-      {{{styles.index}}}
-      {{{styles.examplesList}}}
-    </style>
   </head>
   <body>
-    {{{partials.header}}}
-
-    <p>
-      WebAssembly (Wasm) is an universal low level bytecode that runs on the
-      web. It is a compilation target for languages like
-      <b class="highlight"
-        >Rust, AssemblyScript (Typescript-like), Emscripten (C/C++), and much
-        more!</b
-      >
-      Wasm offer a compact binary format with predictable performance, and
-      portability to run alongside Javascript and other host languages. Wasm is
-      currently shipped in all major browsers, and has runtimes meant for
-      running on servers or interfacing with systems using WASI.
-    </p>
-
-    <blockquote>
-      <p class="label">What is Wasm By Example?</p>
-      <p>
-        Wasm By Example is a concise, hands-on introduction to WebAssembly using
-        code snippets and annotated WebAssembly example programs. Learn more
-        about Wasm at the
-        <a
-          onclick="goToExample('examples/introduction', 'introduction', 'all', 'en-us')"
-          href="#"
-          >WebAssembly Introduction
-        </a>
-        or browse the list of examples below.
-      </p>
-    </blockquote>
-
-    <!-- List of examples -->
-    <h2>Examples</h2>
-    {{#categories}}
-    <h3 style="display: none" class="{{class}} example-category-title">
-      {{title}}
-    </h3>
-    <p style="display: none" class="{{class}} example-category-description">
-      {{description}}
-    </p>
-    <ul>
-      {{#examples}}
-      <li
-        style="display: none"
-        class="{{programmingLanguage}} {{readingLanguage}}"
-      >
-        <a
-          href="#"
-          onclick="goToExample('{{parentPath}}', '{{exampleName}}', '{{programmingLanguage}}', '{{readingLanguage}}')"
-          >{{title}}</a
-        >
-      </li>
-      {{/examples}}
-    </ul>
-    {{/categories}} {{{partials.footer}}}
-
+    <!-- Just redirect to the correct homepage for the reading language -->
     <!-- prettier-ignore -->
     <script type="text/javascript">
       {{{js.index}}}
-      {{{js.examplesList}}}
+      {{{js.indexRedirect}}}
     </script>
   </body>
 </html>

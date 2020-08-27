@@ -5,12 +5,13 @@ const recursive = require("recursive-readdir");
 const recursiveCopy = require("recursive-copy");
 const highlightJs = require("highlight.js");
 const marked = require("marked");
+const getTitleMarkdown = require("get-title-markdown");
 const Mustache = require("mustache");
 const CleanCSS = require("clean-css");
 const Terser = require("terser");
 const workboxBuild = require("workbox-build");
 
-const exampleInfo = require("./example-info");
+const homepage = require("./homepage");
 const packageJson = require("../package.json");
 
 console.log("Building...");
@@ -55,6 +56,7 @@ const mustacheData = {
     index: `const WASM_BY_EXAMPLE_VERSION = "${packageJson.version}";${minifyJs(
       "shell/js/index.js"
     )}`,
+    indexRedirect: minifyJs("shell/js/indexRedirect.js"),
     examplesList: minifyJs("shell/js/examplesList.js"),
     examplesRedirect: minifyJs("shell/js/examplesRedirect.js"),
     sourceRedirect: minifyJs("shell/js/sourceRedirect.js"),
@@ -65,7 +67,15 @@ const mustacheData = {
     header: fs.readFileSync("shell/partials/header.html", "utf8"),
     footer: fs.readFileSync("shell/partials/footer.html", "utf8")
   },
-  examples: []
+  examples: [],
+  examplesByLanguage: [],
+  categories: [],
+  introuductionHtml: {
+    inLanguage: homepage.introductionHtml["en-us"]
+  },
+  examplesTitle: {
+    inLanguage: homepage.examplesTitle["en-us"]
+  }
 };
 
 const getExamplesMarkdownPathsPromise = new Promise(resolve => {
@@ -140,12 +150,16 @@ const buildTask = async () => {
     const parentPath = parentPathSplit.join("/");
 
     // Create a nicely formatted title
-    const titleSplit = exampleName.split("-");
-    for (let i = 0; i < titleSplit.length; i++) {
-      const word = titleSplit[i];
-      titleSplit[i] = capitalizeWord(word);
+    const fileText = fs.readFileSync(filePath, "utf8");
+    let title = getTitleMarkdown(fileText);
+    if (!title) {
+      const titleSplit = exampleName.split("-");
+      for (let i = 0; i < titleSplit.length; i++) {
+        const word = titleSplit[i];
+        titleSplit[i] = capitalizeWord(word);
+      }
+      title = titleSplit.join(" ");
     }
-    const title = titleSplit.join(" ");
 
     // Add the example
     mustacheData.examples.push({
@@ -190,8 +204,8 @@ const buildTask = async () => {
       index
     ].examples = mustacheData.examplesByLanguage[index].examples.sort(
       (a, b) => {
-        const aIndex = exampleInfo.exampleOrder.indexOf(a.exampleName);
-        const bIndex = exampleInfo.exampleOrder.indexOf(b.exampleName);
+        const aIndex = homepage.exampleOrder.indexOf(a.exampleName);
+        const bIndex = homepage.exampleOrder.indexOf(b.exampleName);
 
         // Push not found elements to the end
         if (aIndex < 0) {
@@ -215,10 +229,13 @@ const buildTask = async () => {
 
   // Categorize our examples
   mustacheData.categories = [];
-  exampleInfo.categories.forEach((category, index) => {
+  homepage.categories.forEach((category, index) => {
     mustacheData.categories[index] = {};
     mustacheData.categories[index].title = category.title;
+    mustacheData.categories[index].title.inLanguage = category.title["en-us"];
     mustacheData.categories[index].description = category.description;
+    mustacheData.categories[index].description.inLanguage =
+      category.description["en-us"];
     mustacheData.categories[index].class = "";
 
     mustacheData.categories[index].examples = [];
@@ -305,6 +322,37 @@ const buildTask = async () => {
     createExamplePromises.push(createExample(exampleFileContents, example));
   });
   await Promise.all(createExamplePromises);
+
+  // Homepages for each reading languages
+  homepage.readingLanguages.forEach(readingLanguage => {
+    let homepageMustacheData = {
+      ...mustacheData
+    };
+
+    homepageMustacheData.introductionHtml = {
+      inLanguage:
+        homepage.introductionHtml[readingLanguage] ||
+        homepage.introductionHtml["en-us"]
+    };
+
+    homepageMustacheData.examplesTitle = {
+      inLanguage:
+        homepage.examplesTitle[readingLanguage] ||
+        homepage.examplesTitle["en-us"]
+    };
+
+    homepageMustacheData.categories = [...mustacheData.categories];
+    homepageMustacheData.categories.forEach(category => {
+      category.title.inLanguage =
+        category.title[readingLanguage] || category.title["en-us"];
+      category.description.inLanguage =
+        category.description[readingLanguage] || category.description["en-us"];
+    });
+
+    const homeContents = fs.readFileSync(`shell/home.html`, "utf8").toString();
+    const renderedPage = Mustache.render(homeContents, homepageMustacheData);
+    fs.writeFileSync(`./dist/home.${readingLanguage}.html`, renderedPage);
+  });
 
   // Copy over any extra directories
   mkdirp.sync("./dist/demo-util");
