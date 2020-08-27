@@ -11,13 +11,14 @@ Wasm By Example is a [website](https://wasmbyexample.dev/) containing simple exa
 - [Motivation](#motivation)
 - [Getting Started](#getting-started)
   - [One-time Setup](#one-time-setup)
-  - [Branch](#branch-do-this-each-time-you-want-a-new-branch)
-  - [Building & Running](#building-&-running-the-project)
+  - [Branch (do this each time you want a new branch)](#branch-do-this-each-time-you-want-a-new-branch)
+  - [Building &amp; Running the project](#building--running-the-project)
 - [Contributing](#contributing)
   - [Examples](#examples)
     - [Creating a new Example](#creating-a-new-example)
-    - [Adding a new Programming Language to an Example](#adding-a-new-programming-language-to-an-example)
-    - [Adding a new Reading Language (Translation) to an Example](#adding-a-new-reading-language-translation-to-an-example)
+    - [Adding a new Programming Language to an existing Example](#adding-a-new-programming-language-to-an-existing-example)
+    - [Adding a new Reading Language (Translation) to an existing Example](#adding-a-new-reading-language-translation-to-an-existing-example)
+  - [Adding a completely new Reading Language (Translation)](#adding-a-completely-new-reading-language-translation)
   - [Improving the shell (the base website)](#improving-the-shell-the-base-website)
   - [Any other contributions](#any-other-contributions)
 - [Privacy](#privacy)
@@ -113,13 +114,24 @@ After the idea has been discussed, feel free to open a PR following the format e
 
 By default, all new examples will be last in the example list on the homepage. To set the order of your example, add your example's name to the array in `build-system/example-order.js` to set its order.
 
-### Adding a new Programming Language to an Example
+### Adding a new Programming Language to an existing Example
 
 If you are adding a new programming language, feel free to simply open a new PR with the format explained above, and we can review and add it to the website! **NOTE:** It is highly recommended you add a demo of your example, unless there is a good reason for not providing one.
 
-### Adding a new Reading Language (Translation) to an Example
+### Adding a new Reading Language (Translation) to an existing Example
 
 If you are adding a new reading language, feel free to simply open a new PR with the format explained above, and we can review and add it to the website! New reading languages don't require a new demo or anything like that, and simply translate the written text between examples where it seems right.
+
+## Adding a completely new Reading Language (Translation)
+
+If you would like to add a new language that is not supported at all in the project, first of all, THANK YOU SO MUCH! :)
+
+To get started with this, you will want to do the following steps:
+
+1. Open an issue, just to let maintainers know you would like to add a new language, so we can help :)
+1. Add your reading language to [`build-system/homepage.js`](https://github.com/torch2424/wasm-by-example/blob/master/build-system/homepage.js). As well as, add translations to the fields on the objects with your corresponding lnaguage key (For example, English(US) is `"en-us"`).
+1. Add your reading language to the [shell/js/index.js](https://github.com/torch2424/wasm-by-example/blob/master/shell/js/index.js#L20).
+1. See the steps outlined in **Adding a new Reading Language (Translation) to an existing Example** to start translating examples! They should appear on the homepage as you add them!
 
 ## Improving the shell (the base website)
 
