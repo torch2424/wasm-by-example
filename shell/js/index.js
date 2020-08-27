@@ -17,8 +17,7 @@ window.WASM_BY_EXAMPLE_PROGRAMMING_LANGUAGES["TinyGo (Go)"] = "go";
 // Define Global Reading Languages
 window.WASM_BY_EXAMPLE_READING_LANGUAGES = {};
 window.WASM_BY_EXAMPLE_READING_LANGUAGES["English (US)"] = "en-us";
-// TODO: Re-add this translation once links to other translations are fixed (#94)
-// window.WASM_BY_EXAMPLE_READING_LANGUAGES["Brazilian Portuguese"] = "pt-br";
+window.WASM_BY_EXAMPLE_READING_LANGUAGES["Brazilian Portuguese"] = "pt-br";
 
 // Define Default Settings
 window.WASM_BY_EXAMPLE = {
