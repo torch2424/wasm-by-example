@@ -15,6 +15,7 @@ window.WASM_BY_EXAMPLE_PROGRAMMING_LANGUAGES["Emscripten (C/C++)"] = "c";
 window.WASM_BY_EXAMPLE_PROGRAMMING_LANGUAGES["TinyGo (Go)"] = "go";
 
 // Define Global Reading Languages
+// NOTE: Make sure that a homepage exists for each reading language in build-system/
 window.WASM_BY_EXAMPLE_READING_LANGUAGES = {};
 window.WASM_BY_EXAMPLE_READING_LANGUAGES["English (US)"] = "en-us";
 window.WASM_BY_EXAMPLE_READING_LANGUAGES["Brazilian Portuguese"] = "pt-br";
@@ -75,7 +76,10 @@ const submitSettingsForm = () => {
           // Look through the exampleBylanguage (which is our target)
           // And find the example with our current exampleName
           return exampleByLanguage.examples.some(example => {
-            return example.exampleName === WASM_BY_EXAMPLE.exampleName;
+            return (
+              example.exampleName === WASM_BY_EXAMPLE.exampleName &&
+              example.readingLanguage === window.WASM_BY_EXAMPLE.readingLanguage
+            );
           });
         }
         return;
@@ -89,11 +93,11 @@ const submitSettingsForm = () => {
       }`;
     } else {
       // Go Back to home
-      location.pathname = "/";
+      location.href = "/";
     }
   } else {
-    // Reload, since we aren't on an example page
-    location.reload();
+    // Go Back to home (Since we probably switched reading languages)
+    location.href = "/";
   }
 };
 

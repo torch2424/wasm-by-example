@@ -1,6 +1,6 @@
 {
   "name": "wasm-by-example",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A website of examples in how to do common things in WebAssembly",
   "main": "index.js",
   "directories": {
@@ -42,6 +42,7 @@
   "devDependencies": {
     "clean-css": "^4.2.1",
     "cpy": "^7.2.0",
+    "get-title-markdown": "^2.0.1",
     "highlight.js": "^9.15.6",
     "husky": "^2.3.0",
     "marked": "^0.8.0",

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {{{partials.head}}}
+
+    <title>Wasm By Example</title>
+
+    <style>
+      {{{styles.normalize}}}
+      {{{styles.sakura}}}
+      {{{styles.index}}}
+      {{{styles.examplesList}}}
+    </style>
+  </head>
+  <body>
+    {{{partials.header}}} {{{introductionHtml.inLanguage}}}
+
+    <!-- List of examples -->
+    <h2>{{examplesTitle.inLanguage}}</h2>
+    {{#categories}}
+    <h3 style="display: none" class="{{class}} example-category-title">
+      {{title.inLanguage}}
+    </h3>
+    <p style="display: none" class="{{class}} example-category-description">
+      {{description.inLanguage}}
+    </p>
+    <ul>
+      {{#examples}}
+      <li
+        style="display: none"
+        class="{{programmingLanguage}} {{readingLanguage}}"
+      >
+        <a
+          href="#"
+          onclick="goToExample('{{parentPath}}', '{{exampleName}}', '{{programmingLanguage}}', '{{readingLanguage}}')"
+          >{{title}}</a
+        >
+      </li>
+      {{/examples}}
+    </ul>
+    {{/categories}} {{{partials.footer}}}
+
+    <!-- prettier-ignore -->
+    <script type="text/javascript">
+      {{{js.index}}}
+      {{{js.examplesList}}}
+    </script>
+  </body>
+</html>
