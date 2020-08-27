@@ -12,7 +12,7 @@ Para manter as coisas simples, tendo em conta as limitações mencionadas [na in
 
 ## Preparação do Projeto
 
-Em primero lugar, vamos [instalar rust](https://www.rust-lang.org/tools/install), que inclui  [cargo](https://doc.rust-lang.org/cargo/index.html). Então, usando cargo, vamos instalar wasm-pack, que vamos necessitar mais adiante:
+Em primero lugar, vamos [instalar rust](https://www.rust-lang.org/tools/install), que inclui [cargo](https://doc.rust-lang.org/cargo/index.html). Então, usando cargo, vamos instalar wasm-pack, que vamos necessitar mais adiante:
 
 ```bash
 cargo install wasm-pack
@@ -48,7 +48,7 @@ Agora que temos o nosso projeto e o ambiente configurados, vamos em frente e com
 
 ## Implementação
 
-Vamos substituir `src/lib.rs` com a chamada necessária  `use` como mencionado no guia rápido de início, bem como a nossa função de adição:
+Vamos substituir `src/lib.rs` com a chamada necessária `use` como mencionado no guia rápido de início, bem como a nossa função de adição:
 
 ```rust
 // The wasm-pack uses wasm-bindgen to build and generate JavaScript binding file.
