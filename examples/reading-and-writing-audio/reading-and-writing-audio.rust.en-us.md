@@ -154,54 +154,55 @@ Next, Let's load / instantiate the wasm module, `audio_bg.wasm` in our `index.js
 
 Here is the wasm instantiation / audio amplification in our `index.js` below!
 
+> **NOTE:** In this example, we are using the exported function from the wasm module directly to help highlight the WebAssembly API. `wasm-bindgen` generates JavaScript bindings code that can be imported as an ES6 import, and is the reccomended way to work with your Rust Wasm modules. These JavaScript bindings are shown in the "Passing High Level Data Types with `wasm-bindgen`" example.
+
 ```javascript
 const runWasm = async () => {
-  const runWasm = async () => {
-    // Instantiate our wasm module
-    const rustWasm = await wasmInit("./pkg/audio_bg.wasm");
+  // Instantiate our wasm module
+  const rustWasm = await wasmInit("./pkg/audio_bg.wasm");
 
-    // Create a Uint8Array to give us access to Wasm Memory
-    const wasmByteMemoryArray = new Uint8Array(rustWasm.memory.buffer);
+  // Create a Uint8Array to give us access to Wasm Memory
+  const wasmByteMemoryArray = new Uint8Array(rustWasm.memory.buffer);
 
-    // Generate 1024 float audio samples,
-    // and make a quiet / simple square wave
-    const sampleValue = 0.3;
-    for (let i = 0; i < numberOfSamples; i++) {
-      if (i < numberOfSamples / 2) {
-        originalAudioSamples[i] = sampleValue;
-      } else {
-        originalAudioSamples[i] = sampleValue * -1;
-      }
+  // Generate 1024 float audio samples,
+  // and make a quiet / simple square wave
+  const sampleValue = 0.3;
+  for (let i = 0; i < numberOfSamples; i++) {
+    if (i < numberOfSamples / 2) {
+      originalAudioSamples[i] = sampleValue;
+    } else {
+      originalAudioSamples[i] = sampleValue * -1;
     }
+  }
 
-    // Convert our float audio samples
-    // to a byte format for demonstration purposes
-    const originalByteAudioSamples = floatSamplesToByteSamples(
-        originalAudioSamples
-        );
+  // Convert our float audio samples
+  // to a byte format for demonstration purposes
+  const originalByteAudioSamples = floatSamplesToByteSamples(
+    originalAudioSamples
+  );
 
-    // Fill our wasm memory with the converted Audio Samples,
-    // And store it at our inputPointer location (index)
-    const inputPointer = rustWasm.get_input_buffer_pointer();
-    wasmByteMemoryArray.set(originalByteAudioSamples, inputPointer);
+  // Fill our wasm memory with the converted Audio Samples,
+  // And store it at our inputPointer location (index)
+  const inputPointer = rustWasm.get_input_buffer_pointer();
+  wasmByteMemoryArray.set(originalByteAudioSamples, inputPointer);
 
-    // Amplify our loaded samples with our export Wasm function
-    rustWasm.amplify_audio();
+  // Amplify our loaded samples with our export Wasm function
+  rustWasm.amplify_audio();
 
-    // Get our outputPointer (index were the sample buffer was stored)
-    // Slice out the amplified byte audio samples
-    const outputPointer = rustWasm.get_output_buffer_pointer();
-    const outputBuffer = wasmByteMemoryArray.slice(
-        outputPointer,
-        outputPointer + numberOfSamples
-        );
+  // Get our outputPointer (index were the sample buffer was stored)
+  // Slice out the amplified byte audio samples
+  const outputPointer = rustWasm.get_output_buffer_pointer();
+  const outputBuffer = wasmByteMemoryArray.slice(
+    outputPointer,
+    outputPointer + numberOfSamples
+  );
 
-    // Convert our amplified byte samples into float samples,
-    // and set the outputBuffer to our amplifiedAudioSamples
-    amplifiedAudioSamples.set(byteSamplesToFloatSamples(outputBuffer));
+  // Convert our amplified byte samples into float samples,
+  // and set the outputBuffer to our amplifiedAudioSamples
+  amplifiedAudioSamples.set(byteSamplesToFloatSamples(outputBuffer));
 
-    // We are now done! The "play" Functions will handle playing the
-    // audio buffer
+  // We are now done! The "play" Functions will handle playing the
+  // audio buffer
 };
 runWasm();
 ```
