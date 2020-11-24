@@ -43,7 +43,7 @@
     "clean-css": "^4.2.1",
     "cpy": "^7.2.0",
     "get-title-markdown": "^2.0.1",
-    "highlight.js": "^9.15.6",
+    "highlight.js": "^10.1.2",
     "husky": "^2.3.0",
     "marked": "^0.8.0",
     "mkdirp": "^0.5.1",
