@@ -195,7 +195,7 @@ Por último, carregamos o nosso Módulo ES6, o arquivo Javascript `index.js`, no
   <canvas
     width="20"
     height="20"
-    style="image-rendering: pixelated; width: 100%;"
+    style="image-rendering: pixelated; image-rendering: crisp-edges; width: 100%;"
   >
   </canvas>
 </body>
