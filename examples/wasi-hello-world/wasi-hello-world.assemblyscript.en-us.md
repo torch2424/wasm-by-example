@@ -2,7 +2,7 @@
 
 ## Overview
 
-In this example, We will be writing "Hello world!" to both the console (`stdout`), and a newly created file `hello-world.txt`. We highly reccomended that you have read the [WASI Introduction](/example-redirect?exampleName=wasi-introduction) before procedding with this example. You should install [wasmtime](https://wasmtime.dev/) as that is the WebAssembly runtime we will be using as our host.
+In this example, We will be writing "Hello world!" to both the console (`stdout`), and a newly created file `hello-world.txt`. We highly reccomended that you have read the [WASI Introduction](/example-redirect?exampleName=wasi-introduction&programmingLanguage=all) before procedding with this example. You should install [wasmtime](https://wasmtime.dev/) as that is the WebAssembly runtime we will be using as our host.
 
 ---
 
