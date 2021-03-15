@@ -2,7 +2,7 @@
 
 ## Visão Geral
 
-Neste exemplo, vamos escrever "Olá, Mundo!" tanto na console (`stdout`) como em um novo arquivo `./hello-world.txt`. É altamente recomendável que você leia antes a [Introdução à WASI](/example-redirect?exampleName=wasi-introduction) antes de continuar com este exemplo. Você deve instalar o[wasmtime](https://wasmtime.dev/) já que essa é a runtime de WebAssembly que iremos usar como o nosso host. Você também deve comprovar que o Rust está instalado usando a ferramenta [rustup](https://rustup.rs/).
+Neste exemplo, vamos escrever "Olá, Mundo!" tanto na console (`stdout`) como em um novo arquivo `./hello-world.txt`. É altamente recomendável que você leia antes a [Introdução à WASI](/example-redirect?exampleName=wasi-introduction&programmingLanguage=all) antes de continuar com este exemplo. Você deve instalar o[wasmtime](https://wasmtime.dev/) já que essa é a runtime de WebAssembly que iremos usar como o nosso host. Você também deve comprovar que o Rust está instalado usando a ferramenta [rustup](https://rustup.rs/).
 
 Este exemplo é parecido ao [Tutorial de WASI no repositório do wasmtime](https://github.com/bytecodealliance/wasmtime/blob/master/docs/WASI-tutorial.md).
 
