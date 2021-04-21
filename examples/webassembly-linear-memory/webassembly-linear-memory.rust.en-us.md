@@ -76,7 +76,7 @@ const runWasm = async () => {
   /**
    * Part one: Write in Wasm, Read in JS
    */
-  console.log("Write in JS, Read in Wasm, Index 0:");
+  console.log("Write in Wasm, Read in JS, Index 0:");
 
   // First, let's have wasm write to our buffer
   rustWasm.store_value_in_wasm_memory_buffer_index_zero(24);
@@ -97,11 +97,11 @@ const runWasm = async () => {
   console.log("Write in JS, Read in Wasm, Index 1:");
 
   // First, let's write to index one of our buffer
-  wasmMemory[bufferPointer + 1] = 25;
+  wasmMemory[bufferPointer + 1] = 15;
 
   // Then, let's have wasm read index one of the buffer,
   // and return the result
-  console.log(rustWasm.read_wasm_memory_buffer_and_return_index_one()); // Should log "25"
+  console.log(rustWasm.read_wasm_memory_buffer_and_return_index_one()); // Should log "15"
 
   /**
    * NOTE: if we were to continue reading and writing memory,
