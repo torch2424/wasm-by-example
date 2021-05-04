@@ -62,7 +62,7 @@ export function amplifyAudioInBuffer(): void {
 
 Next, we can compile the module following the [Hello World](/example-redirect?exampleName=hello-world) examples compilation process, replacing the appropriate file names.
 
-Next, let's create an `index.js` file. In the begginning of this file, we will need to set up our [AudioContext](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext), as well as a bunch of buffers and things that we will use later:
+Next, let's create an `index.js` file. In the beginning of this file, we will need to set up our [AudioContext](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext), as well as a bunch of buffers and things that we will use later:
 
 ```javascript
 // Some general initialization for audio
