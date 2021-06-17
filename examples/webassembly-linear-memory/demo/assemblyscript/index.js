@@ -23,9 +23,9 @@ const runWasmAdd = async () => {
 
   // Next let's write to index one, to make sure we can
   // write wasm memory, and Wasm can read the "passed" value from JS
-  wasmByteMemoryArray[1] = 25;
+  wasmByteMemoryArray[1] = 15;
   domConsoleLog(
     "Read from Wasm index one: " + exports.readWasmMemoryAndReturnIndexOne()
-  ); // Should Log "25"
+  ); // Should Log "15"
 };
 runWasmAdd();

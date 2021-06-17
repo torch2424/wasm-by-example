@@ -97,13 +97,13 @@ const runWasm = async () => {
   console.log("Write in JS, Read in Wasm, Index 1:");
 
   // First, let's write to index one of our buffer
-  wasmMemory[bufferPointer + 1] = 25;
+  wasmMemory[bufferPointer + 1] = 15;
 
   // Then, let's have wasm read index one of the buffer,
   // and return the result
   console.log(
     wasmModule.instance.exports.readWasmMemoryBufferAndReturnIndexOne()
-  ); // Should log "25"
+  ); // Should log "15"
 
   /**
    * NOTE: if we were to continue reading and writing memory,
