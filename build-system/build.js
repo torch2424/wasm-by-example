@@ -1,6 +1,5 @@
 const fs = require("fs");
 const mkdirp = require("mkdirp");
-const cpy = require("cpy");
 const recursive = require("recursive-readdir");
 const recursiveCopy = require("recursive-copy");
 const highlightJs = require("highlight.js");
@@ -39,7 +38,9 @@ const capitalizeWord = word => {
 // https://stackoverflow.com/questions/48843806/how-to-use-npm-marked-with-highlightjs
 marked.setOptions({
   highlight: (code, lang) => {
-    return highlightJs.highlight(lang, code).value;
+    return highlightJs.highlight(code, {
+      language: lang
+    }).value;
   }
 });
 
@@ -356,14 +357,17 @@ const buildTask = async () => {
 
   // Copy over any extra directories
   mkdirp.sync("./dist/demo-util");
-  await cpy(["demo-util/"], "dist/demo-util");
+  await recursiveCopy("./demo-util", "./dist/demo-util", {
+    overwrite: true,
+    dot: true
+  });
   await recursiveCopy("./assets", "./dist", {
     overwrite: true,
     dot: true
   });
 
   // Copy over our manifest.json (PWA Support)
-  await cpy(["shell/manifest.json"], "dist/");
+  fs.copyFileSync("shell/manifest.json", "./dist/manifest.json");
 
   // Generate our Service Worker
   // TODO: Once bug is fixed, set cache strategy on precache

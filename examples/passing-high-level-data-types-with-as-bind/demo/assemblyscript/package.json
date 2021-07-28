@@ -1,12 +1,11 @@
 {
   "scripts": {
-    "build": "asc ./node_modules/as-bind/lib/assembly/as-bind.ts assembly/index.ts -b addWasmByExample.wasm"
-  },
-  "dependencies": {
-    "@assemblyscript/loader": "^0.9.4",
-    "as-bind": "^0.3.1"
+    "build": "asc assembly/index.ts -b addWasmByExample.wasm --exportRuntime --transform as-bind"
   },
   "devDependencies": {
-    "assemblyscript": "^0.9.4"
+    "assemblyscript": "^0.19.9"
+  },
+  "dependencies": {
+    "as-bind": "^0.8.0"
   }
 }

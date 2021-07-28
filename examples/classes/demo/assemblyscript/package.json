@@ -1,11 +1,12 @@
 {
   "scripts": {
-    "build": "asc ./node_modules/as-bind/lib/assembly/as-bind.ts ASBindTest.ts -o ASBindTest.wasm"
-  },
-  "dependencies": {
-    "as-bind": "^0.3.1"
+    "start": "npm run build && node index.js",
+    "build": "asc ASBindTest.ts -o ASBindTest.wasm --exportRuntime --transform as-bind"
   },
   "devDependencies": {
-    "assemblyscript": "^0.9.4"
+    "assemblyscript": "^0.19.9"
+  },
+  "dependencies": {
+    "as-bind": "^0.8.0"
   }
 }
