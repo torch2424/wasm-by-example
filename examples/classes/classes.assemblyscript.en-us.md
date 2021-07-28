@@ -82,44 +82,45 @@ Classes in AssemblyScript can not yet implement an interface. AssemblyScript doe
 enforce access level modifiers such as `public`, `private`, and `protected`. The `private`
 keyword does prevent a public class from exporting the attribute or method to JavaScript,
 but that is all. Now that we have our AssemblyScript written, we need to compile it into a
-WASM module. To use `as-bind`, we have to include the `as-bind` library that we installed
+WASM module. To use `as-bind`, we have to include the `as-bind` compiler transform that we installed
 using `npm`. Use this `asc` command to compile the WASM module:
 
 ```bash
-asc ./node_modules/as-bind/lib/assembly/as-bind.ts ASBindTest.ts -o ASBindTest.wasm
+asc ASBindTest.ts -o ASBindTest.wasm --exportRuntime --transform as-bind
 ```
 
-Compiling our code with the `as-bind.ts` file simplifies what we must do from our JavaScript.
+Compiling our code with the `as-bind` transform simplifies what we must do from our JavaScript.
 I will be using Node.js to run the JavaScript that calls into our WebAssembly module.
 Create a file called `ASBindTest.js` and add the following code:
 
-```typescript
+```javascript
 // I'm using node for this example
-const { AsBind } = require("as-bind");
+const AsBind = require("as-bind/dist/as-bind.cjs.js");
 const fs = require("fs");
 const wasm = fs.readFileSync("./ASBindTest.wasm");
+
 // asynchronous IIFE for async/await
 (async () => {
   // use as-bind to instantiate WebAssembly
   const asBindInstance = await AsBind.instantiate(wasm);
   // destructure the classes created in ASBindTest.ts
-  ({ Vector2D, Vector3D } = asBindInstance.unboundExports);
+  ({ Vector2D, Vector3D } = asBindInstance.exports);
   let vec2 = new Vector2D(3, 4); // create new Vector2D object
   let vec3 = new Vector3D(3, 4, 5); // create new Vector3D objecst
 
   console.log(`
-    ----- 2D VECTOR -----
-    x: ${vec2.x}
-    y: ${vec2.y}
-    Magnitude: ${vec2.Magnitude()}
-    Magnitude Squared: ${vec2.MagSQ()}
-    ----- 3D VECTOR -----
-    x: ${vec3.x}
-    y: ${vec3.y}
-    z: ${vec3.z}
-    w: ${vec3.w}
-    Magnitude: ${vec3.Magnitude()}
-    Magnitude Squared: ${vec3.MagSQ()}
+  ----- 2D VECTOR -----
+  x: ${vec2.x}
+  y: ${vec2.y}
+  Magnitude: ${vec2.Magnitude()}
+  Magnitude Squared: ${vec2.MagSQ()}
+  ----- 3D VECTOR -----
+  x: ${vec3.x}
+  y: ${vec3.y}
+  z: ${vec3.z}
+  w: ${vec3.w}
+  Magnitude: ${vec3.Magnitude()}
+  Magnitude Squared: ${vec3.MagSQ()}
   `);
 })();
 ```

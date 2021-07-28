@@ -1,5 +1,5 @@
 // I'm using node for this example
-const { AsBind } = require("as-bind");
+const AsBind = require("as-bind/dist/as-bind.cjs.js");
 const fs = require("fs");
 const wasm = fs.readFileSync("./ASBindTest.wasm");
 // asynchronous IIFE for async/await
@@ -7,7 +7,7 @@ const wasm = fs.readFileSync("./ASBindTest.wasm");
   // use as-bind to instantiate WebAssembly
   const asBindInstance = await AsBind.instantiate(wasm);
   // destructure the classes created in ASBindTest.ts
-  ({ Vector2D, Vector3D } = asBindInstance.unboundExports);
+  ({ Vector2D, Vector3D } = asBindInstance.exports);
   let vec2 = new Vector2D(3, 4); // create new Vector2D object
   let vec3 = new Vector3D(3, 4, 5); // create new Vector3D objecst
 

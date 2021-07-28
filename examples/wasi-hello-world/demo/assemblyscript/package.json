@@ -1,12 +1,10 @@
 {
   "scripts": {
-    "build": "asc assembly/index.ts -b build/index.wasm -t build/index.wat --runtime half",
+    "build": "asc assembly/index.ts -b build/index.wasm -t build/index.wat",
     "start": "wasmtime --dir . build/index.wasm"
   },
-  "devDependencies": {
-    "assemblyscript": "0.10.0"
-  },
   "dependencies": {
-    "as-wasi": "^0.1.1"
+    "as-wasi": "^0.4.6",
+    "assemblyscript": "^0.19.9"
   }
 }

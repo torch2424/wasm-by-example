@@ -7,12 +7,12 @@
     "example": "examples"
   },
   "scripts": {
-    "dev": "npx npm-run-all build --parallel serve watch",
+    "dev": "npm-run-all build --parallel serve watch",
     "build": "node build-system/build.js",
-    "serve": "npx serve ./dist -l 8080",
-    "watch": "npx watch 'npm run build' ./examples ./shell ./build-system ./demo-util --interval=1",
-    "lint": "npx prettier --write build-system/**/*.js shell/**/*.css shell/**/*.html examples/**/*.md examples/**/*.js examples/**/*.html examples/**/*.ts",
-    "lint:ci": "npx prettier --list-different build-system/**/*.js shell/**/*.css shell/**/*.html examples/**/*.md examples/**/*.js examples/**/*.html examples/**/*.ts"
+    "serve": "serve ./dist -l 8080",
+    "watch": "watch 'npm run build' ./examples ./shell ./build-system ./demo-util --interval=1",
+    "lint": "prettier --write build-system/**/*.js shell/**/*.css shell/**/*.html examples/**/*.md examples/**/*.js examples/**/*.html examples/**/*.ts",
+    "lint:ci": "prettier --list-different build-system/**/*.js shell/**/*.css shell/**/*.html examples/**/*.md examples/**/*.js examples/**/*.html examples/**/*.ts"
   },
   "husky": {
     "hooks": {
@@ -41,7 +41,7 @@
   "homepage": "https://github.com/torch2424/wasm-by-example#readme",
   "devDependencies": {
     "clean-css": "^4.2.1",
-    "cpy": "^7.2.0",
+    "cpy": "^6.0.0",
     "get-title-markdown": "^2.0.1",
     "highlight.js": "^10.4.1",
     "husky": "^2.3.0",
@@ -55,7 +55,7 @@
     "recursive-readdir": "^2.2.2",
     "serve": "^11.3.0",
     "terser": "^4.0.0",
-    "watch": "^1.0.2",
+    "watch": "^0.13.0",
     "workbox-build": "^5.1.2"
   },
   "dependencies": {

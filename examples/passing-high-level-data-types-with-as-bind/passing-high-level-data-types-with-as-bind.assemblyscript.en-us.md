@@ -26,17 +26,17 @@ export function addWasmByExample(inputString: string): string {
 
 What you will notice that is interesting, in other examples we've had to ensure all of our exported functions returned a supported WebAssembly number type. Now that we will be using as-bind, we can export a function that returns a string!
 
-Now, let's compile our assemblyscript. [as-bind has an entry file](https://github.com/torch2424/as-bind#quick-start) that must be included when compiling your AssemblyScript. Therefore, we would run:
+Now, let's compile our assemblyscript. [as-bind has a compiler transform flag](https://github.com/torch2424/as-bind#quick-start) that must be included when compiling your AssemblyScript. Therefore, we would run:
 
 ```bash
-asc ./node_modules/as-bind/lib/assembly/as-bind.ts assembly/index.ts -b addWasmByExample.wasm
+asc assembly/index.ts -b addWasmByExample.wasm --exportRuntime --transform as-bind
 ```
 
 Next, lets modify our `index.js` file to load and run our wasm output. We will be utilizing as-bind in our JavaScript as described in the [as-bind quick-start](https://github.com/torch2424/as-bind#quick-start). Let's dive into our resulting `index.js`:
 
 ```javascript
-// We are including as-bind from the npm CDN unpkg. If you use a JavaScript bundler, you could use `from "as-bind"`.
-import { AsBind } from "https://unpkg.com/as-bind/dist/as-bind.esm.js";
+// We are including as-bind from the npm CDN unpkg. If you use a JavaScript bundler, you could use "as-bind".
+import * as AsBind from "https://unpkg.com/as-bind@0.8.0/dist/as-bind.esm.js";
 
 const wasm = fetch("./addWasmByExample.wasm");
 
@@ -62,6 +62,6 @@ Lastly, lets create an `index.html` similar to one described in the [hello-world
 
 ---
 
-**[as-bind](https://github.com/torch2424/as-bind) supports more than just strings, and has support for many different types!** I'd highly reccomend reading the as-bind README, and in particular, the section of the [supported types by as-bind](https://github.com/torch2424/as-bind#supported-data-types).
+**[as-bind](https://github.com/torch2424/as-bind) supports more than just strings, and has support for many different types!** I'd highly reccomend reading the [as-bind README](https://github.com/torch2424/as-bind).
 
 Feel free to [fix, suggest, or contribute more examples for language features or communitty tools](https://github.com/torch2424/wasm-by-example)!
