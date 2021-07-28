@@ -8,7 +8,7 @@ In this example, We will be writing "Hello world!" to both the console (`stdout`
 
 ## Implementation
 
-First, we will start a new AssemblyScript project (Must be at least AssemblyScript version 0.10.0):
+First, we will start a new AssemblyScript project (Must be at least AssemblyScript version 0.18.0):
 
 ```bash
 $ npm install -g assemblyscript
@@ -66,21 +66,17 @@ Next, let's add some helpful npm script to our `package.json`. Your Package JSON
 ```json
 {
   "scripts": {
-    "build": "asc assembly/index.ts -b build/index.wasm -t build/index.wat --runtime half",
+    "build": "asc assembly/index.ts -b build/index.wasm -t build/index.wat",
     "start": "wasmtime --dir . build/index.wasm"
   },
-  "devDependencies": {
-    "assemblyscript": "0.10.0"
-  },
   "dependencies": {
-    "as-wasi": "^0.1.1"
+    "as-wasi": "^0.4.6",
+    "assemblyscript": "^0.19.9"
   }
 }
 ```
 
-The "build" script will handle compiling `assembly/index.ts` with the AssemblyScript compiler. Please note, we are using the `--runtime half` compiler flag to specific our runtime type. This is required for [executable AssemblyScript Wasm modules by Wasmtime](https://github.com/bytecodealliance/wasmtime/blob/master/docs/wasm-assemblyscript.md).
-
-Let's build our module with:
+The "build" npm script will handle compiling `assembly/index.ts` with the AssemblyScript compiler. So let's build our module with:
 
 ```bash
 npm run build
@@ -88,7 +84,7 @@ npm run build
 
 We should then have our built wasm module in: `build/index.wasm`. Yay!
 
-The "start" script will handle running our build WebAssembly modules with the Wasmtime CLI. We mentioned wasmtime should be installed at the beginning of this tutorial. However, there is one thing to note that was mentioned in the code comments. **We need to give our program explicit access to create files on our host, because our program creates a new file**. As mentioned in the [WASI Introduction](/example-redirect?exampleName=wasi-introduction), our guest will not have this capability unless we give them the capability.
+The "start" npm script will handle running our build WebAssembly modules with the Wasmtime CLI. We mentioned wasmtime should be installed at the beginning of this tutorial. However, there is one thing to note that was mentioned in the code comments. **We need to give our program explicit access to create files on our host, because our program creates a new file**. As mentioned in the [WASI Introduction](/example-redirect?exampleName=wasi-introduction), our guest will not have this capability unless we give them the capability.
 
 You will notice the "start" script calls the wasmtime with the `--dir .` flag. This grants wasmtime the capability to read/write files in the current directory (`.`).
 
