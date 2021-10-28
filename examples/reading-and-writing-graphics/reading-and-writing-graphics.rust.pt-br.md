@@ -156,9 +156,6 @@ const runWasm = async () => {
       getLightValue()
     );
 
-    // Create a Uint8Array to give us access to Wasm Memory
-    const wasmByteMemoryArray = new Uint8Array(rustWasm.memory.buffer);
-
     // Pull out the RGBA values from Wasm memory
     // Starting at the memory index of out output buffer (given by our pointer)
     // 20 * 20 * 4 = checkboard max X * checkerboard max Y * number of pixel properties (R,G.B,A)
