@@ -302,5 +302,3 @@ Com tudo isso você deveria obter algo parecido à demo ([Código Fonte](/source
 ## Demo
 
 <iframe width="100%" height="500px" title="Rust Audio Demo" src="/demo-redirect?example-name=reading-and-writing-audio"></iframe>
-
-No próximo exemplo, daremos uma olhada nas estruturas de alto nível, especificamente como movimentar [strings](/example-redirect?exampleName=strings).
