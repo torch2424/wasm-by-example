@@ -304,4 +304,4 @@ And you should get something similar to the demo ([Source Code](/source-redirect
 
 <iframe width="100%" height="500px" title="Rust Audio Demo" src="/demo-redirect?example-name=reading-and-writing-audio"></iframe>
 
-Next, lets took a look at high level data structures, specifcally, by passing around [strings](/example-redirect?exampleName=strings).
+This is the end of the "concepts" examples! Feel free to [fix, suggest, or contribute examples to WasmByExample](https://github.com/torch2424/wasm-by-example)! Also! There is additional learning resources, such as using high level data types and using WebAssembly outside of the browser, back on the WasmByExample homepage.
