@@ -72,7 +72,7 @@ wasm-pack build --target web
 
 This will output a `pkg/` directory containing our wasm module, wrapped in a js object. Next, lets create an `index.js` JavaScript file, and import the outputted ES6 module in our `pkg/` directory. Then, we will call our exported `add()` function:
 
-> **NOTE:** In this example, we are using the exported function from the wasm module directly to help highlight the WebAssembly API. `wasm-bindgen` generates JavaScript bindings code that can be imported as an ES6 import, and is the reccomended way to work with your Rust Wasm modules. These JavaScript bindings are shown in the "Passing High Level Data Types with `wasm-bindgen`" example.
+> **NOTE:** In this example, we are using the exported function from the wasm module directly to help highlight the WebAssembly API. `wasm-bindgen` generates JavaScript bindings code that can be imported as an ES6 import, and is the recommended way to work with your Rust Wasm modules. These JavaScript bindings are shown in the "Passing High Level Data Types with `wasm-bindgen`" example.
 
 ```javascript
 // Import our outputted wasm ES6 module
