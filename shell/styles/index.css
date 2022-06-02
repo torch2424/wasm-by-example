@@ -6,7 +6,53 @@ body {
 }
 
 body {
+  max-width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+.container {
   max-width: 850px;
+  margin: auto;
+}
+
+.announcements {
+  margin-bottom: 12px;
+  padding: 5px;
+
+  color: #fff;
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#9671fd),
+    to(#654ff0)
+  );
+  background-image: linear-gradient(to right, #9671fd, #654ff0);
+}
+
+.announcements > p {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0px;
+  margin-bottom: 0px;
+
+  width: 100%;
+  max-width: 850px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.announcements a {
+  color: #fff;
+  border-bottom: 1px solid #fff;
+}
+
+.announcements a:hover {
+  opacity: 0.75;
+  color: #fff;
+  border-bottom: 1px solid #fff;
 }
 
 pre,

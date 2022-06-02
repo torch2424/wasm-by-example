@@ -12,34 +12,37 @@
     </style>
   </head>
   <body>
-    {{{partials.header}}}
+    {{{partials.announcements}}}
+    <div class="container">
+      {{{partials.header}}}
 
-    <h1>All Examples List</h1>
+      <h1>All Examples List</h1>
 
-    <div>
-      <p>
-        Below is a list of all available WebAssembly examples on Wasm by
-        Example. Organized by their respective language. Currently, this
-        <b>will not switch your language preferences</b>. But will allow you to
-        see another WebAssembly example without having to set the default
-        language.
-      </p>
+      <div>
+        <p>
+          Below is a list of all available WebAssembly examples on Wasm by
+          Example. Organized by their respective language. Currently, this
+          <b>will not switch your language preferences</b>. But will allow you
+          to see another WebAssembly example without having to set the default
+          language.
+        </p>
+      </div>
+
+      <!-- List of examples by language -->
+      {{#examplesByLanguage}}
+      <h2>{{title}}</h2>
+      <ul>
+        {{#examples}}
+        <li>
+          <a
+            href="/examples/{{exampleName}}/{{exampleName}}.{{programmingLanguage}}.{{readingLanguage}}.html"
+            >{{title}}</a
+          >
+        </li>
+        {{/examples}}
+      </ul>
+      {{/examplesByLanguage}} {{{partials.footer}}}
     </div>
-
-    <!-- List of examples by language -->
-    {{#examplesByLanguage}}
-    <h2>{{title}}</h2>
-    <ul>
-      {{#examples}}
-      <li>
-        <a
-          href="/examples/{{exampleName}}/{{exampleName}}.{{programmingLanguage}}.{{readingLanguage}}.html"
-          >{{title}}</a
-        >
-      </li>
-      {{/examples}}
-    </ul>
-    {{/examplesByLanguage}} {{{partials.footer}}}
 
     <!-- prettier-ignore -->
     <script type="text/javascript">
