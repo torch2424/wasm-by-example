@@ -66,7 +66,8 @@ const mustacheData = {
   partials: {
     head: fs.readFileSync("shell/partials/head.html", "utf8"),
     header: fs.readFileSync("shell/partials/header.html", "utf8"),
-    footer: fs.readFileSync("shell/partials/footer.html", "utf8")
+    footer: fs.readFileSync("shell/partials/footer.html", "utf8"),
+    announcements: fs.readFileSync("shell/partials/announcements.html", "utf8")
   },
   examples: [],
   examplesByLanguage: [],
