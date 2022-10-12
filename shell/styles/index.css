@@ -14,6 +14,7 @@ body {
 .container {
   max-width: 850px;
   margin: auto;
+  padding: 0px 10px;
 }
 
 .announcements {
