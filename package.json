@@ -56,7 +56,7 @@
     "serve": "^11.3.0",
     "terser": "^4.8.1",
     "watch": "^0.13.0",
-    "workbox-build": "^5.1.2"
+    "workbox-build": "^6.5.4"
   },
   "dependencies": {
     "normalize.css": "^8.0.1",
