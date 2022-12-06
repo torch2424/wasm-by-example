@@ -29,7 +29,7 @@ I also think it'd be worth getting some key terms out of the way. This will make
   - Most WebAssembly runtimes / interpreters can be used as a command line interface, or embedded/linked in a larger application by using it's library API.
   - Each of these projects has their own strengths, and it really depends on what your use case is to choose the best host for you. And there are many more projects out there that you can choose from!
 - **"Guests"**
-  - Guests are the WebAssembly modules that are executed by the host. If you plan to write WebAssembly modules, then you would be writing the guest application that is run inside the host application.
+  - Guests are the WebAssembly modules that are executed by the host. If you plan to write WebAssembly modules, then you would be writing the guest application that is running inside the host application.
   - The host is able to provide additional functionality to guest, by doing tasks on the guests' behalf. This functionality is offered by passing functions to the importObject ([Similar to how we do this for the browser in the "Importing Javascript Functions Into Webassembly"](/example-redirect?exampleName=importing-javascript-functions-into-webassembly)).
   - This brings us back to WASI, as WASI is a standardized set of APIs for hosts to do system level actions (such as filystem operations) for the guest WebAssembly module. Therefore, this allows developers to write WebAssembly modules that can access system resources!
 
