@@ -10,7 +10,8 @@ These are the following sections of the article
 
 
 ## 1. C++ Code
-cpp`
+```cpp
+
 #include<iostream>
 #include<emscripten.h>
 extern "C"{
@@ -26,4 +27,13 @@ extern "C"{
     }
 
 }
-`
+
+```
+
+In the above code we used the `iostream` and `emscripten.h` header files as former is need for `uint8_t` type and latter is needed for `EMSCRIPTEN_KEEPALIVE`. In the function body we are assigning new value to each element of the array.
+
+## 2. Compiling code 
+```console
+em++ function.cpp -o function.js -sEXPORTED_FUNCTIONS=['_malloc','_free'] -sEXPORTED_RUNTIME_METHODS=['ccall'] -sMODULARIZE
+```
+What this command does is that it uses our c++ file to produce the output file function.js. Using `-sEXPORTED_FUNCTIONS` we are telling the compiler to include `_malloc` and `_free` methods on the output and using `-sEXPORTED_RUNTIME_METHODS` we are telling the compiler to include `ccall` function to the output which is used to call the c++ function from javascript
