@@ -74,3 +74,8 @@ In above code we are initializing the Module which is inside the function.js fil
 In order to read the value of the manipulated values from the array following steps has been used :
 1. In the same heap memory i.e; `HEAP8` we used the `subarray` method to get our manipulated array which takes 2 parameters one the starting address and second is the ending address, where we passed the pointer and pointer + length of our typed array multiplied with bytes each element takes in that array in our case it is 1 as 8 bit is 1 byte.
 2.  Storing the value after that we stored returned value in an array.
+
+
+## 5. Showing the output 
+Now open your webpage in a browser and open its console and you will see a 8 bit array with the new values
+
