@@ -44,6 +44,15 @@ After the code is compiled you can see 2 output files - function.wasm and functi
 ```js
 
 Module().then(mod => {
+ // code goes here
+})
+```
+
+## 4. Calling the function
+
+```js
+
+Module().then(mod => {
    let arr = [1,2,3,4,5,6,7,8,9];
    let num = 10;
    let typed_array = new Int8Array(arr);
@@ -61,3 +70,7 @@ In above code we are initializing the Module which is inside the function.js fil
 2. Then we assigned we converted our array to a typed array(Int8Array) as in c++ we have different data types for different ranges of integer and our number can fit inside 8bit array.
 3. we assigned this array to HEAP8 memory as it is designed to store 8 bit array, using the set method which takes 2 parameter array and the address from where we want to assign that array.
 4. we called our function using the `ccall` method which takes 4 parameters - function name, return type, arguments type in array and then arguments in array.
+
+In order to read the value of the manipulated values from the array following steps has been used :
+1. In the same heap memory i.e; `HEAP8` we used the `subarray` method to get our manipulated array which takes 2 parameters one the starting address and second is the ending address, where we passed the pointer and pointer + length of our typed array multiplied with bytes each element takes in that array in our case it is 1 as 8 bit is 1 byte.
+2.  Storing the value after that we stored returned value in an array.
