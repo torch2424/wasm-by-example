@@ -3,7 +3,7 @@
 In the following article we are going to learn how to pass array from javascript to C++ code compiled to wasm using emscripten.
 
 These are the following sections of the article
-1. [C++ Code](/wasm-by-example/edit/master/examples/array/arr.cpp.en-us.md#1-c-code)
+1. C++ Code
 2. Compiling the code
 3. Adding the script and Initializing the Module
 4. Calling the C++ function
@@ -78,5 +78,7 @@ In order to read the value of the manipulated values from the array, following s
 
 
 ## 5. Showing the output 
-Now open your webpage in a browser and open its console and you will see a 8 bit array with the new values
+Now open your webpage in a browser and open its console and you will see a 8 bit array with the new values.
+
+You can find reference to all of the function [here](https://emscripten.org/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html)
 
