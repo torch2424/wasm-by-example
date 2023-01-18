@@ -5,13 +5,13 @@ const readingLanguages = ["en-us", "pt-br"];
 const introductionHtml = {
   "en-us": `
     <p>
-      WebAssembly (Wasm) is an universal low level bytecode that runs on the
+      WebAssembly (Wasm) is a universal low-level bytecode that runs on the
       web. It is a compilation target for languages like
       <b class="highlight"
         >Rust, AssemblyScript (Typescript-like), Emscripten (C/C++), and much
         more!</b
       >
-      Wasm offer a compact binary format with predictable performance, and
+      Wasm offers a compact binary format with predictable performance, and
       portability to run alongside Javascript and other host languages. Wasm is
       currently shipped in all major browsers, and has runtimes meant for
       running on servers or interfacing with systems using WASI.
