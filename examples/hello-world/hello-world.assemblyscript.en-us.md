@@ -103,6 +103,8 @@ Lastly, lets load our ES6 Module, `hello-world.js` Javascript file in our `index
 </html>
 ```
 
+You can then run a local webserver (like `python -m http.server 8000`) and browse to `localhost:8000/hello.html`, where you'll see the expected output.
+
 And we should have a working Wasm Add (Hello World) program! Congrats!
 
 You should have something similar to the demo ([Source Code](/source-redirect?path=examples/hello-world/demo/assemblyscript)) below:
