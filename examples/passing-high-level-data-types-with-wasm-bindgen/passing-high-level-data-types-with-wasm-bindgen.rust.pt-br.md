@@ -36,10 +36,7 @@ A seguir, criamos um arquivo `index.js` para carregar e rodar o nosso módulo wa
 // Outputted wasm-bindgen ES Module. As well as importing
 // the named exports that are individual wrapper functions
 // to facilitate handle data passing between JS and Wasm.
-import wasmInit, {
-  add_wasm_by_example_to_string,
-  test
-} from "./pkg/strings.js";
+import wasmInit, { add_wasm_by_example_to_string } from "./pkg/strings.js";
 
 const runWasm = async () => {
   // Instantiate our wasm module
