@@ -32,7 +32,7 @@ npm install -g assemblyscript
 Now, let's compile that into a wasm module which will output a `hello-world.wasm`:
 
 ```bash
-asc hello-world.ts -b hello-world.wasm
+asc hello-world.ts -o hello-world.wasm
 ```
 
 Next, lets create a `hello-world.js` JavaScript file, and add a function for loading Wasm modules using the [WebAssembly Web APIs](https://developer.mozilla.org/en-US/docs/WebAssembly):
