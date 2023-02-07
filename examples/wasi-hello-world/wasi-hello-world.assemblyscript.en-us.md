@@ -25,7 +25,9 @@ Then, we will open the `assembly/index.ts` and enter the following contents. Ple
 ```typescript
 // As of AssemblyScript 0.10.0, adding `import "wasi"`, will automatically
 // import WASI bindings, and add some nice defaults for compiling to WASI.
-import "wasi";
+// As of AssemblyScript 0.20.0, `import "wasi"` is no longer necessary. Please check
+// you version and either decomment the following line or leave it commented.
+//import "wasi";
 
 // Import Console (for writing to stdout), and FileSystem (for reading/writing files)
 // from "as-wasi". An API for working with WASI in AssemblyScript much easier.
