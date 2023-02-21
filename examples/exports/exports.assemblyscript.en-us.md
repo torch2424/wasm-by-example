@@ -33,7 +33,7 @@ function addIntegerWithConstant(a: i32, b: i32): i32 {
 const ADD_CONSTANT: i32 = 1;
 ```
 
-Then, let's compile that into a wasm module, using the [AssemblyScript Compiler](https://docs.assemblyscript.org/details/compiler), which will output a `export-function.wasm`:
+Then, let's compile that into a wasm module, using the [AssemblyScript Compiler](https://www.assemblyscript.org/compiler.html#using-the-compiler), which will output a `export-function.wasm`:
 
 ```bash
 asc exports.ts -b exports.wasm

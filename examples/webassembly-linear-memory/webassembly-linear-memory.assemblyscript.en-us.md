@@ -4,13 +4,13 @@
 
 Another feature of WebAssembly, is its linear memory. Linear memory is a continuous buffer of unsigned bytes that can be read from and stored into by both Wasm and JavaScript. In other words, Wasm memory is an expandable array of bytes that JavaScript and Wasm can synchronously read and modify. Linear memory can be used for many things, one of them being passing values back and forth between Wasm and JavaScript.
 
-In AssemblyScript, the [runtime](https://docs.assemblyscript.org/details/runtime) supports higher level data structures and types. For example, there is support for [Arrays](https://docs.assemblyscript.org/standard-library/array) in AssemblyScript's standard library. But for this example, we will use simple byte (Unsigned 8-bit integer) memory and pointers (Wasm memory array indexes) as a simple(r) way to pass memory back and forth. This is for several reasons:
+In AssemblyScript, the [runtime](https://www.assemblyscript.org/runtime.html#runtime) supports higher level data structures and types. For example, there is support for [Arrays](https://www.assemblyscript.org/stdlib/array.html#array) in AssemblyScript's standard library. But for this example, we will use simple byte (Unsigned 8-bit integer) memory and pointers (Wasm memory array indexes) as a simple(r) way to pass memory back and forth. This is for several reasons:
 
 1. Really early versions of AssemblyScript didn't have a Garbage Collector, as at the time it was not part of the spec.
 2. Less early versions of AssemblyScript didn't have a runtime, but instead had allocators and manual memory management.
 3. Most importantly, we want to show off the concept of linear memory very clearly, in a simple and concise way.
 
-Since we are directly writing to memory in this example, and there exists a runtime in AssemblyScript, **be sure to take a look at the [`--memoryBase` flag in the AssemblyScript compiler](https://docs.assemblyscript.org/details/compiler)**. This flag controls where the AssemblyScript runtime will start writing memory. For example, if you wanted to reserve the first 100 bytes for your own manual memory usage, you could set `--memoryBase 100`. This way AssemblyScript will not write to the first 100 bytes, and only to location 100 and above.Or in other words, `--memoryBase` will allow you to reserve memory for your own manual memory management, and avoid memory being overriden by the AssemblyScript runtime in WebAssembly linear memory.
+Since we are directly writing to memory in this example, and there exists a runtime in AssemblyScript, **be sure to take a look at the [`--memoryBase` flag in the AssemblyScript compiler](https://www.assemblyscript.org/compiler.html#linking)**. This flag controls where the AssemblyScript runtime will start writing memory. For example, if you wanted to reserve the first 100 bytes for your own manual memory usage, you could set `--memoryBase 100`. This way AssemblyScript will not write to the first 100 bytes, and only to location 100 and above.Or in other words, `--memoryBase` will allow you to reserve memory for your own manual memory management, and avoid memory being overriden by the AssemblyScript runtime in WebAssembly linear memory.
 
 Let's see how we can use linear memory:
 
@@ -40,7 +40,7 @@ export function readWasmMemoryAndReturnIndexOne(): i32 {
 }
 ```
 
-Then, let's compile that into a wasm module, using the [AssemblyScript Compiler](https://docs.assemblyscript.org/details/compiler), which will output a `index.wasm`:
+Then, let's compile that into a wasm module, using the [AssemblyScript Compiler](https://www.assemblyscript.org/compiler.html#using-the-compiler), which will output a `index.wasm`:
 
 ```bash
 asc index.ts -b index.wasm

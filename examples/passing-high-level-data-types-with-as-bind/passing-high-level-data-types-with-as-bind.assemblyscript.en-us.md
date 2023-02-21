@@ -2,7 +2,7 @@
 
 ## Overview
 
-Using buffers and pointers, is a great way to get started with WebAssembly, and drill in its concepts while being productive. But once we start wanting to use higher level data structures efficiently and easily, is where things will get a little more complicated. Thankfully, the AssemblyScript community built [as-bind](https://github.com/torch2424/as-bind), which is a convenient abstraction over [AssemblyScript's loader](https://github.com/AssemblyScript/assemblyscript/tree/master/lib/loader). As mentioned before, `as-bind` abstracts away linear memory, and allows using higher-level data structures between AssemblyScript and JavaScript.
+Using buffers and pointers, is a great way to get started with WebAssembly, and drill in its concepts while being productive. But once we start wanting to use higher level data structures efficiently and easily, is where things will get a little more complicated. Thankfully, the AssemblyScript community built [as-bind](https://github.com/torch2424/as-bind), which is a convenient abstraction over [AssemblyScript's loader](https://github.com/AssemblyScript/assemblyscript/tree/main/lib/loader). As mentioned before, `as-bind` abstracts away linear memory, and allows using higher-level data structures between AssemblyScript and JavaScript.
 
 Let's kick things off! To show off how we can use `as-bind`, let's see how we can use strings in WebAssembly and share them with JavaScript:
 
@@ -10,7 +10,7 @@ Let's kick things off! To show off how we can use `as-bind`, let's see how we ca
 
 ## Implementation
 
-First, we will need to install as-bind into our JavaScript project. If you do not currently have a modern JavaScript project, you can use [`asinit` to generate an AssemblyScript/Javascript project](https://docs.assemblyscript.org/quick-start). After you have generated your project, you can install as-bind by running:
+First, we will need to install as-bind into our JavaScript project. If you do not currently have a modern JavaScript project, you can use [`asinit` to generate an AssemblyScript/Javascript project](https://www.assemblyscript.org/getting-started.html#getting-started). After you have generated your project, you can install as-bind by running:
 
 ```bash
 npm install --save as-bind
