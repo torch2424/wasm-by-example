@@ -18,7 +18,7 @@ declare function consoleLog(arg0: i32): void;
 consoleLog(24);
 ```
 
-Then, let's compile that into a wasm module, using the [AssemblyScript Compiler](https://docs.assemblyscript.org/details/compiler), which will output a `index.wasm`:
+Then, let's compile that into a wasm module, using the [AssemblyScript Compiler](https://www.assemblyscript.org/compiler.html#using-the-compiler), which will output a `index.wasm`:
 
 ```bash
 asc index.ts -b index.wasm
