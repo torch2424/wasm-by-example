@@ -53,7 +53,7 @@
     "pretty-quick": "^1.11.0",
     "recursive-copy": "^2.0.10",
     "recursive-readdir": "^2.2.2",
-    "serve": "^11.3.0",
+    "serve": "^14.0.1",
     "terser": "^4.8.1",
     "watch": "^0.13.0",
     "workbox-build": "^5.1.2"
