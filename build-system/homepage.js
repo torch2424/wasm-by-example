@@ -1,5 +1,5 @@
 // Supported homepage reading languages
-const readingLanguages = ["en-us", "pt-br"];
+const readingLanguages = ["en-us", "pt-br", "zh-cn"];
 
 // Our introduction text
 const introductionHtml = {

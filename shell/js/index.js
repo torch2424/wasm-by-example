@@ -19,6 +19,7 @@ window.WASM_BY_EXAMPLE_PROGRAMMING_LANGUAGES["TinyGo (Go)"] = "go";
 window.WASM_BY_EXAMPLE_READING_LANGUAGES = {};
 window.WASM_BY_EXAMPLE_READING_LANGUAGES["English (US)"] = "en-us";
 window.WASM_BY_EXAMPLE_READING_LANGUAGES["Brazilian Portuguese"] = "pt-br";
+window.WASM_BY_EXAMPLE_READING_LANGUAGES["Simplified Chinese"] = "zh-cn";
 
 // Define Default Settings
 window.WASM_BY_EXAMPLE = {
