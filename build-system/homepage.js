@@ -38,11 +38,14 @@ const exampleOrder = [
 // Catgeories
 const concepts = {
   title: {
-    "en-us": "Concepts"
+    "en-us": "Concepts",
+    "zh-cn": "概念"
   },
   description: {
     "en-us":
-      "Examples that express some of the major underlying concepts in WebAssembly. Some of these examples are not the most convenient or productive way for building projects with WebAssembly. However, these minimal examples are great for learning, or developing straightforward / lower-level parts of an application."
+      "Examples that express some of the major underlying concepts in WebAssembly. Some of these examples are not the most convenient or productive way for building projects with WebAssembly. However, these minimal examples are great for learning, or developing straightforward / lower-level parts of an application.",
+    "zh-cn":
+      "这样例子展示了 WebAssembly 中的核心概念。有些例子中的代码不是以最高效的方式实现的，但能更好地通过最小用例讲解如何从底层开始开发应用程序。"
   },
   examples: [
     "introduction",
@@ -55,11 +58,14 @@ const concepts = {
 
 const applyingTheConcepts = {
   title: {
-    "en-us": "Applying the Concepts"
+    "en-us": "Applying the Concepts",
+    "zh-cn": "实操"
   },
   description: {
     "en-us":
-      "Examples that expand on the conceptual examples to show how these minimal examples could be used to build common features in larger applications."
+      "Examples that expand on the conceptual examples to show how these minimal examples could be used to build common features in larger applications.",
+    "zh-cn":
+      "进一步深入概念来展示如何通过迷你用例来构建大型应用程序中的常见功能。"
   },
   examples: ["reading-and-writing-graphics", "reading-and-writing-audio"]
 };
