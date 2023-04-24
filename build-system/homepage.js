@@ -1,38 +1,18 @@
+const fs = require("fs");
+const path = require("path");
+
 // Supported homepage reading languages
 const readingLanguages = ["en-us", "pt-br", "zh-cn"];
 
 // Our introduction text
-const introductionHtml = {
-  "en-us": `
-    <p>
-      WebAssembly (Wasm) is an universal low level bytecode that runs on the
-      web. It is a compilation target for languages like
-      <b class="highlight"
-        >Rust, AssemblyScript (Typescript-like), Emscripten (C/C++), and much
-        more!</b
-      >
-      Wasm offer a compact binary format with predictable performance, and
-      portability to run alongside Javascript and other host languages. Wasm is
-      currently shipped in all major browsers, and has runtimes meant for
-      running on servers or interfacing with systems using WASI.
-    </p>
-
-    <blockquote>
-      <p class="label">What is Wasm By Example?</p>
-      <p>
-        Wasm By Example is a concise, hands-on introduction to WebAssembly using
-        code snippets and annotated WebAssembly example programs. Learn more
-        about Wasm at the
-        <a
-          onclick="goToExample('examples/introduction', 'introduction', 'all', 'en-us')"
-          href="#"
-          >WebAssembly Introduction
-        </a>
-        or browse the list of examples below.
-      </p>
-    </blockquote>
-  `
-};
+const introductionHtml = {};
+const introDir = path.resolve(__dirname, "./introduction");
+for (const name of fs.readdirSync(introDir)) {
+  const filename = path.resolve(introDir, name);
+  const locate = name.split(".")[0];
+  const content = fs.readFileSync(filename, "utf-8");
+  introductionHtml[locate] = content;
+}
 
 const examplesTitle = {
   "en-us": "Examples"
