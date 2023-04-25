@@ -1,38 +1,18 @@
+const fs = require("fs");
+const path = require("path");
+
 // Supported homepage reading languages
-const readingLanguages = ["en-us", "pt-br"];
+const readingLanguages = ["en-us", "pt-br", "zh-cn"];
 
 // Our introduction text
-const introductionHtml = {
-  "en-us": `
-    <p>
-      WebAssembly (Wasm) is an universal low level bytecode that runs on the
-      web. It is a compilation target for languages like
-      <b class="highlight"
-        >Rust, AssemblyScript (Typescript-like), Emscripten (C/C++), and much
-        more!</b
-      >
-      Wasm offer a compact binary format with predictable performance, and
-      portability to run alongside Javascript and other host languages. Wasm is
-      currently shipped in all major browsers, and has runtimes meant for
-      running on servers or interfacing with systems using WASI.
-    </p>
-
-    <blockquote>
-      <p class="label">What is Wasm By Example?</p>
-      <p>
-        Wasm By Example is a concise, hands-on introduction to WebAssembly using
-        code snippets and annotated WebAssembly example programs. Learn more
-        about Wasm at the
-        <a
-          onclick="goToExample('examples/introduction', 'introduction', 'all', 'en-us')"
-          href="#"
-          >WebAssembly Introduction
-        </a>
-        or browse the list of examples below.
-      </p>
-    </blockquote>
-  `
-};
+const introductionHtml = {};
+const introDir = path.resolve(__dirname, "./introduction");
+for (const name of fs.readdirSync(introDir)) {
+  const filename = path.resolve(introDir, name);
+  const locate = name.split(".")[0];
+  const content = fs.readFileSync(filename, "utf-8");
+  introductionHtml[locate] = content;
+}
 
 const examplesTitle = {
   "en-us": "Examples"
@@ -58,11 +38,14 @@ const exampleOrder = [
 // Catgeories
 const concepts = {
   title: {
-    "en-us": "Concepts"
+    "en-us": "Concepts",
+    "zh-cn": "概念"
   },
   description: {
     "en-us":
-      "Examples that express some of the major underlying concepts in WebAssembly. Some of these examples are not the most convenient or productive way for building projects with WebAssembly. However, these minimal examples are great for learning, or developing straightforward / lower-level parts of an application."
+      "Examples that express some of the major underlying concepts in WebAssembly. Some of these examples are not the most convenient or productive way for building projects with WebAssembly. However, these minimal examples are great for learning, or developing straightforward / lower-level parts of an application.",
+    "zh-cn":
+      "这样例子展示了 WebAssembly 中的核心概念。有些例子中的代码不是以最高效的方式实现的，但能更好地通过最小用例讲解如何从底层开始开发应用程序。"
   },
   examples: [
     "introduction",
@@ -75,11 +58,14 @@ const concepts = {
 
 const applyingTheConcepts = {
   title: {
-    "en-us": "Applying the Concepts"
+    "en-us": "Applying the Concepts",
+    "zh-cn": "实操"
   },
   description: {
     "en-us":
-      "Examples that expand on the conceptual examples to show how these minimal examples could be used to build common features in larger applications."
+      "Examples that expand on the conceptual examples to show how these minimal examples could be used to build common features in larger applications.",
+    "zh-cn":
+      "进一步深入概念来展示如何通过迷你用例来构建大型应用程序中的常见功能。"
   },
   examples: ["reading-and-writing-graphics", "reading-and-writing-audio"]
 };
