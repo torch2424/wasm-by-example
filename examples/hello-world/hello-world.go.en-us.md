@@ -61,7 +61,7 @@ Then, let's create an `index.html` that we can use to load our project in the br
 </html>
 ```
 
-In this HTML, we are loading an `index.js` (which we will create in the next step), but before we load that `index.js`, we load a `wasm_exec.js`. **You must add the `wasm_exec.js` to use Go wasm modules in the browser**! To add this file, [You can get the `wasm_exec.js` from your TinyGo root](https://tinygo.org/webassembly/webassembly/#how-it-works). An easy way to do this, as described in [this issue](https://github.com/tinygo-org/tinygo/issues/1070), is to run:
+In this HTML, we are loading an `index.js` (which we will create in the next step), but before we load that `index.js`, we load a `wasm_exec.js`. **You must add the `wasm_exec.js` to use Go wasm modules in the browser**! To add this file, [You can get the `wasm_exec.js` from your TinyGo root](https://tinygo.org/docs/guides/webassembly/wasm/#how-it-works). An easy way to do this, as described in [this issue](https://github.com/tinygo-org/tinygo/issues/1070), is to run:
 
 ```bash
 cp $(tinygo env TINYGOROOT)/targets/wasm_exec.js .
@@ -132,6 +132,6 @@ You should have something similar to the demo ([Source Code](/source-redirect?pa
 
 <iframe title="Go Demo" src="/demo-redirect?example-name=hello-world"></iframe>
 
-Before moving on it would be good to note, another great resource for learning TinyGo Wasm by example is taking a look at the official [TinyGo Wasm examples](https://github.com/tinygo-org/tinygo/tree/master/src/examples/wasm). As well as, the [TinyGo Wasm Documentation](https://tinygo.org/webassembly/webassembly/).
+Before moving on it would be good to note, another great resource for learning TinyGo Wasm by example is taking a look at the official [TinyGo Wasm examples](https://github.com/tinygo-org/tinygo/tree/master/src/examples/wasm). As well as, the [TinyGo Wasm Documentation](https://tinygo.org/docs/guides/webassembly/wasm/).
 
 Next, continuing on with WasmByExample, let's take a deeper look at WebAssembly [Exports](/example-redirect?exampleName=exports).
