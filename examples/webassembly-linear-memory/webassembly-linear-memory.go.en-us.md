@@ -34,14 +34,14 @@ func getWasmMemoryBufferPointer() *[BUFFER_SIZE]uint8 {
 
 // Function to store the passed value at index 0,
 // in our buffer
-//go:export storeValueInWasmMemoryBufferIndexZero
+//export storeValueInWasmMemoryBufferIndexZero
 func storeValueInWasmMemoryBufferIndexZero(value uint8) {
   buffer[0] = value
 }
 
 // Function to read from index 1 of our buffer
 // And return the value at the index
-//go:export readWasmMemoryBufferAndReturnIndexOne
+//export readWasmMemoryBufferAndReturnIndexOne
 func readWasmMemoryBufferAndReturnIndexOne() uint8 {
   return buffer[1]
 }
