@@ -36,7 +36,7 @@ fn main() {
   // This code requires the Wasi host to provide a `/helloworld` directory on the guest.
   // If the `/helloworld` directory is not available, the unwrap() will cause this program to panic.
   // For example, in Wasmtime, if you want to map the current directory to `/helloworld`,
-  // invoke the runtime with the flag/argument: `--mapdir /helloworld::.`
+  // invoke the runtime with the flag/argument: `--dir /helloworld::.`
   // This will map the `/helloworld` directory on the guest, to  the current directory (`.`) on the host
   let mut file = fs::File::create("/helloworld/helloworld.txt").unwrap();
 
@@ -58,16 +58,16 @@ Our wasm file should be compiled to `target/wasm32-wasi/debug/wasi_hello_world.w
 
 To do this, we can use the Wasmtime CLI, which we mentioned should be installed at the beginning of this tutorial. However, there is one thing to note that was mentioned in the code comments. **We need to give our program explicit access to create files on our host, because our program creates a new file**. As mentioned in the [WASI Introduction](/example-redirect?exampleName=wasi-introduction), our guest will not have this capability unless we give them the capability.
 
-To grant the capability to write in a directory using the Wasmtime CLI, we need to use the `--mapdir` flag. `--mapdir` will allow us to map the `/helloworld` directory on the guest's virtual filesystem, to the current directory (`.`) on the host fileystem. For example:
+To grant the capability to write in a directory using the Wasmtime CLI, we need to use the `--dir` flag. `--dir` will allow us to map the `/helloworld` directory on the guest's virtual filesystem, to the current directory (`.`) on the host fileystem. For example:
 
 ```bash
-wasmtime --mapdir GUEST_DIRECTORY::HOST_DIRECTORY my-wasi-program.wasm
+wasmtime --dir GUEST_DIRECTORY::HOST_DIRECTORY my-wasi-program.wasm
 ```
 
 So, **to run our compiled WASI program, we will run**:
 
 ```bash
-wasmtime --mapdir /helloworld::. target/wasm32-wasi/debug/wasi_hello_world.wasm
+wasmtime --dir /helloworld::. target/wasm32-wasi/debug/wasi_hello_world.wasm
 ```
 
 You should then see "Hello World!" logged in your terminal. You should also notice that a `helloworld.txt` file was created in your current directory, with the contents of "Hello World!".
